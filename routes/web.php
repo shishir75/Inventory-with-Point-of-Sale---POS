@@ -6,6 +6,6 @@ Route::get( '/', function () {
     return view( 'welcome' );
 } )->name( 'root' );
 
-Route::get( '/{vue_captute?}', function () {
+Route::get( '/{vue_capture?}', function () {
     return view( 'welcome' );
-} )->where( 'vue_captute', '[\/\w\.-]*' );
+} )->where( 'vue_capture', '[\/\w\.-]*' );
