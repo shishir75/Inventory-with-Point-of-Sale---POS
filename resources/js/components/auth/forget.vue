@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="row justify-content-center">
-            <div class="col-6">
+            <div class="col-xl-6 col-lg-6 col-md-6">
                 <div class="card shadow-sm my-5">
                     <div class="card-body p-0">
                         <div class="row">
@@ -9,18 +9,10 @@
                                 <div class="login-form">
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">
-                                            Register
+                                            Forget Password
                                         </h1>
                                     </div>
-                                    <form>
-                                        <div class="form-group">
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                id="exampleInputFirstName"
-                                                placeholder="Enter Your Full Name"
-                                            />
-                                        </div>
+                                    <form class="user">
                                         <div class="form-group">
                                             <input
                                                 type="email"
@@ -30,29 +22,13 @@
                                                 placeholder="Enter Email Address"
                                             />
                                         </div>
+
                                         <div class="form-group">
-                                            <input
-                                                type="password"
-                                                class="form-control"
-                                                id="exampleInputPassword"
-                                                placeholder="Password"
-                                            />
-                                        </div>
-                                        <div class="form-group">
-                                            <input
-                                                type="password"
-                                                class="form-control"
-                                                id="exampleInputPasswordRepeat"
-                                                placeholder="Confirm Password"
-                                            />
-                                        </div>
-                                        <div class="form-group">
-                                            <button
-                                                type="submit"
+                                            <a
+                                                href="index.html"
                                                 class="btn btn-primary btn-block"
+                                                >Forget Password</a
                                             >
-                                                Register
-                                            </button>
                                         </div>
                                     </form>
                                     <hr />
@@ -60,11 +36,9 @@
                                         <router-link
                                             class="font-weight-bold small"
                                             to="/"
-                                            >Already have an
-                                            account?</router-link
+                                            >Back to Login</router-link
                                         >
                                     </div>
-                                    <div class="text-center"></div>
                                 </div>
                             </div>
                         </div>
