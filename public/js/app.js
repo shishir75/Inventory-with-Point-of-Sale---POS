@@ -2077,7 +2077,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     login: function login() {
       axios.post("/api/auth/login", this.form).then(function (res) {
-        console.log(res.data);
+        User.responseAfterLogin(res);
       })["catch"](function (error) {
         console.log(error.response.data);
       });
