@@ -112,6 +112,10 @@ export default {
                 .then(res => {
                     User.responseAfterLogin(res);
                     this.$router.push({ name: "home" });
+                    Toast.fire({
+                        icon: "success",
+                        title: "User Login Successfully"
+                    });
                 })
                 .catch(error => {
                     console.log(error.response.data);
