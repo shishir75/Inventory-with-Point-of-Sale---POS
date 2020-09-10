@@ -118,7 +118,11 @@ export default {
                     });
                 })
                 .catch(error => {
-                    console.log(error.response.data);
+                    this.errors = error.response.data.errors;
+                    Toast.fire({
+                        icon: "warning",
+                        title: "Invalid Email or Password"
+                    });
                 });
         }
     }
