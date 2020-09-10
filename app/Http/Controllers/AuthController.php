@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -15,7 +17,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware( 'auth:api', ['except' => ['login']] );
+        $this->middleware( 'auth:api', ['except' => ['login', 'signup']] );
     }
 
     /**
@@ -27,7 +29,7 @@ class AuthController extends Controller
     {
         $credentials = request( ['email', 'password'] );
 
-        if ( !$token = auth()->attempt( $credentials ) ) {
+        if ( !$token = Auth::attempt( $credentials ) ) {
             return response()->json( ['error' => 'Unauthorized'], 401 );
         }
 
@@ -51,7 +53,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
+        Auth::logout();
 
         return response()->json( ['message' => 'Successfully logged out'] );
     }
@@ -63,7 +65,7 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken( auth()->refresh() );
+        return $this->respondWithToken( Auth::refresh() );
     }
 
     /**
@@ -78,7 +80,24 @@ class AuthController extends Controller
         return response()->json( [
             'access_token' => $token,
             'token_type'   => 'bearer',
-            'expires_in'   => auth()->factory()->getTTL() * 60,
+            'expires_in'   => Auth::factory()->getTTL() * 60,
         ] );
+    }
+
+    public function signup( Request $request )
+    {
+        $validateData = $request->validate( [
+            'name'     => 'required',
+            'email'    => 'required | email |max:255 |unique:users',
+            'password' => 'required |min:8 |confirmed',
+        ] );
+
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make( $request->password );
+        $user->save();
+
+        return $this->login( $request );
     }
 }
