@@ -2072,7 +2072,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: {},
   mounted: function mounted() {},
-  created: function created() {},
+  created: function created() {
+    if (User.loggedIn()) {
+      this.$router.push({
+        name: "home"
+      });
+    }
+  },
   computed: {},
   methods: {
     login: function login() {
@@ -2767,7 +2773,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {};
+  },
+  components: {},
+  mounted: function mounted() {},
+  created: function created() {
+    if (!User.loggedIn()) {
+      this.$router.push({
+        name: "login"
+      });
+    }
+  },
+  computed: {},
+  methods: {}
+});
 
 /***/ }),
 
@@ -55627,7 +55648,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: "history",
   routes: [{
     path: "/",
-    name: "/",
+    name: "login",
     component: _components_auth_login_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   }, {
     path: "/register",

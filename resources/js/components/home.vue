@@ -574,7 +574,20 @@
 </template>
 
 <script>
-export default {};
+export default {
+    data() {
+        return {};
+    },
+    components: {},
+    mounted() {},
+    created() {
+        if (!User.loggedIn()) {
+            this.$router.push({ name: "login" });
+        }
+    },
+    computed: {},
+    methods: {}
+};
 </script>
 
 <style></style>

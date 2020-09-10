@@ -11,7 +11,7 @@ import home from "./components/home.vue";
 const router = new VueRouter({
     mode: "history",
     routes: [
-        { path: "/", name: "/", component: login },
+        { path: "/", name: "login", component: login },
         { path: "/register", name: "register", component: register },
         { path: "/forget", name: "forget", component: forget },
         { path: "/home", name: "home", component: home }

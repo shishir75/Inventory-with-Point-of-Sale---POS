@@ -99,7 +99,11 @@ export default {
     },
     components: {},
     mounted() {},
-    created() {},
+    created() {
+        if (User.loggedIn()) {
+            this.$router.push({ name: "home" });
+        }
+    },
     computed: {},
     methods: {
         login() {
