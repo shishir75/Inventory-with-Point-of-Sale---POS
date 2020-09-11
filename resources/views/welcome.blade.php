@@ -25,7 +25,7 @@
                 <div class="sidebar-brand-icon">
                     <img src="{{ asset('assets/img/logo/logo2.png')}}">
                 </div>
-                <div class="sidebar-brand-text mx-3">RuangAdmin</div>
+                <div class="sidebar-brand-text mx-3">Inventory - POS</div>
               </a>
               <hr class="sidebar-divider my-0">
               <li class="nav-item active">
@@ -298,10 +298,10 @@
                           Activity Log
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#logoutModal">
+                        <router-link class="dropdown-item" to="/logout" data-toggle="modal" data-target="#logoutModal">
                           <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                           Logout
-                        </a>
+                        </router-link>
                       </div>
                     </li>
                   </ul>
