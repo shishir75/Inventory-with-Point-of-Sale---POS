@@ -41916,7 +41916,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "text-center" }, [
       _c("h1", { staticClass: "h4 text-gray-900 mb-4" }, [
         _vm._v(
-          "\n                                        Login\n                                    "
+          "\n                                        User Login\n                                    "
         )
       ])
     ])
