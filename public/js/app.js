@@ -2134,14 +2134,24 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
-    _Helpers_AppStorage__WEBPACK_IMPORTED_MODULE_0__["default"].clear();
-    this.$router.push({
-      name: "login"
-    });
-    Toast.fire({
-      icon: "success",
-      title: "Logout Successfully"
-    });
+    if (User.loggedIn()) {
+      _Helpers_AppStorage__WEBPACK_IMPORTED_MODULE_0__["default"].clear();
+      this.$router.push({
+        name: "login"
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Logout Successfully"
+      });
+    } else {
+      this.$router.push({
+        name: "login"
+      });
+      Toast.fire({
+        icon: "error",
+        title: "Unauthorized! Login First!!"
+      });
+    }
   }
 });
 
