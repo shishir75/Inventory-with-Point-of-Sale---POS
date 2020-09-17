@@ -110,32 +110,10 @@ export default {
     },
     components: {},
     mounted() {},
-    created() {
-        if (User.loggedIn()) {
-            this.$router.push({ name: "home" });
-        }
-    },
+    created() {},
     computed: {},
     methods: {
-        login() {
-            axios
-                .post("/api/auth/login", this.form)
-                .then(res => {
-                    User.responseAfterLogin(res);
-                    this.$router.push({ name: "home" });
-                    Toast.fire({
-                        icon: "success",
-                        title: "User Login Successfully"
-                    });
-                })
-                .catch(error => {
-                    this.errors = error.response.data.errors;
-                    Toast.fire({
-                        icon: "warning",
-                        title: "Invalid Email or Password"
-                    });
-                });
-        }
+        login() {}
     }
 };
 </script>

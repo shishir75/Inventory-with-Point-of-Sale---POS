@@ -125,32 +125,10 @@ export default {
     },
     components: {},
     mounted() {},
-    created() {
-        if (User.loggedIn()) {
-            this.$router.push({ name: "home" });
-        }
-    },
+    created() {},
     computed: {},
     methods: {
-        signup() {
-            axios
-                .post("/api/auth/signup", this.form)
-                .then(res => {
-                    User.responseAfterLogin(res);
-                    this.$router.push({ name: "home" });
-                    Toast.fire({
-                        icon: "success",
-                        title: "User Register Successfully"
-                    });
-                })
-                .catch(error => {
-                    this.errors = error.response.data.errors;
-                    Toast.fire({
-                        icon: "error",
-                        title: "User data not stored"
-                    });
-                });
-        }
+        signup() {}
     }
 };
 </script>

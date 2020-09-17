@@ -4,9 +4,11 @@ import Vue from "vue";
 // Vue Router Import
 import router from "./router";
 
-// Import User Helper Class
-import User from "./Helpers/User";
-window.User = User;
+// VueX
+import Vuex from "vuex";
+Vue.use(Vuex);
+import storeData from "./store/index";
+const store = new Vuex.Store(storeData);
 
 // Sweet Alert 2
 import Swal from "sweetalert2";
@@ -24,7 +26,24 @@ const Toast = Swal.mixin({
 window.Toast = Toast;
 // window.Swal = Swal;
 
+// Global Component
+Vue.component(
+    "topbar-component",
+    require("./components/layouts/Topbar.vue").default
+);
+
+Vue.component(
+    "sidebar-component",
+    require("./components/layouts/Sidebar.vue").default
+);
+
+Vue.component(
+    "footer-component",
+    require("./components/layouts/Footer.vue").default
+);
+
 const app = new Vue({
     el: "#app",
-    router
+    router,
+    store
 });
