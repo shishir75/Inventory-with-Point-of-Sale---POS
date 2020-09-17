@@ -346,8 +346,8 @@
   <script src="{{ asset('assets/js/demo/chart-area-demo.js') }}"></script>
 
   <script>
-      let token = localStorage.getItem('token');
-      if(token) {
+    //   let token = localStorage.getItem('token');
+      if(User.loggedIn()) {
           $('#sidebar').css('display', '');
           $('#topbar').css('display', '');
           $('#footer').css('display', '');
