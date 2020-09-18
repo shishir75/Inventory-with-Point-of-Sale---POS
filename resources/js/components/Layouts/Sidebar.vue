@@ -20,7 +20,7 @@
                 href="#"
             >
                 <div class="sidebar-brand-icon">
-                    <img src="assets/img/logo/logo2.png" />
+                    <img src="/assets/img/logo/logo2.png" />
                 </div>
                 <div class="sidebar-brand-text mx-3">Inventory - POS</div>
             </a>

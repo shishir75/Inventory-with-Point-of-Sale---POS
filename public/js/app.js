@@ -2707,8 +2707,6 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/sanctum/csrf-cookie").then(function (response) {
         axios.post("/api/login", _this.form).then(function (res) {
-          console.log("Res : " + res);
-
           _this.$store.commit("isLogIn", true);
 
           window.auth_user = true; // it is must for login.
@@ -2723,7 +2721,6 @@ __webpack_require__.r(__webpack_exports__);
           });
         })["catch"](function (error) {
           _this.errors = error.response.data.errors;
-          console.log("Errors : " + _this.errors);
           Toast.fire({
             icon: "error",
             title: "Something went wrong, Try again!"
@@ -3602,6 +3599,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -44974,7 +44980,7 @@ var staticRenderFns = [
           },
           [
             _c("div", { staticClass: "sidebar-brand-icon" }, [
-              _c("img", { attrs: { src: "assets/img/logo/logo2.png" } })
+              _c("img", { attrs: { src: "/assets/img/logo/logo2.png" } })
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "sidebar-brand-text mx-3" }, [
@@ -45694,7 +45700,7 @@ var staticRenderFns = [
                 _c("img", {
                   staticClass: "rounded-circle",
                   staticStyle: { "max-width": "60px" },
-                  attrs: { src: "assets/img/man.png", alt: "" }
+                  attrs: { src: "/assets/img/man.png", alt: "" }
                 }),
                 _vm._v(" "),
                 _c("div", { staticClass: "status-indicator bg-success" })
@@ -45727,7 +45733,7 @@ var staticRenderFns = [
                 _c("img", {
                   staticClass: "rounded-circle",
                   staticStyle: { "max-width": "60px" },
-                  attrs: { src: "assets/img/girl.png", alt: "" }
+                  attrs: { src: "/assets/img/girl.png", alt: "" }
                 }),
                 _vm._v(" "),
                 _c("div", { staticClass: "status-indicator bg-default" })
@@ -45942,7 +45948,7 @@ var staticRenderFns = [
         _c("img", {
           staticClass: "img-profile rounded-circle",
           staticStyle: { "max-width": "60px" },
-          attrs: { src: "assets/img/boy.png" }
+          attrs: { src: "/assets/img/boy.png" }
         }),
         _vm._v(" "),
         _c(
@@ -46002,16 +46008,34 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "text-center", staticStyle: { margin: "320px 0px" } },
+      [
+        _c("img", {
+          staticClass: "mb-3",
+          staticStyle: { "max-height": "100px" },
+          attrs: { src: "/assets/img/error.svg" }
+        }),
+        _vm._v(" "),
+        _c("h1", { staticClass: "text-gray-800 font-weight-bold" }, [
+          _vm._v("Oopss!")
+        ]),
+        _vm._v(" "),
+        _c("h2", { staticClass: "lead text-gray-800 mx-auto" }, [
+          _vm._v("404 - Page Not Found")
+        ]),
+        _vm._v(" "),
+        _c("router-link", { attrs: { to: "/" } }, [
+          _vm._v("← Back to Home Page")
+        ])
+      ],
+      1
+    )
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("h1", [_vm._v("404 - Not Found")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

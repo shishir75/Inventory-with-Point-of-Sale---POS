@@ -118,7 +118,6 @@ export default {
                 axios
                     .post("/api/login", this.form)
                     .then(res => {
-                        console.log("Res : " + res);
                         this.$store.commit("isLogIn", true);
                         window.auth_user = true; // it is must for login.
                         this.$router.push({ name: "Dashboard" });
@@ -129,7 +128,6 @@ export default {
                     })
                     .catch(error => {
                         this.errors = error.response.data.errors;
-                        console.log("Errors : " + this.errors);
                         Toast.fire({
                             icon: "error",
                             title: "Something went wrong, Try again!"

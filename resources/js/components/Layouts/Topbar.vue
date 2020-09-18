@@ -147,7 +147,7 @@
                         <div class="dropdown-list-image mr-3">
                             <img
                                 class="rounded-circle"
-                                src="assets/img/man.png"
+                                src="/assets/img/man.png"
                                 style="max-width: 60px"
                                 alt=""
                             />
@@ -167,7 +167,7 @@
                         <div class="dropdown-list-image mr-3">
                             <img
                                 class="rounded-circle"
-                                src="assets/img/girl.png"
+                                src="/assets/img/girl.png"
                                 style="max-width: 60px"
                                 alt=""
                             />
@@ -283,7 +283,7 @@
                 >
                     <img
                         class="img-profile rounded-circle"
-                        src="assets/img/boy.png"
+                        src="/assets/img/boy.png"
                         style="max-width: 60px"
                     />
                     <span class="ml-2 d-none d-lg-inline text-white small"
