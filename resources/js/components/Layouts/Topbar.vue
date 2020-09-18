@@ -2,6 +2,14 @@
     <nav
         v-if="isLoggedIn"
         id="topbar"
+        v-show="
+            $route.path === '/' ||
+            $route.path === '/login' ||
+            $route.path === '/register' ||
+            $route.path === '/forget'
+                ? false
+                : true
+        "
         class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top"
     >
         <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">

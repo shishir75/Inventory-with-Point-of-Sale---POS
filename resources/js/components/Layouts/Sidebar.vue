@@ -1,5 +1,16 @@
 <template>
-    <nav id="sidebar" v-if="isLoggedIn">
+    <nav
+        id="sidebar"
+        v-if="isLoggedIn"
+        v-show="
+            $route.path === '/' ||
+            $route.path === '/login' ||
+            $route.path === '/register' ||
+            $route.path === '/forget'
+                ? false
+                : true
+        "
+    >
         <ul
             class="navbar-nav sidebar sidebar-light accordion"
             id="accordionSidebar"

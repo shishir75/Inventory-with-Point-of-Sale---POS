@@ -2971,6 +2971,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
@@ -3171,6 +3183,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
@@ -3199,6 +3222,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -44827,7 +44858,25 @@ var render = function() {
   return _vm.isLoggedIn
     ? _c(
         "footer",
-        { staticClass: "sticky-footer bg-white", attrs: { id: "footer" } },
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value:
+                _vm.$route.path === "/" ||
+                _vm.$route.path === "/login" ||
+                _vm.$route.path === "/register" ||
+                _vm.$route.path === "/forget"
+                  ? false
+                  : true,
+              expression:
+                "\n        $route.path === '/' ||\n        $route.path === '/login' ||\n        $route.path === '/register' ||\n        $route.path === '/forget'\n            ? false\n            : true\n    "
+            }
+          ],
+          staticClass: "sticky-footer bg-white",
+          attrs: { id: "footer" }
+        },
         [_vm._m(0)]
       )
     : _vm._e()
@@ -44880,7 +44929,28 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.isLoggedIn
-    ? _c("nav", { attrs: { id: "sidebar" } }, [_vm._m(0)])
+    ? _c(
+        "nav",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value:
+                _vm.$route.path === "/" ||
+                _vm.$route.path === "/login" ||
+                _vm.$route.path === "/register" ||
+                _vm.$route.path === "/forget"
+                  ? false
+                  : true,
+              expression:
+                "\n        $route.path === '/' ||\n        $route.path === '/login' ||\n        $route.path === '/register' ||\n        $route.path === '/forget'\n            ? false\n            : true\n    "
+            }
+          ],
+          attrs: { id: "sidebar" }
+        },
+        [_vm._m(0)]
+      )
     : _vm._e()
 }
 var staticRenderFns = [
@@ -45292,6 +45362,21 @@ var render = function() {
     ? _c(
         "nav",
         {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value:
+                _vm.$route.path === "/" ||
+                _vm.$route.path === "/login" ||
+                _vm.$route.path === "/register" ||
+                _vm.$route.path === "/forget"
+                  ? false
+                  : true,
+              expression:
+                "\n        $route.path === '/' ||\n        $route.path === '/login' ||\n        $route.path === '/register' ||\n        $route.path === '/forget'\n            ? false\n            : true\n    "
+            }
+          ],
           staticClass:
             "navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top",
           attrs: { id: "topbar" }
