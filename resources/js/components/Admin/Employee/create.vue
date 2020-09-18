@@ -75,7 +75,7 @@
                                                     type="file"
                                                     class="custom-file-input"
                                                     id="customFile"
-                                                    name="form.photo"
+                                                    @change="onFileSelected"
                                                 />
                                                 <label
                                                     class="custom-file-label"
@@ -191,6 +191,17 @@ export default {
     created() {},
     computed: {},
     methods: {
+        onFileSelected(event) {
+            let file = event.target.files[0];
+            if (file.size > 1048576) {
+                Toast.fire({
+                    icon: "error",
+                    title: "Image size cannt be more than 1MB!"
+                });
+            } else {
+                console.log(event);
+            }
+        },
         saveForm() {}
     }
 };

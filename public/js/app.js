@@ -2697,6 +2697,18 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {},
   computed: {},
   methods: {
+    onFileSelected: function onFileSelected(event) {
+      var file = event.target.files[0];
+
+      if (file.size > 1048576) {
+        Toast.fire({
+          icon: "error",
+          title: "Image size cannt be more than 1MB!"
+        });
+      } else {
+        console.log(event);
+      }
+    },
     saveForm: function saveForm() {}
   }
 });
@@ -44559,7 +44571,22 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
-                        _vm._m(1),
+                        _c("div", { staticClass: "custom-file" }, [
+                          _c("input", {
+                            staticClass: "custom-file-input",
+                            attrs: { type: "file", id: "customFile" },
+                            on: { change: _vm.onFileSelected }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "custom-file-label",
+                              attrs: { for: "customFile" }
+                            },
+                            [_vm._v("Choose file")]
+                          )
+                        ]),
                         _vm._v(" "),
                         _vm.errors.photo
                           ? _c("small", { staticClass: "text-danger" }, [
@@ -44568,7 +44595,7 @@ var render = function() {
                           : _vm._e()
                       ]),
                       _vm._v(" "),
-                      _vm._m(2)
+                      _vm._m(1)
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-lg-6" }, [
@@ -44736,23 +44763,6 @@ var staticRenderFns = [
           "\n                                Add New Employee\n                            "
         )
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "custom-file" }, [
-      _c("input", {
-        staticClass: "custom-file-input",
-        attrs: { type: "file", id: "customFile", name: "form.photo" }
-      }),
-      _vm._v(" "),
-      _c(
-        "label",
-        { staticClass: "custom-file-label", attrs: { for: "customFile" } },
-        [_vm._v("Choose file")]
-      )
     ])
   },
   function() {
