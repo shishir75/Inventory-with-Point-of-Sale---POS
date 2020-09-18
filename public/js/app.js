@@ -2669,12 +2669,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       form: {
         name: "",
-        email: ""
+        email: "",
+        address: "",
+        phone: "",
+        salary: "",
+        joining_date: "",
+        photo: "",
+        nid: ""
       },
       errors: []
     };
@@ -44409,7 +44422,7 @@ var render = function() {
                 "form",
                 {
                   staticClass: "user",
-                  attrs: { method: "POST" },
+                  attrs: { method: "POST", enctype: "multipart/form-data" },
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
@@ -44524,7 +44537,15 @@ var render = function() {
                           : _vm._e()
                       ]),
                       _vm._v(" "),
-                      _vm._m(1),
+                      _c("div", { staticClass: "form-group" }, [
+                        _vm._m(1),
+                        _vm._v(" "),
+                        _vm.errors.photo
+                          ? _c("small", { staticClass: "text-danger" }, [
+                              _vm._v(_vm._s(_vm.errors.photo[0]))
+                            ])
+                          : _vm._e()
+                      ]),
                       _vm._v(" "),
                       _vm._m(2)
                     ]),
@@ -44700,19 +44721,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("div", { staticClass: "custom-file" }, [
-        _c("input", {
-          staticClass: "custom-file-input",
-          attrs: { type: "file", id: "customFile" }
-        }),
-        _vm._v(" "),
-        _c(
-          "label",
-          { staticClass: "custom-file-label", attrs: { for: "customFile" } },
-          [_vm._v("Choose file")]
-        )
-      ])
+    return _c("div", { staticClass: "custom-file" }, [
+      _c("input", {
+        staticClass: "custom-file-input",
+        attrs: { type: "file", id: "customFile", name: "form.photo" }
+      }),
+      _vm._v(" "),
+      _c(
+        "label",
+        { staticClass: "custom-file-label", attrs: { for: "customFile" } },
+        [_vm._v("Choose file")]
+      )
     ])
   },
   function() {
@@ -44723,7 +44742,7 @@ var staticRenderFns = [
       _c("img", {
         staticClass: "rounded",
         attrs: {
-          src: "/assets/img/bg-masthead.jpg",
+          src: "form.photo",
           alt: "Employee Photo",
           height: "70px",
           width: "70px"

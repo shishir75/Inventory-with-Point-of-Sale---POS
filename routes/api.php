@@ -25,3 +25,7 @@ Route::middleware( 'auth:sanctum' )->get( '/authenticated', function () {
 Route::post( '/register-account', 'RegisterController@register' );
 Route::post( '/login', 'LoginController@login' );
 Route::post( '/logout', 'LoginController@logout' );
+
+Route::group( ['namespace' => 'Admin', 'middleware' => 'auth:sanctum'], function () {
+    Route::resource( '/employee', 'EmployeeController' );
+} );

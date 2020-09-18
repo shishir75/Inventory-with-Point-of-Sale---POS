@@ -22,6 +22,7 @@
                                 class="user"
                                 @submit.prevent="saveForm"
                                 method="POST"
+                                enctype="multipart/form-data"
                             >
                                 <div class="row login-form">
                                     <div class="col-lg-6">
@@ -74,6 +75,7 @@
                                                     type="file"
                                                     class="custom-file-input"
                                                     id="customFile"
+                                                    name="form.photo"
                                                 />
                                                 <label
                                                     class="custom-file-label"
@@ -81,10 +83,15 @@
                                                     >Choose file</label
                                                 >
                                             </div>
+                                            <small
+                                                class="text-danger"
+                                                v-if="errors.photo"
+                                                >{{ errors.photo[0] }}</small
+                                            >
                                         </div>
                                         <div class="form-group">
                                             <img
-                                                src="/assets/img/bg-masthead.jpg"
+                                                src="form.photo"
                                                 alt="Employee Photo"
                                                 height="70px"
                                                 width="70px"
@@ -168,7 +175,13 @@ export default {
         return {
             form: {
                 name: "",
-                email: ""
+                email: "",
+                address: "",
+                phone: "",
+                salary: "",
+                joining_date: "",
+                photo: "",
+                nid: ""
             },
             errors: []
         };
