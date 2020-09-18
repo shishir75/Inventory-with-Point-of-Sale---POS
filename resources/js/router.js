@@ -17,9 +17,13 @@ import Login from "./components/Auth/Login.vue";
 import Register from "./components/Auth/Register.vue";
 import Forget from "./components/Auth/Forget.vue";
 
+// Employee Module Componenet
+import Employee from "./components/Admin/Employee/index.vue";
+import CreateEmployee from "./components/Admin/Employee/create.vue";
+
 const router = new VueRouter({
     mode: "history",
-    linkExactActiveClass: "text-dark bg-primary",
+    // linkExactActiveClass: "text-dark bg-primary",
     routes: [
         {
             path: "/",
@@ -51,6 +55,16 @@ const router = new VueRouter({
                     path: "dashboard",
                     name: "Dashboard",
                     component: Dashboard
+                },
+                {
+                    path: "employee",
+                    name: "Employee",
+                    component: Employee
+                },
+                {
+                    path: "employee/create",
+                    name: "CreateEmployee",
+                    component: CreateEmployee
                 }
             ]
         },
@@ -71,7 +85,9 @@ router.beforeEach((to, from, next) => {
         }
     } else {
         if (
-            (to.name === "Login" || to.name === "Register") &&
+            (to.name === "Login" ||
+                to.name === "Register" ||
+                to.name === "Forget") &&
             isAuthenticated
         ) {
             next({ name: "Dashboard" });
