@@ -339,7 +339,7 @@ export default {
                 .then(() => {
                     this.$store.commit("isLogIn", null);
                     window.auth_user = null;
-                    this.$router.push({ name: "Login" });
+                    this.$router.push({ name: "Home" });
                     Toast.fire({
                         icon: "success",
                         title: "Logout successful. See you soon!"
