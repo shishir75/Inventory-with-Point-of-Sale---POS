@@ -1,15 +1,5 @@
 <template>
-    <nav
-        id="sidebar"
-        v-show="
-            $route.path === '/' ||
-            $route.path === '/register' ||
-            $route.path === '/forget'
-                ? false
-                : true
-        "
-        style="display: none"
-    >
+    <nav id="sidebar" v-if="isLoggedIn">
         <ul
             class="navbar-nav sidebar sidebar-light accordion"
             id="accordionSidebar"
@@ -181,7 +171,22 @@
 </template>
 
 <script>
-export default {};
+export default {
+    data() {
+        return {};
+    },
+    components: {},
+    mounted() {
+        this.$store.commit("isLogIn", window.auth_user);
+    },
+    created() {},
+    computed: {
+        isLoggedIn() {
+            return this.$store.getters.isLoggedIn;
+        }
+    },
+    methods: {}
+};
 </script>
 
 <style></style>

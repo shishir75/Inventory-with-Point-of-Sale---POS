@@ -580,11 +580,7 @@ export default {
     },
     components: {},
     mounted() {},
-    created() {
-        if (!User.loggedIn()) {
-            this.$router.push({ name: "login" });
-        }
-    },
+    created() {},
     computed: {},
     methods: {}
 };

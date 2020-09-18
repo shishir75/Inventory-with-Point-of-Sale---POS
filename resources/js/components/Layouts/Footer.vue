@@ -1,15 +1,5 @@
 <template>
-    <footer
-        class="sticky-footer bg-white"
-        id="footer"
-        v-show="
-            $route.path === '/' ||
-            $route.path === '/register' ||
-            $route.path === '/forget'
-                ? false
-                : true
-        "
-    >
+    <footer class="sticky-footer bg-white" id="footer" v-if="isLoggedIn">
         <div class="container my-auto">
             <div class="copyright text-center my-auto">
                 <span
@@ -28,7 +18,22 @@
 </template>
 
 <script>
-export default {};
+export default {
+    data() {
+        return {};
+    },
+    components: {},
+    mounted() {
+        this.$store.commit("isLogIn", window.auth_user);
+    },
+    created() {},
+    computed: {
+        isLoggedIn() {
+            return this.$store.getters.isLoggedIn;
+        }
+    },
+    methods: {}
+};
 </script>
 
 <style></style>

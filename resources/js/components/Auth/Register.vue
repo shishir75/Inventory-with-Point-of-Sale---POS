@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mt-5">
             <div class="col-6">
                 <div class="card shadow-sm my-5">
                     <div class="card-body p-0">
@@ -94,7 +94,7 @@
                                     <div class="text-center">
                                         <router-link
                                             class="font-weight-bold small"
-                                            to="/"
+                                            to="/login"
                                             >Already have an
                                             account?</router-link
                                         >
@@ -128,7 +128,24 @@ export default {
     created() {},
     computed: {},
     methods: {
-        signup() {}
+        signup() {
+            axios
+                .post("/api/register-account", this.form)
+                .then(res => {
+                    this.$router.push({ name: "Login" });
+                    Toast.fire({
+                        icon: "success",
+                        title: "Registration successful. Login now!"
+                    });
+                })
+                .catch(error => {
+                    this.errors = error.response.data.errors;
+                    Toast.fire({
+                        icon: "error",
+                        title: "Something went wrong, Try again!"
+                    });
+                });
+        }
     }
 };
 </script>

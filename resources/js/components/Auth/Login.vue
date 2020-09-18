@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mt-5">
             <div class="col-xl-6 col-lg-6 col-md-6">
                 <div class="card shadow-sm my-5">
                     <div class="card-body p-0">
@@ -113,7 +113,30 @@ export default {
     created() {},
     computed: {},
     methods: {
-        login() {}
+        login() {
+            axios.get("/sanctum/csrf-cookie").then(response => {
+                axios
+                    .post("/api/login", this.form)
+                    .then(res => {
+                        console.log("Res : " + res);
+                        this.$store.commit("isLogIn", true);
+                        window.auth_user = true; // it is must for login.
+                        this.$router.push({ name: "Dashboard" });
+                        Toast.fire({
+                            icon: "success",
+                            title: "Login successful."
+                        });
+                    })
+                    .catch(error => {
+                        this.errors = error.response.data.errors;
+                        console.log("Errors : " + this.errors);
+                        Toast.fire({
+                            icon: "error",
+                            title: "Something went wrong, Try again!"
+                        });
+                    });
+            });
+        }
     }
 };
 </script>

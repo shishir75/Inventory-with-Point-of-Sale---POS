@@ -1,7 +1,7 @@
 require("./bootstrap");
-import Vue from "vue";
+window.Vue = require("vue");
 
-// Vue Router Import
+// Vue Router
 import router from "./router";
 
 // VueX
@@ -18,32 +18,32 @@ const Toast = Swal.mixin({
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
-    onOpen: toast => {
+    onOpen: (toast) => {
         toast.addEventListener("mouseenter", Swal.stopTimer);
         toast.addEventListener("mouseleave", Swal.resumeTimer);
-    }
+    },
 });
+window.Swal = Swal;
 window.Toast = Toast;
-// window.Swal = Swal;
 
 // Global Component
 Vue.component(
     "topbar-component",
-    require("./components/layouts/Topbar.vue").default
+    require("./components/Layouts/Topbar.vue").default
 );
 
 Vue.component(
     "sidebar-component",
-    require("./components/layouts/Sidebar.vue").default
+    require("./components/Layouts/Sidebar.vue").default
 );
 
 Vue.component(
     "footer-component",
-    require("./components/layouts/Footer.vue").default
+    require("./components/Layouts/Footer.vue").default
 );
 
 const app = new Vue({
     el: "#app",
     router,
-    store
+    store,
 });

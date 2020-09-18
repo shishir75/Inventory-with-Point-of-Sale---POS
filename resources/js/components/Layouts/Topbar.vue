@@ -1,15 +1,8 @@
 <template>
     <nav
+        v-if="isLoggedIn"
         id="topbar"
         class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top"
-        v-show="
-            $route.path === '/' ||
-            $route.path === '/register' ||
-            $route.path === '/forget'
-                ? false
-                : true
-        "
-        style="display: none"
     >
         <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
             <i class="fa fa-bars"></i>
@@ -312,17 +305,12 @@
                         Activity Log
                     </a>
                     <div class="dropdown-divider"></div>
-                    <router-link
-                        class="dropdown-item"
-                        to="/logout"
-                        data-toggle="modal"
-                        data-target="#logoutModal"
-                    >
+                    <button class="dropdown-item" @click.prevent="logout">
                         <i
                             class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
                         ></i>
                         Logout
-                    </router-link>
+                    </button>
                 </div>
             </li>
         </ul>
@@ -330,7 +318,43 @@
 </template>
 
 <script>
-export default {};
+export default {
+    data() {
+        return {};
+    },
+    components: {},
+    mounted() {
+        this.$store.commit("isLogIn", window.auth_user);
+    },
+    created() {},
+    computed: {
+        isLoggedIn() {
+            return this.$store.getters.isLoggedIn;
+        }
+    },
+    methods: {
+        logout() {
+            axios
+                .post("/api/logout")
+                .then(() => {
+                    this.$store.commit("isLogIn", null);
+                    window.auth_user = null;
+                    this.$router.push({ name: "Login" });
+                    Toast.fire({
+                        icon: "success",
+                        title: "Logout successful. See you soon!"
+                    });
+                })
+                .catch(error => {
+                    console.log(error);
+                    Toast.fire({
+                        icon: "error",
+                        title: "Something went wrong, Try again!"
+                    });
+                });
+        }
+    }
+};
 </script>
 
 <style></style>

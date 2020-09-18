@@ -2,23 +2,58 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
-// Authentication Components
-import login from "./components/auth/login.vue";
-import register from "./components/auth/register.vue";
-import forget from "./components/auth/forget.vue";
-import logout from "./components/auth/logout.vue";
+// Frontend Components
+import Home from "./components/Frontend/Home.vue";
 
-// Admin Area Components
-import home from "./components/home.vue";
+// 404 - Not Found Componenet
+import NotFound from "./components/NotFound.vue";
+
+// Admin Area Componenets
+import Admin from "./components/Admin/index.vue";
+import Dashboard from "./components/Admin/Dashboard.vue";
+
+// Authentication Components
+import Login from "./components/Auth/Login.vue";
+import Register from "./components/Auth/Register.vue";
+import Forget from "./components/Auth/Forget.vue";
 
 const router = new VueRouter({
     mode: "history",
+    linkExactActiveClass: "text-dark bg-primary",
     routes: [
-        { path: "/", name: "login", component: login },
-        { path: "/register", name: "register", component: register },
-        { path: "/forget", name: "forget", component: forget },
-        { path: "/logout", name: "logout", component: logout },
-        { path: "/home", name: "home", component: home }
+        {
+            path: "/",
+            name: "Home",
+            component: Home
+        },
+        {
+            path: "/login",
+            name: "Login",
+            component: Login
+        },
+        {
+            path: "/register",
+            name: "Register",
+            component: Register
+        },
+        {
+            path: "/forget",
+            name: "Forget",
+            component: Forget
+        },
+        {
+            path: "/admin",
+            name: "Admin",
+            component: Admin,
+            children: [
+                {
+                    path: "dashboard",
+                    name: "Dashboard",
+                    component: Dashboard
+                }
+            ]
+        },
+        { path: "*", name: "NotFound", component: NotFound }
     ]
 });
 

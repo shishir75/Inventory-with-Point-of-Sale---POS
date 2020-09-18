@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mt-5">
             <div class="col-xl-6 col-lg-6 col-md-6">
                 <div class="card shadow-sm my-5">
                     <div class="card-body p-0">
@@ -35,7 +35,7 @@
                                     <div class="text-center">
                                         <router-link
                                             class="font-weight-bold small"
-                                            to="/"
+                                            to="/login"
                                             >Back to Login</router-link
                                         >
                                     </div>
