@@ -45,6 +45,7 @@ const router = new VueRouter({
             path: "/admin",
             name: "Admin",
             component: Admin,
+            meta: { requiresAuth: true },
             children: [
                 {
                     path: "dashboard",
@@ -55,6 +56,29 @@ const router = new VueRouter({
         },
         { path: "*", name: "NotFound", component: NotFound }
     ]
+});
+
+router.beforeEach((to, from, next) => {
+    let isAuthenticated = window.auth_user ? true : false;
+
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (!isAuthenticated) {
+            next({
+                name: "Login"
+            });
+        } else {
+            next();
+        }
+    } else {
+        if (
+            (to.name === "Login" || to.name === "Register") &&
+            isAuthenticated
+        ) {
+            next({ name: "Dashboard" });
+        } else {
+            next(); // make sure to always call next()!
+        }
+    }
 });
 
 export default router;
