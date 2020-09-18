@@ -15,12 +15,12 @@
         <div class="container my-auto">
             <div class="copyright text-center my-auto">
                 <span
-                    >copyright &copy; 2020 - developed by
+                    >copyright &copy; 2020 - Developed by
                     <b
                         ><a
-                            href="https://indrijunanda.gitlab.io/"
+                            href="https://facebook.com/obydullah.shishir"
                             target="_blank"
-                            >indrijunanda</a
+                            >MD. OBYDULLAH SARDER (SHISHIR)</a
                         ></b
                     >
                 </span>
