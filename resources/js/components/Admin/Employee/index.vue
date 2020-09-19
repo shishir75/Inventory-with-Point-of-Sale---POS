@@ -101,6 +101,12 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <h3
+                                v-show="filterSearch == ''"
+                                class="text-center text-danger my-5"
+                            >
+                                No Search Result Found
+                            </h3>
                         </div>
                         <div class="card-footer"></div>
                     </div>
@@ -115,8 +121,7 @@
 export default {
     data() {
         return {
-            searchItem: "",
-            employees: []
+            searchItem: ""
         };
     },
     components: {},
