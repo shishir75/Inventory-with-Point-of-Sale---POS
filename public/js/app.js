@@ -2887,6 +2887,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2917,6 +2918,35 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     photo: function photo(img) {
       return "/assets/img/employee/" + img;
+    },
+    deleteData: function deleteData(id) {
+      var _this2 = this;
+
+      Swal.fire({
+        title: "Are you sure?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Delete It!"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          axios["delete"]("/api/employee").then(function (res) {
+            _this2.allEmployees = _this2.allEmployees.filter(function (item) {
+              return item.id != id;
+            });
+            Toast.fire({
+              icon: "success",
+              title: "Employee Data Deleted Successfully"
+            });
+          })["catch"](function (error) {
+            Toast.fire({
+              icon: "info",
+              title: "Data Remains Unchanged"
+            });
+          });
+        }
+      });
     }
   }
 });
@@ -45130,7 +45160,14 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "button",
-                                { staticClass: "btn btn-sm btn-danger" },
+                                {
+                                  staticClass: "btn btn-sm btn-danger",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deleteData(employee.id)
+                                    }
+                                  }
+                                },
                                 [
                                   _vm._v(
                                     "\n                                            Delete\n                                        "

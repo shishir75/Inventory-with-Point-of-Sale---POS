@@ -93,6 +93,7 @@
                                                 >Edit</router-link
                                             >
                                             <button
+                                                @click="deleteData(employee.id)"
                                                 class="btn btn-sm btn-danger"
                                             >
                                                 Delete
@@ -146,6 +147,38 @@ export default {
     methods: {
         photo(img) {
             return "/assets/img/employee/" + img;
+        },
+        deleteData(id) {
+            Swal.fire({
+                title: "Are you sure?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, Delete It!"
+            }).then(result => {
+                if (result.isConfirmed) {
+                    axios
+                        .delete("/api/employee")
+                        .then(res => {
+                            this.allEmployees = this.allEmployees.filter(
+                                item => {
+                                    return item.id != id;
+                                }
+                            );
+                            Toast.fire({
+                                icon: "success",
+                                title: "Employee Data Deleted Successfully"
+                            });
+                        })
+                        .catch(error => {
+                            Toast.fire({
+                                icon: "info",
+                                title: "Data Remains Unchanged"
+                            });
+                        });
+                }
+            });
         }
     }
 };
