@@ -30,7 +30,16 @@ class EmployeeController extends Controller
      */
     public function store( Request $request )
     {
-        //
+        $request->validate( [
+            'name'         => 'required',
+            'email'        => 'required|email|unique:employees',
+            'address'      => 'required',
+            'phone'        => 'required|numeric',
+            'nid'          => 'nullable|numeric',
+            'photo'        => 'nullable|image',
+            'joining_date' => 'required|date',
+            'salary'       => 'required|numeric',
+        ] );
     }
 
     /**

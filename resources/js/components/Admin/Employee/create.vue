@@ -91,11 +91,12 @@
                                         </div>
                                         <div class="form-group">
                                             <img
-                                                src="form.photo"
+                                                :src="form.photo"
                                                 alt="Employee Photo"
                                                 height="70px"
                                                 width="70px"
                                                 class="rounded"
+                                                v-if="form.photo"
                                             />
                                         </div>
                                     </div>
@@ -199,10 +200,32 @@ export default {
                     title: "Image size cannt be more than 1MB!"
                 });
             } else {
-                console.log(event);
+                let reader = new FileReader();
+                reader.onload = event => {
+                    this.form.photo = event.target.result;
+                    console.log(event.target.result);
+                };
+                reader.readAsDataURL(file);
             }
         },
-        saveForm() {}
+        saveForm() {
+            axios
+                .post("/api/employee", this.form)
+                .then(res => {
+                    this.$router.push({ name: "Employee" });
+                    Toast.fire({
+                        icon: "success",
+                        title: "Employee Created Succesfully"
+                    });
+                })
+                .catch(error => {
+                    this.errors = error.response.data.errors;
+                    Toast.fire({
+                        icon: "error",
+                        title: "Employee can't be Created"
+                    });
+                });
+        }
     }
 };
 </script>

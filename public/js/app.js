@@ -2676,6 +2676,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2698,6 +2699,8 @@ __webpack_require__.r(__webpack_exports__);
   computed: {},
   methods: {
     onFileSelected: function onFileSelected(event) {
+      var _this = this;
+
       var file = event.target.files[0];
 
       if (file.size > 1048576) {
@@ -2706,10 +2709,36 @@ __webpack_require__.r(__webpack_exports__);
           title: "Image size cannt be more than 1MB!"
         });
       } else {
-        console.log(event);
+        var reader = new FileReader();
+
+        reader.onload = function (event) {
+          _this.form.photo = event.target.result;
+          console.log(event.target.result);
+        };
+
+        reader.readAsDataURL(file);
       }
     },
-    saveForm: function saveForm() {}
+    saveForm: function saveForm() {
+      var _this2 = this;
+
+      axios.post("/api/employee", this.form).then(function (res) {
+        _this2.$router.push({
+          name: "Employee"
+        });
+
+        Toast.fire({
+          icon: "success",
+          title: "Employee Created Succesfully"
+        });
+      })["catch"](function (error) {
+        _this2.errors = error.response.data.errors;
+        Toast.fire({
+          icon: "error",
+          title: "Employee can't be Created"
+        });
+      });
+    }
   }
 });
 
@@ -44595,7 +44624,19 @@ var render = function() {
                           : _vm._e()
                       ]),
                       _vm._v(" "),
-                      _vm._m(1)
+                      _c("div", { staticClass: "form-group" }, [
+                        _vm.form.photo
+                          ? _c("img", {
+                              staticClass: "rounded",
+                              attrs: {
+                                src: _vm.form.photo,
+                                alt: "Employee Photo",
+                                height: "70px",
+                                width: "70px"
+                              }
+                            })
+                          : _vm._e()
+                      ])
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-lg-6" }, [
@@ -44763,22 +44804,6 @@ var staticRenderFns = [
           "\n                                Add New Employee\n                            "
         )
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("img", {
-        staticClass: "rounded",
-        attrs: {
-          src: "form.photo",
-          alt: "Employee Photo",
-          height: "70px",
-          width: "70px"
-        }
-      })
     ])
   }
 ]
