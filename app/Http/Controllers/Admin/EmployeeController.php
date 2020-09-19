@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Employee;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class EmployeeController extends Controller
 {
@@ -31,15 +33,41 @@ class EmployeeController extends Controller
     public function store( Request $request )
     {
         $request->validate( [
-            'name'         => 'required',
-            'email'        => 'required|email|unique:employees',
+            'name'         => 'required|unique:employees|max:255',
+            'email'        => 'required|email|unique:employees|max:255',
             'address'      => 'required',
-            'phone'        => 'required|numeric',
-            'nid'          => 'nullable|numeric',
-            'photo'        => 'nullable|image',
+            'phone'        => 'required|numeric|unique:employees',
+            'nid'          => 'nullable|numeric|unique:employees',
             'joining_date' => 'required|date',
             'salary'       => 'required|numeric',
         ] );
+
+        if ( $request->photo ) {
+            $position = strpos( $request->photo, ';' );
+            $sub = Str::substr( $request->photo, 0, $position );
+            $extentation = explode( '/', $sub )[1];
+
+            $img_name = time() . '.' . $extentation;
+            $path = public_path() . "/assets/img/employee/";
+
+            $img = Image::make( $request->photo );
+            $img->resize( 300, 200 );
+            $img->save( $path . $img_name );
+
+        } else {
+            $img_name = null;
+        }
+
+        $employee = new Employee();
+        $employee->name = $request->name;
+        $employee->email = $request->email;
+        $employee->address = $request->address;
+        $employee->phone = $request->phone;
+        $employee->nid = $request->nid;
+        $employee->photo = $img_name;
+        $employee->joining_date = $request->joining_date;
+        $employee->salary = $request->salary;
+        $employee->save();
     }
 
     /**
