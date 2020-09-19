@@ -169,10 +169,15 @@ export default {
                         })
                         .catch(error => {
                             Toast.fire({
-                                icon: "info",
-                                title: "Data Remains Unchanged"
+                                icon: "error",
+                                title: "Data cann't be Deleted"
                             });
                         });
+                } else {
+                    Toast.fire({
+                        icon: "info",
+                        title: "Employee Data Remains Unchanged"
+                    });
                 }
             });
         }
