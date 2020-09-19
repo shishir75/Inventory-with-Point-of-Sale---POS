@@ -34,7 +34,7 @@
 
                             <form
                                 class="user"
-                                @submit.prevent="saveForm"
+                                @submit.prevent="updateForm"
                                 method="POST"
                                 enctype="multipart/form-data"
                             >
@@ -105,7 +105,7 @@
                                         </div>
                                         <div class="form-group">
                                             <img
-                                                :src="form.photo"
+                                                :src="postPhoto()"
                                                 alt="Employee Photo"
                                                 height="70px"
                                                 width="70px"
@@ -236,21 +236,30 @@ export default {
                 reader.readAsDataURL(file);
             }
         },
-        saveForm() {
+        postPhoto() {
+            let img = this.form.photo;
+            if (img.length > 100) {
+                return this.form.photo;
+            } else {
+                return "/assets/img/employee/" + this.form.photo;
+            }
+        },
+        updateForm() {
+            let id = this.$route.params.id;
             axios
-                .post("/api/employee", this.form)
+                .patch("/api/employee/" + id, this.form)
                 .then(res => {
                     this.$router.push({ name: "Employee" });
                     Toast.fire({
                         icon: "success",
-                        title: "Employee Created Succesfully"
+                        title: "Employee Updated Succesfully"
                     });
                 })
                 .catch(error => {
                     this.errors = error.response.data.errors;
                     Toast.fire({
                         icon: "error",
-                        title: "Employee can't be Created"
+                        title: "Employee can't be Updated"
                     });
                 });
         }

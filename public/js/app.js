@@ -3009,23 +3009,33 @@ __webpack_require__.r(__webpack_exports__);
         reader.readAsDataURL(file);
       }
     },
-    saveForm: function saveForm() {
+    postPhoto: function postPhoto() {
+      var img = this.form.photo;
+
+      if (img.length > 100) {
+        return this.form.photo;
+      } else {
+        return "/assets/img/employee/" + this.form.photo;
+      }
+    },
+    updateForm: function updateForm() {
       var _this3 = this;
 
-      axios.post("/api/employee", this.form).then(function (res) {
+      var id = this.$route.params.id;
+      axios.patch("/api/employee/" + id, this.form).then(function (res) {
         _this3.$router.push({
           name: "Employee"
         });
 
         Toast.fire({
           icon: "success",
-          title: "Employee Created Succesfully"
+          title: "Employee Updated Succesfully"
         });
       })["catch"](function (error) {
         _this3.errors = error.response.data.errors;
         Toast.fire({
           icon: "error",
-          title: "Employee can't be Created"
+          title: "Employee can't be Updated"
         });
       });
     }
@@ -45350,7 +45360,7 @@ var render = function() {
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
-                      return _vm.saveForm($event)
+                      return _vm.updateForm($event)
                     }
                   }
                 },
@@ -45491,7 +45501,7 @@ var render = function() {
                           ? _c("img", {
                               staticClass: "rounded",
                               attrs: {
-                                src: _vm.form.photo,
+                                src: _vm.postPhoto(),
                                 alt: "Employee Photo",
                                 height: "70px",
                                 width: "70px"
