@@ -159,13 +159,9 @@ export default {
             }).then(result => {
                 if (result.isConfirmed) {
                     axios
-                        .delete("/api/employee")
+                        .delete("/api/employee/" + id)
                         .then(res => {
-                            this.allEmployees = this.allEmployees.filter(
-                                item => {
-                                    return item.id != id;
-                                }
-                            );
+                            this.$store.dispatch("getAllEmployees");
                             Toast.fire({
                                 icon: "success",
                                 title: "Employee Data Deleted Successfully"

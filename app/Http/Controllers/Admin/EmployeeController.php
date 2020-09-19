@@ -101,6 +101,10 @@ class EmployeeController extends Controller
      */
     public function destroy( Employee $employee )
     {
-
+        $photo = $employee->photo;
+        if ( $photo ) {
+            @unlink( public_path() . "/assets/img/employee/" . $photo );
+        }
+        $employee->delete();
     }
 }

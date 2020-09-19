@@ -2931,10 +2931,9 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: "Yes, Delete It!"
       }).then(function (result) {
         if (result.isConfirmed) {
-          axios["delete"]("/api/employee").then(function (res) {
-            _this2.allEmployees = _this2.allEmployees.filter(function (item) {
-              return item.id != id;
-            });
+          axios["delete"]("/api/employee/" + id).then(function (res) {
+            _this2.$store.dispatch("getAllEmployees");
+
             Toast.fire({
               icon: "success",
               title: "Employee Data Deleted Successfully"
