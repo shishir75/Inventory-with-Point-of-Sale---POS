@@ -1,12 +1,25 @@
 <template>
     <div class="row justify-content-center">
         <div class="col-12">
-            <div>
+            <div
+                class="d-sm-flex align-items-center justify-content-between mb-4"
+            >
                 <router-link
                     :to="{ name: 'Employee' }"
-                    class="btn btn-success float-right mr-5"
-                    >ALL EMPLOYEES</router-link
+                    class="btn btn-info text-white mb-0 text-gray-800"
+                    >All Employees</router-link
                 >
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <router-link :to="{ name: 'Dashboard' }"
+                            >Dashboard</router-link
+                        >
+                    </li>
+                    <li class="breadcrumb-item">Employee</li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Add New Employee
+                    </li>
+                </ol>
             </div>
             <div class="card shadow-sm my-5">
                 <div class="card-body p-0">

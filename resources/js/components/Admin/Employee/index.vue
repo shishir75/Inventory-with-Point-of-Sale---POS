@@ -30,9 +30,19 @@
                         <div
                             class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                         >
-                            <h4 class="m-0 font-weight-bold text-center">
+                            <h4 class="m-0 font-weight-bold">
                                 ALL EMPLOYEE LISTS
                             </h4>
+                            <h6>
+                                <form>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Search...."
+                                        v-model="searchItem"
+                                    />
+                                </form>
+                            </h6>
                         </div>
                         <div class="table-responsive">
                             <table
@@ -47,13 +57,13 @@
                                         <th>Joining Date</th>
                                         <th>Salary</th>
                                         <th>Phone No</th>
-                                        <th>Actions</th>
+                                        <th width="10%">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr
                                         v-for="(employee,
-                                        index) in allEmployess"
+                                        index) in filterSearch"
                                         :key="employee.id"
                                     >
                                         <td>{{ index + 1 }}</td>
@@ -75,13 +85,18 @@
                                         <td>{{ employee.email }}</td>
                                         <td>{{ employee.joining_date }}</td>
                                         <td>{{ employee.salary }}</td>
-                                        <td>{{ employee.phone }}</td>
+                                        <td>0{{ employee.phone }}</td>
                                         <td>
-                                            <a
-                                                href="#"
-                                                class="btn btn-sm btn-primary"
-                                                >Detail</a
+                                            <router-link
+                                                to=""
+                                                class="btn btn-sm btn-info"
+                                                >Edit</router-link
                                             >
+                                            <button
+                                                class="btn btn-sm btn-danger"
+                                            >
+                                                Delete
+                                            </button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -99,7 +114,10 @@
 <script>
 export default {
     data() {
-        return {};
+        return {
+            searchItem: "",
+            employees: []
+        };
     },
     components: {},
     mounted() {
@@ -107,8 +125,17 @@ export default {
     },
     created() {},
     computed: {
-        allEmployess() {
+        allEmployees() {
             return this.$store.getters.getAllEmployees;
+        },
+        filterSearch() {
+            if (this.searchItem != "") {
+                return this.allEmployees.filter(item => {
+                    return item.name.match(this.searchItem);
+                });
+            } else {
+                return this.allEmployees;
+            }
         }
     },
     methods: {
