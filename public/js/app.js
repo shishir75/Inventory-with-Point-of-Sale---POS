@@ -2780,7 +2780,97 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {};
+  },
+  components: {},
+  mounted: function mounted() {
+    this.$store.dispatch("getAllEmployees");
+  },
+  created: function created() {},
+  computed: {
+    allEmployess: function allEmployess() {
+      return this.$store.getters.getAllEmployees;
+    }
+  },
+  methods: {
+    photo: function photo(img) {
+      return "/assets/img/employee/" + img;
+    }
+  }
+});
 
 /***/ }),
 
@@ -44828,25 +44918,123 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row justify-content-center" }, [
-    _c("div", { staticClass: "col-12" }, [
-      _c(
-        "div",
-        [
-          _c(
-            "router-link",
-            {
-              staticClass: "btn btn-success float-right mr-5",
-              attrs: { to: { name: "CreateEmployee" } }
-            },
-            [_vm._v("ADD NEW EMPLOYEE")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _vm._m(0)
-    ])
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "container-fluid", attrs: { id: "container-wrapper" } },
+      [
+        _c(
+          "div",
+          {
+            staticClass:
+              "d-sm-flex align-items-center justify-content-between mb-4"
+          },
+          [
+            _c(
+              "router-link",
+              {
+                staticClass: "btn btn-info text-white mb-0 text-gray-800",
+                attrs: { to: { name: "CreateEmployee" } }
+              },
+              [_vm._v("Add New Employee")]
+            ),
+            _vm._v(" "),
+            _c("ol", { staticClass: "breadcrumb" }, [
+              _c(
+                "li",
+                { staticClass: "breadcrumb-item" },
+                [
+                  _c("router-link", { attrs: { to: { name: "Dashboard" } } }, [
+                    _vm._v("Dashboard")
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("li", { staticClass: "breadcrumb-item" }, [
+                _vm._v("Employee")
+              ]),
+              _vm._v(" "),
+              _c(
+                "li",
+                {
+                  staticClass: "breadcrumb-item active",
+                  attrs: { "aria-current": "page" }
+                },
+                [
+                  _vm._v(
+                    "\n                    All Employees\n                "
+                  )
+                ]
+              )
+            ])
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-lg-12 mb-4" }, [
+            _c("div", { staticClass: "card" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "table-responsive" }, [
+                _c(
+                  "table",
+                  {
+                    staticClass:
+                      "table align-items-center table-flush table-bordered"
+                  },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.allEmployess, function(employee, index) {
+                        return _c("tr", { key: employee.id }, [
+                          _c("td", [_vm._v(_vm._s(index + 1))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(employee.name))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            employee.photo
+                              ? _c("img", {
+                                  attrs: {
+                                    src: _vm.photo(employee.photo),
+                                    alt: employee.name,
+                                    width: "50px",
+                                    height: "40px"
+                                  }
+                                })
+                              : _c(
+                                  "span",
+                                  { staticClass: "badge badge-warning" },
+                                  [_vm._v("No Image")]
+                                )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(employee.email))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(employee.joining_date))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(employee.salary))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(employee.phone))]),
+                          _vm._v(" "),
+                          _vm._m(2, true)
+                        ])
+                      }),
+                      0
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-footer" })
+            ])
+          ])
+        ])
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -44854,19 +45042,52 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card shadow-sm my-5" }, [
-      _c("div", { staticClass: "card-body p-0" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-12" }, [
-            _c("div", { staticClass: "text-center" }, [
-              _c("h1", { staticClass: "h4 text-gray-900 mt-4" }, [
-                _vm._v(
-                  "\n                                ALL EMPLOYEES\n                            "
-                )
-              ])
-            ])
-          ])
+    return _c(
+      "div",
+      {
+        staticClass:
+          "card-header py-3 d-flex flex-row align-items-center justify-content-between"
+      },
+      [
+        _c("h4", { staticClass: "m-0 font-weight-bold text-center" }, [
+          _vm._v(
+            "\n                            ALL EMPLOYEE LISTS\n                        "
+          )
         ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", [_vm._v("Serial")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Photo")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Email")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Joining Date")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Salary")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Phone No")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Actions")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("a", { staticClass: "btn btn-sm btn-primary", attrs: { href: "#" } }, [
+        _vm._v("Detail")
       ])
     ])
   }
@@ -64292,19 +64513,32 @@ router.beforeEach(function (to, from, next) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
-    isLoggedIn: null
+    isLoggedIn: null,
+    allEmployees: []
   },
   getters: {
     isLoggedIn: function isLoggedIn(state) {
       return state.isLoggedIn !== null;
+    },
+    getAllEmployees: function getAllEmployees(state) {
+      return state.allEmployees;
     }
   },
   mutations: {
     isLogIn: function isLogIn(state, payload) {
       state.isLoggedIn = payload;
+    },
+    getAllEmployees: function getAllEmployees(state, payload) {
+      state.allEmployees = payload;
     }
   },
-  actions: {}
+  actions: {
+    getAllEmployees: function getAllEmployees(context) {
+      axios.get("/api/employee").then(function (res) {
+        context.commit("getAllEmployees", res.data.employees);
+      });
+    }
+  }
 });
 
 /***/ }),
