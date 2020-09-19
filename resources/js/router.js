@@ -20,6 +20,7 @@ import Forget from "./components/Auth/Forget.vue";
 // Employee Module Componenet
 import Employee from "./components/Admin/Employee/index.vue";
 import CreateEmployee from "./components/Admin/Employee/create.vue";
+import EditEmployee from "./components/Admin/Employee/edit.vue";
 
 const router = new VueRouter({
     mode: "history",
@@ -65,6 +66,11 @@ const router = new VueRouter({
                     path: "employee/create",
                     name: "CreateEmployee",
                     component: CreateEmployee
+                },
+                {
+                    path: "employee/:id/edit",
+                    name: "EditEmployee",
+                    component: EditEmployee
                 }
             ]
         },

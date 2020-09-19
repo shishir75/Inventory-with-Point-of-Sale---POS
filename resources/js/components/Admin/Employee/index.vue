@@ -88,7 +88,10 @@
                                         <td>0{{ employee.phone }}</td>
                                         <td>
                                             <router-link
-                                                to=""
+                                                :to="{
+                                                    name: 'EditEmployee',
+                                                    params: { id: employee.id }
+                                                }"
                                                 class="btn btn-sm btn-info"
                                                 >Edit</router-link
                                             >
