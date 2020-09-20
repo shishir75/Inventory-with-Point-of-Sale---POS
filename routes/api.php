@@ -30,5 +30,6 @@ Route::group( ['namespace' => 'Admin', 'middleware' => 'auth:sanctum'], function
     Route::apiResources( [
         '/employee' => 'EmployeeController',
         '/supplier' => 'SupplierController',
+        '/category' => 'CategoryController',
     ] );
 } );

@@ -27,6 +27,11 @@ import Supplier from "./components/Admin/Supplier/index.vue";
 import CreateSupplier from "./components/Admin/Supplier/create.vue";
 import EditSupplier from "./components/Admin/Supplier/edit.vue";
 
+// Category Module Componenets
+import Category from "./components/Admin/Category/index.vue";
+import CreateCategory from "./components/Admin/Category/create.vue";
+import EditCategory from "./components/Admin/Category/edit.vue";
+
 const router = new VueRouter({
     mode: "history",
     // linkExactActiveClass: "text-dark bg-primary",
@@ -91,6 +96,21 @@ const router = new VueRouter({
                     path: "supplier/:id/edit",
                     name: "EditSupplier",
                     component: EditSupplier
+                },
+                {
+                    path: "category",
+                    name: "Category",
+                    component: Category
+                },
+                {
+                    path: "category/create",
+                    name: "CreateCategory",
+                    component: CreateCategory
+                },
+                {
+                    path: "category/:id/edit",
+                    name: "EditCategory",
+                    component: EditCategory
                 }
             ]
         },
