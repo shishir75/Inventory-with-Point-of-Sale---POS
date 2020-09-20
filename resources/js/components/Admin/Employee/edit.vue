@@ -214,11 +214,7 @@ export default {
             });
     },
     created() {},
-    computed: {
-        employee() {
-            return this.$store.getters.getEmployee;
-        }
-    },
+    computed: {},
     methods: {
         onFileSelected(event) {
             let file = event.target.files[0];

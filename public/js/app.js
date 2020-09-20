@@ -2982,11 +2982,7 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   created: function created() {},
-  computed: {
-    employee: function employee() {
-      return this.$store.getters.getEmployee;
-    }
-  },
+  computed: {},
   methods: {
     onFileSelected: function onFileSelected(event) {
       var _this2 = this;
