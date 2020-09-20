@@ -3,7 +3,8 @@ export default {
         isLoggedIn: null,
         allEmployees: [],
         allSuppliers: [],
-        allCategories: []
+        allCategories: [],
+        allProducts: []
     },
     getters: {
         isLoggedIn(state) {
@@ -17,6 +18,9 @@ export default {
         },
         getAllCategories(state) {
             return state.allCategories;
+        },
+        getAllProducts(state) {
+            return state.allProducts;
         }
     },
     mutations: {
@@ -31,6 +35,9 @@ export default {
         },
         getAllCategories(state, payload) {
             state.allCategories = payload;
+        },
+        getAllProducts(state, payload) {
+            state.allProducts = payload;
         }
     },
     actions: {
@@ -47,6 +54,11 @@ export default {
         getAllCategories(context) {
             axios.get("/api/category").then(res => {
                 context.commit("getAllCategories", res.data.categories);
+            });
+        },
+        getAllProducts(context) {
+            axios.get("/api/product").then(res => {
+                context.commit("getAllProducts", res.data.products);
             });
         }
     }

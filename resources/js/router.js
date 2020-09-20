@@ -32,6 +32,11 @@ import Category from "./components/Admin/Category/index.vue";
 import CreateCategory from "./components/Admin/Category/create.vue";
 import EditCategory from "./components/Admin/Category/edit.vue";
 
+// Product Module Componenets
+import Product from "./components/Admin/Product/index.vue";
+import CreateProduct from "./components/Admin/Product/create.vue";
+import EditProduct from "./components/Admin/Product/edit.vue";
+
 const router = new VueRouter({
     mode: "history",
     // linkExactActiveClass: "text-dark bg-primary",
@@ -111,6 +116,21 @@ const router = new VueRouter({
                     path: "category/:id/edit",
                     name: "EditCategory",
                     component: EditCategory
+                },
+                {
+                    path: "product",
+                    name: "Product",
+                    component: Product
+                },
+                {
+                    path: "product/create",
+                    name: "CreateProduct",
+                    component: CreateProduct
+                },
+                {
+                    path: "product/:id/edit",
+                    name: "EditProduct",
+                    component: EditProduct
                 }
             ]
         },
