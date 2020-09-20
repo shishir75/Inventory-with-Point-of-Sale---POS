@@ -22,6 +22,11 @@ import Employee from "./components/Admin/Employee/index.vue";
 import CreateEmployee from "./components/Admin/Employee/create.vue";
 import EditEmployee from "./components/Admin/Employee/edit.vue";
 
+// Supplier Module Componenets
+import Supplier from "./components/Admin/Supplier/index.vue";
+import CreateSupplier from "./components/Admin/Supplier/create.vue";
+import EditSupplier from "./components/Admin/Supplier/edit.vue";
+
 const router = new VueRouter({
     mode: "history",
     // linkExactActiveClass: "text-dark bg-primary",
@@ -71,6 +76,21 @@ const router = new VueRouter({
                     path: "employee/:id/edit",
                     name: "EditEmployee",
                     component: EditEmployee
+                },
+                {
+                    path: "supplier",
+                    name: "Supplier",
+                    component: Supplier
+                },
+                {
+                    path: "supplier/create",
+                    name: "CreateSupplier",
+                    component: CreateSupplier
+                },
+                {
+                    path: "supplier/:id/edit",
+                    name: "EditSupplier",
+                    component: EditSupplier
                 }
             ]
         },

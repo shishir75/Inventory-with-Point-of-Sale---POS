@@ -27,5 +27,8 @@ Route::post( '/login', 'LoginController@login' );
 Route::post( '/logout', 'LoginController@logout' );
 
 Route::group( ['namespace' => 'Admin', 'middleware' => 'auth:sanctum'], function () {
-    Route::apiResource( '/employee', 'EmployeeController' );
+    Route::apiResources( [
+        '/employee' => 'EmployeeController',
+        '/supplier' => 'SupplierController',
+    ] );
 } );
