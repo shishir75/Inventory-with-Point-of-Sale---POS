@@ -4,7 +4,8 @@ export default {
         allEmployees: [],
         allSuppliers: [],
         allCategories: [],
-        allProducts: []
+        allProducts: [],
+        allExpenses: []
     },
     getters: {
         isLoggedIn(state) {
@@ -21,6 +22,9 @@ export default {
         },
         getAllProducts(state) {
             return state.allProducts;
+        },
+        getAllExpenses(state) {
+            return state.allExpenses;
         }
     },
     mutations: {
@@ -38,6 +42,9 @@ export default {
         },
         getAllProducts(state, payload) {
             state.allProducts = payload;
+        },
+        getAllExpenses(state, payload) {
+            state.allExpenses = payload;
         }
     },
     actions: {
@@ -59,6 +66,11 @@ export default {
         getAllProducts(context) {
             axios.get("/api/product").then(res => {
                 context.commit("getAllProducts", res.data.products);
+            });
+        },
+        getAllExpenses(context) {
+            axios.get("/api/expense").then(res => {
+                context.commit("getAllExpenses", res.data.expenses);
             });
         }
     }

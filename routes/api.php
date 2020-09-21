@@ -32,5 +32,6 @@ Route::group( ['namespace' => 'Admin', 'middleware' => 'auth:sanctum'], function
         '/supplier' => 'SupplierController',
         '/category' => 'CategoryController',
         '/product'  => 'ProductController',
+        '/expense'  => 'ExpenseController',
     ] );
 } );

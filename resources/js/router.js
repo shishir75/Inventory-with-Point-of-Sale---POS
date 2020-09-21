@@ -37,6 +37,11 @@ import Product from "./components/Admin/Product/index.vue";
 import CreateProduct from "./components/Admin/Product/create.vue";
 import EditProduct from "./components/Admin/Product/edit.vue";
 
+// Expense Module Componenets
+import Expense from "./components/Admin/Expense/index.vue";
+import CreateExpense from "./components/Admin/Expense/create.vue";
+import EditExpense from "./components/Admin/Expense/edit.vue";
+
 const router = new VueRouter({
     mode: "history",
     // linkExactActiveClass: "text-dark bg-primary",
@@ -131,6 +136,21 @@ const router = new VueRouter({
                     path: "product/:id/edit",
                     name: "EditProduct",
                     component: EditProduct
+                },
+                {
+                    path: "expense",
+                    name: "Expense",
+                    component: Expense
+                },
+                {
+                    path: "expense/create",
+                    name: "CreateExpense",
+                    component: CreateExpense
+                },
+                {
+                    path: "expense/:id/edit",
+                    name: "EditExpense",
+                    component: EditExpense
                 }
             ]
         },

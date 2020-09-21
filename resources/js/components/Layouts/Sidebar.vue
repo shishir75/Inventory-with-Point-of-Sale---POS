@@ -168,6 +168,38 @@
                     class="nav-link collapsed"
                     href="#"
                     data-toggle="collapse"
+                    data-target="#expense"
+                    aria-expanded="true"
+                    aria-controls="collapseForm"
+                >
+                    <i class="fab fa-fw fa-wpforms"></i>
+                    <span>Expense</span>
+                </a>
+                <div
+                    id="expense"
+                    class="collapse"
+                    aria-labelledby="headingForm"
+                    data-parent="#accordionSidebar"
+                >
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <router-link
+                            class="collapse-item"
+                            :to="{ name: 'CreateExpense' }"
+                            >Add Expense</router-link
+                        >
+                        <router-link
+                            class="collapse-item"
+                            :to="{ name: 'Expense' }"
+                            >All Expenses</router-link
+                        >
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a
+                    class="nav-link collapsed"
+                    href="#"
+                    data-toggle="collapse"
                     data-target="#collapseTable"
                     aria-expanded="true"
                     aria-controls="collapseTable"
