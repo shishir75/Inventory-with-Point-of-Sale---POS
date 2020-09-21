@@ -33,5 +33,6 @@ Route::group( ['namespace' => 'Admin', 'middleware' => 'auth:sanctum'], function
         '/category' => 'CategoryController',
         '/product'  => 'ProductController',
         '/expense'  => 'ExpenseController',
+        '/salary'   => 'SalaryController',
     ] );
 } );

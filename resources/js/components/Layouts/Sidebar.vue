@@ -200,6 +200,38 @@
                     class="nav-link collapsed"
                     href="#"
                     data-toggle="collapse"
+                    data-target="#salary"
+                    aria-expanded="true"
+                    aria-controls="collapseForm"
+                >
+                    <i class="fab fa-fw fa-wpforms"></i>
+                    <span>Salary</span>
+                </a>
+                <div
+                    id="salary"
+                    class="collapse"
+                    aria-labelledby="headingForm"
+                    data-parent="#accordionSidebar"
+                >
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <router-link
+                            class="collapse-item"
+                            :to="{ name: 'CreateSalary' }"
+                            >Pay Salary</router-link
+                        >
+                        <router-link
+                            class="collapse-item"
+                            :to="{ name: 'Salary' }"
+                            >All Paid Salary</router-link
+                        >
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a
+                    class="nav-link collapsed"
+                    href="#"
+                    data-toggle="collapse"
                     data-target="#collapseTable"
                     aria-expanded="true"
                     aria-controls="collapseTable"

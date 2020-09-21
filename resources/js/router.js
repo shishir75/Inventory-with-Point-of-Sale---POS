@@ -42,6 +42,11 @@ import Expense from "./components/Admin/Expense/index.vue";
 import CreateExpense from "./components/Admin/Expense/create.vue";
 import EditExpense from "./components/Admin/Expense/edit.vue";
 
+// Salary Module Components
+import Salary from "./components/Admin/Salary/index.vue";
+import CreateSalary from "./components/Admin/Salary/create.vue";
+import EditSalary from "./components/Admin/Salary/edit.vue";
+
 const router = new VueRouter({
     mode: "history",
     // linkExactActiveClass: "text-dark bg-primary",
@@ -151,6 +156,21 @@ const router = new VueRouter({
                     path: "expense/:id/edit",
                     name: "EditExpense",
                     component: EditExpense
+                },
+                {
+                    path: "salary",
+                    name: "Salary",
+                    component: Salary
+                },
+                {
+                    path: "salary/pay",
+                    name: "CreateSalary",
+                    component: CreateSalary
+                },
+                {
+                    path: "salary/:id/edit",
+                    name: "EditSalary",
+                    component: EditSalary
                 }
             ]
         },
