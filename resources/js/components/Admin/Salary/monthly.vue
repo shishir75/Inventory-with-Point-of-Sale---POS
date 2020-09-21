@@ -10,6 +10,11 @@
                     class="btn btn-info text-white mb-0 text-gray-800"
                     >Pay Salary</router-link
                 >
+                <router-link
+                    :to="{ name: 'Salary' }"
+                    class="btn btn-info text-white mb-0 text-gray-800"
+                    >All Months Salary</router-link
+                >
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
                         <router-link :to="{ name: 'Dashboard' }"
@@ -146,7 +151,7 @@ export default {
                     axios
                         .delete("/api/salary/" + id)
                         .then(res => {
-                            this.$store.dispatch("getAllSalaries");
+                            this.$router.push({ name: "Salary" });
                             Toast.fire({
                                 icon: "success",
                                 title: "Salary Data Deleted Successfully"

@@ -70,8 +70,15 @@ class SalaryController extends Controller
      */
     public function show( Salary $salary )
     {
+        $month_year = $salary->month_year;
+
+        $month = explode( '_', $month_year )[0];
+        $year = explode( '_', $month_year )[1];
+
         return response()->json( [
             'salary' => $salary,
+            'month'  => $month,
+            'year'   => $year,
         ], 200 );
     }
 
@@ -84,7 +91,20 @@ class SalaryController extends Controller
      */
     public function update( Request $request, Salary $salary )
     {
-        //
+        $request->validate( [
+            'employee_id' => 'required|integer',
+            'amount'      => 'required|numeric',
+            'month'       => 'required|string',
+            'year'        => 'required|integer|min:2000|max:2099',
+        ] );
+
+        $month_year = $request->month . "_" . $request->year;
+
+        $salary->employee_id = $request->employee_id;
+        $salary->amount = $request->amount;
+        $salary->month_year = $month_year;
+        $salary->date = date( 'Y-m-d' );
+        $salary->save();
     }
 
     /**

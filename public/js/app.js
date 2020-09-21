@@ -5392,12 +5392,102 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       form: {
-        details: "",
-        amount: ""
+        employee_id: "",
+        amount: "",
+        month: "",
+        year: ""
       },
       errors: []
     };
@@ -5407,33 +5497,41 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     var id = this.$route.params.id;
-    axios.get("/api/expense/" + id).then(function (res) {
-      _this.form = res.data.expense;
+    axios.get("/api/salary/" + id).then(function (res) {
+      _this.form = res.data.salary;
+      _this.form.month = res.data.month;
+      _this.form.year = res.data.year;
     })["catch"](function (error) {
       _this.errors = error.response.data.errors;
     });
   },
-  created: function created() {},
-  computed: {},
+  created: function created() {
+    this.$store.dispatch("getAllEmployees");
+  },
+  computed: {
+    allEmployees: function allEmployees() {
+      return this.$store.getters.getAllEmployees;
+    }
+  },
   methods: {
     updateForm: function updateForm() {
       var _this2 = this;
 
       var id = this.$route.params.id;
-      axios.patch("/api/expense/" + id, this.form).then(function (res) {
+      axios.patch("/api/salary/" + id, this.form).then(function (res) {
         _this2.$router.push({
-          name: "Expense"
+          name: "Salary"
         });
 
         Toast.fire({
           icon: "success",
-          title: "Expense Updated Succesfully"
+          title: "Salary Updated Succesfully"
         });
       })["catch"](function (error) {
         _this2.errors = error.response.data.errors;
         Toast.fire({
           icon: "error",
-          title: "Expense can't be Updated"
+          title: "Salary can't be Updated"
         });
       });
     }
@@ -5695,6 +5793,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5737,7 +5840,9 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.isConfirmed) {
           axios["delete"]("/api/salary/" + id).then(function (res) {
-            _this2.$store.dispatch("getAllSalaries");
+            _this2.$router.push({
+              name: "Salary"
+            });
 
             Toast.fire({
               icon: "success",
@@ -52252,9 +52357,9 @@ var render = function() {
             "router-link",
             {
               staticClass: "btn btn-info text-white mb-0 text-gray-800",
-              attrs: { to: { name: "Expense" } }
+              attrs: { to: { name: "Salary" } }
             },
-            [_vm._v("All Expenses")]
+            [_vm._v("All Salary")]
           ),
           _vm._v(" "),
           _c("ol", { staticClass: "breadcrumb" }, [
@@ -52269,10 +52374,10 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _c("li", { staticClass: "breadcrumb-item" }, [_vm._v("Expense")]),
+            _c("li", { staticClass: "breadcrumb-item" }, [_vm._v("Salary")]),
             _vm._v(" "),
             _c("li", { staticClass: "breadcrumb-item" }, [
-              _vm._v("All Expenses")
+              _vm._v("All Salary")
             ]),
             _vm._v(" "),
             _c(
@@ -52281,7 +52386,7 @@ var render = function() {
                 staticClass: "breadcrumb-item active",
                 attrs: { "aria-current": "page" }
               },
-              [_vm._v("\n                    Edit Category\n                ")]
+              [_vm._v("\n                    Edit Salary\n                ")]
             )
           ])
         ],
@@ -52310,33 +52415,173 @@ var render = function() {
                   _c("div", { staticClass: "row login-form" }, [
                     _c("div", { staticClass: "col-lg-6" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Expense Details")]),
+                        _c("label", [_vm._v("Employee Name")]),
                         _vm._v(" "),
-                        _c("textarea", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.details,
-                              expression: "form.details"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { rows: "3", placeholder: "Expense Details" },
-                          domProps: { value: _vm.form.details },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.employee_id,
+                                expression: "form.employee_id"
                               }
-                              _vm.$set(_vm.form, "details", $event.target.value)
+                            ],
+                            staticClass: "form-control mb-3",
+                            on: {
+                              change: [
+                                function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.form,
+                                    "employee_id",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                },
+                                function($event) {
+                                  return _vm.selectEmployee(
+                                    _vm.form.employee_id
+                                  )
+                                }
+                              ]
                             }
-                          }
-                        }),
+                          },
+                          [
+                            _c(
+                              "option",
+                              {
+                                attrs: { value: "", selected: "", disabled: "" }
+                              },
+                              [_vm._v("Select Employee")]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.allEmployees, function(employee) {
+                              return _c(
+                                "option",
+                                {
+                                  key: employee.id,
+                                  domProps: { value: employee.id }
+                                },
+                                [_vm._v(_vm._s(employee.name))]
+                              )
+                            })
+                          ],
+                          2
+                        ),
                         _vm._v(" "),
-                        _vm.errors.details
+                        _vm.errors.employee_id
                           ? _c("small", { staticClass: "text-danger" }, [
-                              _vm._v(_vm._s(_vm.errors.details[0]))
+                              _vm._v(_vm._s(_vm.errors.employee_id[0]))
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Salary Month")]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.month,
+                                expression: "form.month"
+                              }
+                            ],
+                            staticClass: "form-control mb-3",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "month",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              { attrs: { value: "", disabled: "" } },
+                              [_vm._v("Select Month")]
+                            ),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "January" } }, [
+                              _vm._v("January")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "February" } }, [
+                              _vm._v("February")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "March" } }, [
+                              _vm._v("March")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "April" } }, [
+                              _vm._v("April")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "May" } }, [
+                              _vm._v("May")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "June" } }, [
+                              _vm._v("June")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "July" } }, [
+                              _vm._v("July")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "August" } }, [
+                              _vm._v("August")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "September" } }, [
+                              _vm._v("September")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "October" } }, [
+                              _vm._v("October")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "November" } }, [
+                              _vm._v("November")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "December" } }, [
+                              _vm._v("December")
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.errors.month
+                          ? _c("small", { staticClass: "text-danger" }, [
+                              _vm._v(_vm._s(_vm.errors.month[0]))
                             ])
                           : _vm._e()
                       ])
@@ -52344,7 +52589,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col-lg-6" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Expense Amount")]),
+                        _c("label", [_vm._v("Salary Amount")]),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -52358,7 +52603,7 @@ var render = function() {
                           staticClass: "form-control",
                           attrs: {
                             type: "number",
-                            placeholder: "Enter Expense Amount"
+                            placeholder: "Enter Salary Amount"
                           },
                           domProps: { value: _vm.form.amount },
                           on: {
@@ -52374,6 +52619,42 @@ var render = function() {
                         _vm.errors.amount
                           ? _c("small", { staticClass: "text-danger" }, [
                               _vm._v(_vm._s(_vm.errors.amount[0]))
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Salary Year")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.year,
+                              expression: "form.year"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Enter Salary Year",
+                            maxlength: "4"
+                          },
+                          domProps: { value: _vm.form.year },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "year", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.errors.year
+                          ? _c("small", { staticClass: "text-danger" }, [
+                              _vm._v(_vm._s(_vm.errors.year[0]))
                             ])
                           : _vm._e()
                       ])
@@ -52409,7 +52690,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "text-center" }, [
       _c("h1", { staticClass: "h4 text-gray-900 mt-4" }, [
         _vm._v(
-          "\n                                Update Expense\n                            "
+          "\n                                Update Salary\n                            "
         )
       ])
     ])
@@ -52663,6 +52944,15 @@ var render = function() {
                 attrs: { to: { name: "CreateSalary" } }
               },
               [_vm._v("Pay Salary")]
+            ),
+            _vm._v(" "),
+            _c(
+              "router-link",
+              {
+                staticClass: "btn btn-info text-white mb-0 text-gray-800",
+                attrs: { to: { name: "Salary" } }
+              },
+              [_vm._v("All Months Salary")]
             ),
             _vm._v(" "),
             _c("ol", { staticClass: "breadcrumb" }, [
