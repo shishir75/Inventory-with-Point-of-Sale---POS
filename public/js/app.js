@@ -3886,11 +3886,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       form: {
-        name: ""
+        details: "",
+        amount: ""
       },
       errors: []
     };
@@ -3900,8 +3917,8 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     var id = this.$route.params.id;
-    axios.get("/api/category/" + id).then(function (res) {
-      _this.form = res.data.category;
+    axios.get("/api/expense/" + id).then(function (res) {
+      _this.form = res.data.expense;
     })["catch"](function (error) {
       _this.errors = error.response.data.errors;
     });
@@ -3913,20 +3930,20 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       var id = this.$route.params.id;
-      axios.patch("/api/category/" + id, this.form).then(function (res) {
+      axios.patch("/api/expense/" + id, this.form).then(function (res) {
         _this2.$router.push({
-          name: "Category"
+          name: "Expense"
         });
 
         Toast.fire({
           icon: "success",
-          title: "Category Updated Succesfully"
+          title: "Expense Updated Succesfully"
         });
       })["catch"](function (error) {
         _this2.errors = error.response.data.errors;
         Toast.fire({
           icon: "error",
-          title: "Category can't be Updated"
+          title: "Expense can't be Updated"
         });
       });
     }
@@ -49287,9 +49304,9 @@ var render = function() {
             "router-link",
             {
               staticClass: "btn btn-info text-white mb-0 text-gray-800",
-              attrs: { to: { name: "Employee" } }
+              attrs: { to: { name: "Expense" } }
             },
-            [_vm._v("All Categories")]
+            [_vm._v("All Expenses")]
           ),
           _vm._v(" "),
           _c("ol", { staticClass: "breadcrumb" }, [
@@ -49304,10 +49321,10 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _c("li", { staticClass: "breadcrumb-item" }, [_vm._v("Category")]),
+            _c("li", { staticClass: "breadcrumb-item" }, [_vm._v("Expense")]),
             _vm._v(" "),
             _c("li", { staticClass: "breadcrumb-item" }, [
-              _vm._v("All Categories")
+              _vm._v("All Expenses")
             ]),
             _vm._v(" "),
             _c(
@@ -49326,7 +49343,7 @@ var render = function() {
       _c("div", { staticClass: "card shadow-sm my-5" }, [
         _c("div", { staticClass: "card-body p-0" }, [
           _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-8 offset-2" }, [
+            _c("div", { staticClass: "col-12" }, [
               _vm._m(0),
               _vm._v(" "),
               _c(
@@ -49345,35 +49362,70 @@ var render = function() {
                   _c("div", { staticClass: "row login-form" }, [
                     _c("div", { staticClass: "col-lg-6" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("input", {
+                        _c("label", [_vm._v("Expense Details")]),
+                        _vm._v(" "),
+                        _c("textarea", {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.form.name,
-                              expression: "form.name"
+                              value: _vm.form.details,
+                              expression: "form.details"
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            id: "exampleInputFirstName",
-                            placeholder: "Enter Your Full Name"
-                          },
-                          domProps: { value: _vm.form.name },
+                          attrs: { rows: "3", placeholder: "Expense Details" },
+                          domProps: { value: _vm.form.details },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.$set(_vm.form, "name", $event.target.value)
+                              _vm.$set(_vm.form, "details", $event.target.value)
                             }
                           }
                         }),
                         _vm._v(" "),
-                        _vm.errors.name
+                        _vm.errors.details
                           ? _c("small", { staticClass: "text-danger" }, [
-                              _vm._v(_vm._s(_vm.errors.name[0]))
+                              _vm._v(_vm._s(_vm.errors.details[0]))
+                            ])
+                          : _vm._e()
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-lg-6" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Expense Amount")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.amount,
+                              expression: "form.amount"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "number",
+                            placeholder: "Enter Expense Amount"
+                          },
+                          domProps: { value: _vm.form.amount },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "amount", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.errors.amount
+                          ? _c("small", { staticClass: "text-danger" }, [
+                              _vm._v(_vm._s(_vm.errors.amount[0]))
                             ])
                           : _vm._e()
                       ])
@@ -49409,7 +49461,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "text-center" }, [
       _c("h1", { staticClass: "h4 text-gray-900 mt-4" }, [
         _vm._v(
-          "\n                                Update Category\n                            "
+          "\n                                Update Expense\n                            "
         )
       ])
     ])

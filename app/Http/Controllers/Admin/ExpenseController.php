@@ -64,7 +64,14 @@ class ExpenseController extends Controller
      */
     public function update( Request $request, Expense $expense )
     {
-        //
+        $request->validate( [
+            'details' => 'required',
+            'amount'  => 'required|numeric',
+        ] );
+
+        $expense->details = $request->details;
+        $expense->amount = $request->amount;
+        $expense->save();
     }
 
     /**
