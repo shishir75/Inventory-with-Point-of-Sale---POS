@@ -98,7 +98,51 @@ class ProductController extends Controller
      */
     public function update( Request $request, Product $product )
     {
-        //
+        $request->validate( [
+            'name'          => 'required|unique:products,name,' . $product->id,
+            'code'          => 'required|unique:products,code,' . $product->id,
+            'quantity'      => 'required|integer',
+            'category_id'   => 'required|integer',
+            'supplier_id'   => 'required|integer',
+            'buying_date'   => 'required|date',
+            'root'          => 'required',
+            'buying_price'  => 'required|numeric',
+            'selling_price' => 'required|numeric',
+        ] );
+
+        if ( $request->photo ) {
+
+            // Delete Old Photo
+            if ( $product->photo ) {
+                @unlink( public_path() . "/assets/img/product/" . $product->photo );
+            }
+
+            $position = strpos( $request->photo, ';' );
+            $sub = Str::substr( $request->photo, 0, $position );
+            $extentation = explode( '/', $sub )[1];
+
+            $img_name = time() . '.' . $extentation;
+            $path = public_path() . "/assets/img/product/";
+
+            $img = Image::make( $request->photo );
+            $img->resize( 300, 200 );
+            $img->save( $path . $img_name );
+
+        } else {
+            $img_name = $product->photo;
+        }
+
+        $product->name = $request->name;
+        $product->code = $request->code;
+        $product->quantity = $request->quantity;
+        $product->category_id = $request->category_id;
+        $product->supplier_id = $request->supplier_id;
+        $product->photo = $img_name;
+        $product->buying_date = $request->buying_date;
+        $product->root = $request->root;
+        $product->buying_price = $request->buying_price;
+        $product->selling_price = $request->selling_price;
+        $product->save();
     }
 
     /**
@@ -109,6 +153,10 @@ class ProductController extends Controller
      */
     public function destroy( Product $product )
     {
-        //
+        $photo = $product->photo;
+        if ( $photo ) {
+            @unlink( public_path() . "/assets/img/product/" . $photo );
+        }
+        $product->delete();
     }
 }

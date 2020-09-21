@@ -7,7 +7,7 @@
                 <router-link
                     :to="{ name: 'Employee' }"
                     class="btn btn-info text-white mb-0 text-gray-800"
-                    >All Employees</router-link
+                    >All Products</router-link
                 >
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
@@ -15,10 +15,10 @@
                             >Dashboard</router-link
                         >
                     </li>
-                    <li class="breadcrumb-item">Employees</li>
-                    <li class="breadcrumb-item">All Employees</li>
+                    <li class="breadcrumb-item">Product</li>
+                    <li class="breadcrumb-item">All Products</li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        Edit Employee
+                        Edit Product
                     </li>
                 </ol>
             </div>
@@ -28,7 +28,7 @@
                         <div class="col-12">
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mt-4">
-                                    Update Employee
+                                    Update Product
                                 </h1>
                             </div>
 
@@ -45,7 +45,7 @@
                                                 type="text"
                                                 class="form-control"
                                                 id="exampleInputFirstName"
-                                                placeholder="Enter Your Full Name"
+                                                placeholder="Enter Product Name"
                                                 v-model="form.name"
                                             />
                                             <small
@@ -57,30 +57,28 @@
 
                                         <div class="form-group">
                                             <input
-                                                type="date"
+                                                type="text"
                                                 class="form-control"
-                                                placeholder="Enter Joining Date"
-                                                v-model="form.joining_date"
+                                                placeholder="Enter Product Code"
+                                                v-model="form.code"
                                             />
                                             <small
                                                 class="text-danger"
-                                                v-if="errors.joining_date"
-                                                >{{
-                                                    errors.joining_date[0]
-                                                }}</small
+                                                v-if="errors.code"
+                                                >{{ errors.code[0] }}</small
                                             >
                                         </div>
                                         <div class="form-group">
                                             <input
                                                 type="number"
                                                 class="form-control"
-                                                placeholder="Enter Phone Number"
-                                                v-model="form.phone"
+                                                placeholder="Enter Product Quantity"
+                                                v-model="form.quantity"
                                             />
                                             <small
                                                 class="text-danger"
-                                                v-if="errors.phone"
-                                                >{{ errors.phone[0] }}</small
+                                                v-if="errors.quantity"
+                                                >{{ errors.quantity[0] }}</small
                                             >
                                         </div>
                                         <div class="form-group">
@@ -106,7 +104,7 @@
                                         <div class="form-group">
                                             <img
                                                 :src="postPhoto()"
-                                                alt="Employee Photo"
+                                                alt="Product Photo"
                                                 height="70px"
                                                 width="70px"
                                                 class="rounded"
@@ -116,55 +114,114 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <input
-                                                type="email"
-                                                class="form-control"
-                                                id="exampleInputEmail"
-                                                aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address"
-                                                v-model="form.email"
-                                            />
+                                            <select
+                                                class="form-control mb-3"
+                                                v-model="form.category_id"
+                                            >
+                                                <option
+                                                    value=""
+                                                    selected
+                                                    disabled
+                                                    >Select Category</option
+                                                >
+                                                <option
+                                                    v-for="category in allCategories"
+                                                    :key="category.id"
+                                                    :value="category.id"
+                                                    >{{ category.name }}</option
+                                                >
+                                            </select>
                                             <small
                                                 class="text-danger"
-                                                v-if="errors.email"
-                                                >{{ errors.email[0] }}</small
+                                                v-if="errors.category_id"
+                                                >{{
+                                                    errors.category_id[0]
+                                                }}</small
+                                            >
+                                        </div>
+                                        <div class="form-group">
+                                            <select
+                                                class="form-control mb-3"
+                                                v-model="form.supplier_id"
+                                            >
+                                                <option
+                                                    value=""
+                                                    selected
+                                                    disabled
+                                                    >Select Supplier</option
+                                                >
+                                                <option
+                                                    v-for="supplier in allSuppliers"
+                                                    :key="supplier.id"
+                                                    :value="supplier.id"
+                                                    >{{ supplier.name }}</option
+                                                >
+                                            </select>
+                                            <small
+                                                class="text-danger"
+                                                v-if="errors.supplier_id"
+                                                >{{
+                                                    errors.supplier_id[0]
+                                                }}</small
                                             >
                                         </div>
                                         <div class="form-group">
                                             <input
                                                 type="number"
                                                 class="form-control"
-                                                placeholder="Enter Your Salary"
-                                                v-model="form.salary"
+                                                placeholder="Enter Buying Price"
+                                                v-model="form.buying_price"
                                             />
                                             <small
                                                 class="text-danger"
-                                                v-if="errors.salary"
-                                                >{{ errors.salary[0] }}</small
+                                                v-if="errors.buying_price"
+                                                >{{
+                                                    errors.buying_price[0]
+                                                }}</small
                                             >
                                         </div>
                                         <div class="form-group">
                                             <input
                                                 type="number"
                                                 class="form-control"
-                                                placeholder="Enter Your NID Card Number"
-                                                v-model="form.nid"
+                                                placeholder="Enter Selling Price"
+                                                v-model="form.selling_price"
                                             />
                                             <small
                                                 class="text-danger"
-                                                v-if="errors.nid"
-                                                >{{ errors.nid[0] }}</small
+                                                v-if="errors.selling_price"
+                                                >{{
+                                                    errors.selling_price[0]
+                                                }}</small
                                             >
                                         </div>
                                         <div class="form-group">
-                                            <textarea
-                                                name="address"
-                                                v-model="form.address"
-                                                id="address"
-                                                rows="5"
+                                            <input
+                                                type="date"
                                                 class="form-control"
-                                                placeholder="Enter Your Address"
-                                            ></textarea>
+                                                placeholder="Enter Buying Date"
+                                                v-model="form.buying_date"
+                                            />
+                                            <small
+                                                class="text-danger"
+                                                v-if="errors.buying_date"
+                                                >{{
+                                                    errors.buying_date[0]
+                                                }}</small
+                                            >
+                                        </div>
+                                        <div class="form-group">
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                placeholder="Enter Root"
+                                                v-model="form.root"
+                                            />
+                                            <small
+                                                class="text-danger"
+                                                v-if="errors.root"
+                                                >{{ errors.root[0] }}</small
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -190,13 +247,15 @@ export default {
         return {
             form: {
                 name: "",
-                email: "",
-                address: "",
-                phone: "",
-                salary: "",
-                joining_date: "",
+                code: "",
+                supplier_id: "",
+                category_id: "",
+                quantity: "",
+                selling_date: "",
                 photo: "",
-                nid: ""
+                buying_price: "",
+                selling_price: "",
+                root: ""
             },
             errors: []
         };
@@ -205,16 +264,26 @@ export default {
     mounted() {
         let id = this.$route.params.id;
         axios
-            .get("/api/employee/" + id)
+            .get("/api/product/" + id)
             .then(res => {
-                this.form = res.data.employee;
+                this.form = res.data.product;
             })
             .catch(error => {
                 this.errors = error.response.data.errors;
             });
     },
-    created() {},
-    computed: {},
+    created() {
+        this.$store.dispatch("getAllCategories");
+        this.$store.dispatch("getAllSuppliers");
+    },
+    computed: {
+        allCategories() {
+            return this.$store.getters.getAllCategories;
+        },
+        allSuppliers() {
+            return this.$store.getters.getAllSuppliers;
+        }
+    },
     methods: {
         onFileSelected(event) {
             let file = event.target.files[0];
@@ -237,25 +306,25 @@ export default {
             if (img.length > 100) {
                 return this.form.photo;
             } else {
-                return "/assets/img/employee/" + this.form.photo;
+                return "/assets/img/product/" + this.form.photo;
             }
         },
         updateForm() {
             let id = this.$route.params.id;
             axios
-                .patch("/api/employee/" + id, this.form)
+                .patch("/api/product/" + id, this.form)
                 .then(res => {
-                    this.$router.push({ name: "Employee" });
+                    this.$router.push({ name: "Product" });
                     Toast.fire({
                         icon: "success",
-                        title: "Employee Updated Succesfully"
+                        title: "Product Updated Succesfully"
                     });
                 })
                 .catch(error => {
                     this.errors = error.response.data.errors;
                     Toast.fire({
                         icon: "error",
-                        title: "Employee can't be Updated"
+                        title: "Product can't be Updated"
                     });
                 });
         }

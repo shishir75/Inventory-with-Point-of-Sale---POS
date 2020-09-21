@@ -97,7 +97,7 @@
                                         <td>
                                             <router-link
                                                 :to="{
-                                                    name: 'EditEmployee',
+                                                    name: 'EditProduct',
                                                     params: { id: product.id }
                                                 }"
                                                 class="btn btn-sm btn-info"
