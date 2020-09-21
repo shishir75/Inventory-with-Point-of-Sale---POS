@@ -24,6 +24,12 @@
             <div class="card shadow-sm my-5">
                 <div class="card-body p-0">
                     <div class="row">
+                        <p
+                            class="py-2 text-danger text-center"
+                            v-if="errors.message"
+                        >
+                            {{ errors.message }}
+                        </p>
                         <div class="col-12">
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mt-4">
@@ -213,6 +219,8 @@ export default {
                 })
                 .catch(error => {
                     this.errors = error.response.data.errors;
+                    // this.single_error = error.response.data.single_error;
+                    console.log(this.errors);
                     Toast.fire({
                         icon: "error",
                         title: "Salary can't be Created"

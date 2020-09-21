@@ -18,7 +18,8 @@
                     </li>
                     <li class="breadcrumb-item">Salary</li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        All Paid Salaries
+                        All Paid Monthly Salaries of
+                        {{ allSalaries[0].month_year }}
                     </li>
                 </ol>
             </div>
@@ -31,7 +32,8 @@
                             class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                         >
                             <h4 class="m-0 font-weight-bold">
-                                ALL PAID MONTHLY SALARY LISTS
+                                ALL PAID MONTHLY SALARY LISTS of
+                                {{ allSalaries[0].month_year }}
                             </h4>
                             <h6>
                                 <form>
@@ -51,8 +53,11 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th>Serial</th>
+                                        <th>Employee Name</th>
+                                        <th>Salary Amount</th>
+                                        <th>Salary Date</th>
                                         <th>Salary Month Year</th>
-                                        <th>Actions</th>
+                                        <th width="10%">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -61,19 +66,25 @@
                                         :key="salary.id"
                                     >
                                         <td>{{ index + 1 }}</td>
+                                        <td>{{ salary.employee.name }}</td>
+                                        <td>{{ salary.amount }}</td>
+                                        <td>{{ salary.date }}</td>
                                         <td>{{ salary.month_year }}</td>
                                         <td>
                                             <router-link
                                                 :to="{
-                                                    name: 'MonthlySalary',
-                                                    params: {
-                                                        month_year:
-                                                            salary.month_year
-                                                    }
+                                                    name: 'EditSalary',
+                                                    params: { id: salary.id }
                                                 }"
                                                 class="btn btn-sm btn-info"
-                                                >View Details</router-link
+                                                >Edit</router-link
                                             >
+                                            <button
+                                                @click="deleteData(salary.id)"
+                                                class="btn btn-sm btn-danger"
+                                            >
+                                                Delete
+                                            </button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -103,24 +114,59 @@ export default {
     },
     components: {},
     mounted() {
-        this.$store.dispatch("getAllMonths");
+        let month_year = this.$route.params.month_year;
+        this.$store.dispatch("getAllSalaries", month_year);
     },
     created() {},
     computed: {
-        allMonths() {
-            return this.$store.getters.getAllMonths;
+        allSalaries() {
+            return this.$store.getters.getAllSalaries;
         },
         filterSearch() {
             if (this.searchItem != "") {
-                return this.allMonths.filter(item => {
-                    return item.month_year.match(this.searchItem);
+                return this.allSalaries.filter(item => {
+                    return item.employee.name.match(this.searchItem);
                 });
             } else {
-                return this.allMonths;
+                return this.allSalaries;
             }
         }
     },
-    methods: {}
+    methods: {
+        deleteData(id) {
+            Swal.fire({
+                title: "Are you sure?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, Delete It!"
+            }).then(result => {
+                if (result.isConfirmed) {
+                    axios
+                        .delete("/api/salary/" + id)
+                        .then(res => {
+                            this.$store.dispatch("getAllSalaries");
+                            Toast.fire({
+                                icon: "success",
+                                title: "Salary Data Deleted Successfully"
+                            });
+                        })
+                        .catch(error => {
+                            Toast.fire({
+                                icon: "error",
+                                title: "Data cann't be Deleted"
+                            });
+                        });
+                } else {
+                    Toast.fire({
+                        icon: "info",
+                        title: "Salary Data Remains Unchanged"
+                    });
+                }
+            });
+        }
+    }
 };
 </script>
 

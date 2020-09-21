@@ -18,8 +18,7 @@ class CreateSalariesTable extends Migration
             $table->unsignedBigInteger( 'employee_id' );
             $table->float( 'amount' );
             $table->date( 'date' );
-            $table->string( 'month' );
-            $table->string( 'year' );
+            $table->string( 'month_year' );
             $table->timestamps();
 
             $table->foreign( 'employee_id' )->references( 'id' )->on( 'employees' )->onDelete( 'cascade' );

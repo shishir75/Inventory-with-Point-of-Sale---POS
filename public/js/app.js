@@ -5229,6 +5229,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5265,7 +5271,9 @@ __webpack_require__.r(__webpack_exports__);
           title: "Salary Created Succesfully"
         });
       })["catch"](function (error) {
-        _this.errors = error.response.data.errors;
+        _this.errors = error.response.data.errors; // this.single_error = error.response.data.single_error;
+
+        console.log(_this.errors);
         Toast.fire({
           icon: "error",
           title: "Salary can't be Created"
@@ -5539,6 +5547,143 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      searchItem: ""
+    };
+  },
+  components: {},
+  mounted: function mounted() {
+    this.$store.dispatch("getAllMonths");
+  },
+  created: function created() {},
+  computed: {
+    allMonths: function allMonths() {
+      return this.$store.getters.getAllMonths;
+    },
+    filterSearch: function filterSearch() {
+      var _this = this;
+
+      if (this.searchItem != "") {
+        return this.allMonths.filter(function (item) {
+          return item.month_year.match(_this.searchItem);
+        });
+      } else {
+        return this.allMonths;
+      }
+    }
+  },
+  methods: {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Admin/Salary/monthly.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Admin/Salary/monthly.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5558,7 +5703,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: {},
   mounted: function mounted() {
-    this.$store.dispatch("getAllSalaries");
+    var month_year = this.$route.params.month_year;
+    this.$store.dispatch("getAllSalaries", month_year);
   },
   created: function created() {},
   computed: {
@@ -5570,7 +5716,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.searchItem != "") {
         return this.allSalaries.filter(function (item) {
-          return item.details.match(_this.searchItem);
+          return item.employee.name.match(_this.searchItem);
         });
       } else {
         return this.allSalaries;
@@ -51760,6 +51906,16 @@ var render = function() {
       _c("div", { staticClass: "card shadow-sm my-5" }, [
         _c("div", { staticClass: "card-body p-0" }, [
           _c("div", { staticClass: "row" }, [
+            _vm.errors.message
+              ? _c("p", { staticClass: "py-2 text-danger text-center" }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.errors.message) +
+                      "\n                    "
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
             _c("div", { staticClass: "col-12" }, [
               _vm._m(0),
               _vm._v(" "),
@@ -52344,7 +52500,219 @@ var render = function() {
                 [
                   _c("h4", { staticClass: "m-0 font-weight-bold" }, [
                     _vm._v(
-                      "\n                            ALL PAID SALARY LISTS\n                        "
+                      "\n                            ALL PAID MONTHLY SALARY LISTS\n                        "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("h6", [
+                    _c("form", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.searchItem,
+                            expression: "searchItem"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", placeholder: "Search...." },
+                        domProps: { value: _vm.searchItem },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.searchItem = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "table-responsive" }, [
+                _c(
+                  "table",
+                  {
+                    staticClass:
+                      "table align-items-center table-flush table-bordered"
+                  },
+                  [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.filterSearch, function(salary, index) {
+                        return _c("tr", { key: salary.id }, [
+                          _c("td", [_vm._v(_vm._s(index + 1))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(salary.month_year))]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  staticClass: "btn btn-sm btn-info",
+                                  attrs: {
+                                    to: {
+                                      name: "MonthlySalary",
+                                      params: {
+                                        month_year: salary.month_year
+                                      }
+                                    }
+                                  }
+                                },
+                                [_vm._v("View Details")]
+                              )
+                            ],
+                            1
+                          )
+                        ])
+                      }),
+                      0
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "h3",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.filterSearch == "",
+                        expression: "filterSearch == ''"
+                      }
+                    ],
+                    staticClass: "text-center text-danger my-5"
+                  },
+                  [
+                    _vm._v(
+                      "\n                            No Search Result Found\n                        "
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-footer" })
+            ])
+          ])
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", [_vm._v("Serial")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Salary Month Year")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Actions")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Admin/Salary/monthly.vue?vue&type=template&id=3d12ec93&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Admin/Salary/monthly.vue?vue&type=template&id=3d12ec93& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "container-fluid", attrs: { id: "container-wrapper" } },
+      [
+        _c(
+          "div",
+          {
+            staticClass:
+              "d-sm-flex align-items-center justify-content-between mb-4"
+          },
+          [
+            _c(
+              "router-link",
+              {
+                staticClass: "btn btn-info text-white mb-0 text-gray-800",
+                attrs: { to: { name: "CreateSalary" } }
+              },
+              [_vm._v("Pay Salary")]
+            ),
+            _vm._v(" "),
+            _c("ol", { staticClass: "breadcrumb" }, [
+              _c(
+                "li",
+                { staticClass: "breadcrumb-item" },
+                [
+                  _c("router-link", { attrs: { to: { name: "Dashboard" } } }, [
+                    _vm._v("Dashboard")
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("li", { staticClass: "breadcrumb-item" }, [_vm._v("Salary")]),
+              _vm._v(" "),
+              _c(
+                "li",
+                {
+                  staticClass: "breadcrumb-item active",
+                  attrs: { "aria-current": "page" }
+                },
+                [
+                  _vm._v(
+                    "\n                    All Paid Monthly Salaries of\n                    " +
+                      _vm._s(_vm.allSalaries[0].month_year) +
+                      "\n                "
+                  )
+                ]
+              )
+            ])
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-lg-12 mb-4" }, [
+            _c("div", { staticClass: "card" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "card-header py-3 d-flex flex-row align-items-center justify-content-between"
+                },
+                [
+                  _c("h4", { staticClass: "m-0 font-weight-bold" }, [
+                    _vm._v(
+                      "\n                            ALL PAID MONTHLY SALARY LISTS of\n                            " +
+                        _vm._s(_vm.allSalaries[0].month_year) +
+                        "\n                        "
                     )
                   ]),
                   _vm._v(" "),
@@ -52398,9 +52766,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(salary.date))]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(salary.month))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(salary.year))]),
+                          _c("td", [_vm._v(_vm._s(salary.month_year))]),
                           _vm._v(" "),
                           _c(
                             "td",
@@ -52489,9 +52855,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Salary Date")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Salary Month")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Salary Year")]),
+        _c("th", [_vm._v("Salary Month Year")]),
         _vm._v(" "),
         _c("th", { attrs: { width: "10%" } }, [_vm._v("Actions")])
       ])
@@ -73256,6 +73620,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Admin/Salary/monthly.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/Admin/Salary/monthly.vue ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _monthly_vue_vue_type_template_id_3d12ec93___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./monthly.vue?vue&type=template&id=3d12ec93& */ "./resources/js/components/Admin/Salary/monthly.vue?vue&type=template&id=3d12ec93&");
+/* harmony import */ var _monthly_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./monthly.vue?vue&type=script&lang=js& */ "./resources/js/components/Admin/Salary/monthly.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _monthly_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _monthly_vue_vue_type_template_id_3d12ec93___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _monthly_vue_vue_type_template_id_3d12ec93___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Admin/Salary/monthly.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Admin/Salary/monthly.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/Admin/Salary/monthly.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_monthly_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./monthly.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Admin/Salary/monthly.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_monthly_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Admin/Salary/monthly.vue?vue&type=template&id=3d12ec93&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/Admin/Salary/monthly.vue?vue&type=template&id=3d12ec93& ***!
+  \*****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_monthly_vue_vue_type_template_id_3d12ec93___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./monthly.vue?vue&type=template&id=3d12ec93& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Admin/Salary/monthly.vue?vue&type=template&id=3d12ec93&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_monthly_vue_vue_type_template_id_3d12ec93___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_monthly_vue_vue_type_template_id_3d12ec93___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Admin/Supplier/create.vue":
 /*!***********************************************************!*\
   !*** ./resources/js/components/Admin/Supplier/create.vue ***!
@@ -74138,7 +74571,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Admin_Expense_edit_vue__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/Admin/Expense/edit.vue */ "./resources/js/components/Admin/Expense/edit.vue");
 /* harmony import */ var _components_Admin_Salary_index_vue__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/Admin/Salary/index.vue */ "./resources/js/components/Admin/Salary/index.vue");
 /* harmony import */ var _components_Admin_Salary_create_vue__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/Admin/Salary/create.vue */ "./resources/js/components/Admin/Salary/create.vue");
-/* harmony import */ var _components_Admin_Salary_edit_vue__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/Admin/Salary/edit.vue */ "./resources/js/components/Admin/Salary/edit.vue");
+/* harmony import */ var _components_Admin_Salary_monthly_vue__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/Admin/Salary/monthly.vue */ "./resources/js/components/Admin/Salary/monthly.vue");
+/* harmony import */ var _components_Admin_Salary_edit_vue__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/Admin/Salary/edit.vue */ "./resources/js/components/Admin/Salary/edit.vue");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]); // Frontend Components
@@ -74173,6 +74607,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 
 
  // Salary Module Components
+
 
 
 
@@ -74276,9 +74711,13 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       name: "CreateSalary",
       component: _components_Admin_Salary_create_vue__WEBPACK_IMPORTED_MODULE_25__["default"]
     }, {
+      path: "salary/:month_year/monthly",
+      name: "MonthlySalary",
+      component: _components_Admin_Salary_monthly_vue__WEBPACK_IMPORTED_MODULE_26__["default"]
+    }, {
       path: "salary/:id/edit",
       name: "EditSalary",
-      component: _components_Admin_Salary_edit_vue__WEBPACK_IMPORTED_MODULE_26__["default"]
+      component: _components_Admin_Salary_edit_vue__WEBPACK_IMPORTED_MODULE_27__["default"]
     }]
   }, {
     path: "*",
@@ -74330,6 +74769,7 @@ __webpack_require__.r(__webpack_exports__);
     allCategories: [],
     allProducts: [],
     allExpenses: [],
+    allMonths: [],
     allSalaries: []
   },
   getters: {
@@ -74350,6 +74790,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     getAllExpenses: function getAllExpenses(state) {
       return state.allExpenses;
+    },
+    getAllMonths: function getAllMonths(state) {
+      return state.allMonths;
     },
     getAllSalaries: function getAllSalaries(state) {
       return state.allSalaries;
@@ -74373,6 +74816,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     getAllExpenses: function getAllExpenses(state, payload) {
       state.allExpenses = payload;
+    },
+    getAllMonths: function getAllMonths(state, payload) {
+      state.allMonths = payload;
     },
     getAllSalaries: function getAllSalaries(state, payload) {
       state.allSalaries = payload;
@@ -74404,8 +74850,13 @@ __webpack_require__.r(__webpack_exports__);
         context.commit("getAllExpenses", res.data.expenses);
       });
     },
-    getAllSalaries: function getAllSalaries(context) {
+    getAllMonths: function getAllMonths(context) {
       axios.get("/api/salary").then(function (res) {
+        context.commit("getAllMonths", res.data.salaries);
+      });
+    },
+    getAllSalaries: function getAllSalaries(context, month_year) {
+      axios.get("/api/salary/" + month_year + "/monthly").then(function (res) {
         context.commit("getAllSalaries", res.data.salaries);
       });
     }

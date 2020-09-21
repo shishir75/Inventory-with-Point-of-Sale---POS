@@ -45,6 +45,7 @@ import EditExpense from "./components/Admin/Expense/edit.vue";
 // Salary Module Components
 import Salary from "./components/Admin/Salary/index.vue";
 import CreateSalary from "./components/Admin/Salary/create.vue";
+import MonthlySalary from "./components/Admin/Salary/monthly.vue";
 import EditSalary from "./components/Admin/Salary/edit.vue";
 
 const router = new VueRouter({
@@ -166,6 +167,11 @@ const router = new VueRouter({
                     path: "salary/pay",
                     name: "CreateSalary",
                     component: CreateSalary
+                },
+                {
+                    path: "salary/:month_year/monthly",
+                    name: "MonthlySalary",
+                    component: MonthlySalary
                 },
                 {
                     path: "salary/:id/edit",

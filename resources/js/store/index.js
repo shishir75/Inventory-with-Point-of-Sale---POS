@@ -6,6 +6,7 @@ export default {
         allCategories: [],
         allProducts: [],
         allExpenses: [],
+        allMonths: [],
         allSalaries: []
     },
     getters: {
@@ -26,6 +27,9 @@ export default {
         },
         getAllExpenses(state) {
             return state.allExpenses;
+        },
+        getAllMonths(state) {
+            return state.allMonths;
         },
         getAllSalaries(state) {
             return state.allSalaries;
@@ -49,6 +53,9 @@ export default {
         },
         getAllExpenses(state, payload) {
             state.allExpenses = payload;
+        },
+        getAllMonths(state, payload) {
+            state.allMonths = payload;
         },
         getAllSalaries(state, payload) {
             state.allSalaries = payload;
@@ -80,8 +87,13 @@ export default {
                 context.commit("getAllExpenses", res.data.expenses);
             });
         },
-        getAllSalaries(context) {
+        getAllMonths(context) {
             axios.get("/api/salary").then(res => {
+                context.commit("getAllMonths", res.data.salaries);
+            });
+        },
+        getAllSalaries(context, month_year) {
+            axios.get("/api/salary/" + month_year + "/monthly").then(res => {
                 context.commit("getAllSalaries", res.data.salaries);
             });
         }

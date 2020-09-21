@@ -15,7 +15,16 @@ class SalaryController extends Controller
      */
     public function index()
     {
-        $salaries = Salary::with( 'employee' )->latest()->get();
+        $salaries = Salary::select( 'month_year' )->groupBy( 'month_year' )->get();
+
+        return response()->json( [
+            'salaries' => $salaries,
+        ], 200 );
+    }
+
+    public function month_year( $month_year )
+    {
+        $salaries = Salary::with( 'employee' )->where( 'month_year', $month_year )->get();
 
         return response()->json( [
             'salaries' => $salaries,
@@ -37,16 +46,17 @@ class SalaryController extends Controller
             'year'        => 'required|integer|min:2000|max:2099',
         ] );
 
-        $check = Salary::where( 'employee_id', $request->employee_id )->where( 'month', $request->month )->where( 'year', $request->year )->first();
+        $month_year = $request->month . "_" . $request->year;
+
+        $check = Salary::where( 'employee_id', $request->employee_id )->where( 'month_year', $month_year )->first();
 
         if ( $check ) {
-            return response()->json( ['error' => 'Salary already paid for this employee in this month'], 404 );
+            return response()->json( ['message' => 'Salary already paid for this employee in this month'] );
         } else {
             $salary = new Salary();
             $salary->employee_id = $request->employee_id;
             $salary->amount = $request->amount;
-            $salary->month = $request->month;
-            $salary->year = $request->year;
+            $salary->month_year = $month_year;
             $salary->date = date( 'Y-m-d' );
             $salary->save();
         }
