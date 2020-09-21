@@ -3918,6 +3918,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4006,6 +4017,17 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -48648,6 +48670,8 @@ var render = function() {
                   _c("div", { staticClass: "row login-form" }, [
                     _c("div", { staticClass: "col-lg-6" }, [
                       _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Product Name")]),
+                        _vm._v(" "),
                         _c("input", {
                           directives: [
                             {
@@ -48682,6 +48706,8 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Product Code")]),
+                        _vm._v(" "),
                         _c("input", {
                           directives: [
                             {
@@ -48715,6 +48741,8 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Product Quantity")]),
+                        _vm._v(" "),
                         _c("input", {
                           directives: [
                             {
@@ -48752,7 +48780,48 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Product Buying Date")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.buying_date,
+                              expression: "form.buying_date"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "date",
+                            placeholder: "Enter Buying Date"
+                          },
+                          domProps: { value: _vm.form.buying_date },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "buying_date",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.errors.buying_date
+                          ? _c("small", { staticClass: "text-danger" }, [
+                              _vm._v(_vm._s(_vm.errors.buying_date[0]))
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
                         _c("div", { staticClass: "custom-file" }, [
+                          _c("label", [_vm._v("Product Photo")]),
+                          _vm._v(" "),
                           _c("input", {
                             staticClass: "custom-file-input",
                             attrs: { type: "file", id: "customFile" },
@@ -48793,6 +48862,8 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col-lg-6" }, [
                       _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Product Category")]),
+                        _vm._v(" "),
                         _c(
                           "select",
                           {
@@ -48856,6 +48927,8 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Product Supplier")]),
+                        _vm._v(" "),
                         _c(
                           "select",
                           {
@@ -48919,6 +48992,8 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Product Buying Price")]),
+                        _vm._v(" "),
                         _c("input", {
                           directives: [
                             {
@@ -48956,6 +49031,8 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Product Selling Price")]),
+                        _vm._v(" "),
                         _c("input", {
                           directives: [
                             {
@@ -48993,43 +49070,8 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.buying_date,
-                              expression: "form.buying_date"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "date",
-                            placeholder: "Enter Buying Date"
-                          },
-                          domProps: { value: _vm.form.buying_date },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.form,
-                                "buying_date",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
+                        _c("label", [_vm._v("Product Root")]),
                         _vm._v(" "),
-                        _vm.errors.buying_date
-                          ? _c("small", { staticClass: "text-danger" }, [
-                              _vm._v(_vm._s(_vm.errors.buying_date[0]))
-                            ])
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
                         _c("input", {
                           directives: [
                             {
@@ -49130,7 +49172,7 @@ var render = function() {
             "router-link",
             {
               staticClass: "btn btn-info text-white mb-0 text-gray-800",
-              attrs: { to: { name: "Employee" } }
+              attrs: { to: { name: "Product" } }
             },
             [_vm._v("All Products")]
           ),
@@ -49188,6 +49230,8 @@ var render = function() {
                   _c("div", { staticClass: "row login-form" }, [
                     _c("div", { staticClass: "col-lg-6" }, [
                       _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Product Name")]),
+                        _vm._v(" "),
                         _c("input", {
                           directives: [
                             {
@@ -49222,6 +49266,8 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Product Code")]),
+                        _vm._v(" "),
                         _c("input", {
                           directives: [
                             {
@@ -49255,6 +49301,8 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Product Quantity")]),
+                        _vm._v(" "),
                         _c("input", {
                           directives: [
                             {
@@ -49292,7 +49340,48 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Product Buying Date")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.buying_date,
+                              expression: "form.buying_date"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "date",
+                            placeholder: "Enter Buying Date"
+                          },
+                          domProps: { value: _vm.form.buying_date },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "buying_date",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.errors.buying_date
+                          ? _c("small", { staticClass: "text-danger" }, [
+                              _vm._v(_vm._s(_vm.errors.buying_date[0]))
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
                         _c("div", { staticClass: "custom-file" }, [
+                          _c("label", [_vm._v("Product Photo")]),
+                          _vm._v(" "),
                           _c("input", {
                             staticClass: "custom-file-input",
                             attrs: { type: "file", id: "customFile" },
@@ -49333,6 +49422,8 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col-lg-6" }, [
                       _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Product Category")]),
+                        _vm._v(" "),
                         _c(
                           "select",
                           {
@@ -49396,6 +49487,8 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Product Supplier")]),
+                        _vm._v(" "),
                         _c(
                           "select",
                           {
@@ -49459,6 +49552,8 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Product Buying Price")]),
+                        _vm._v(" "),
                         _c("input", {
                           directives: [
                             {
@@ -49496,6 +49591,8 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Product Selling Price")]),
+                        _vm._v(" "),
                         _c("input", {
                           directives: [
                             {
@@ -49533,43 +49630,8 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.buying_date,
-                              expression: "form.buying_date"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "date",
-                            placeholder: "Enter Buying Date"
-                          },
-                          domProps: { value: _vm.form.buying_date },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.form,
-                                "buying_date",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
+                        _c("label", [_vm._v("Product Root")]),
                         _vm._v(" "),
-                        _vm.errors.buying_date
-                          ? _c("small", { staticClass: "text-danger" }, [
-                              _vm._v(_vm._s(_vm.errors.buying_date[0]))
-                            ])
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
                         _c("input", {
                           directives: [
                             {

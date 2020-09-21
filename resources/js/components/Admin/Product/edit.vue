@@ -5,7 +5,7 @@
                 class="d-sm-flex align-items-center justify-content-between mb-4"
             >
                 <router-link
-                    :to="{ name: 'Employee' }"
+                    :to="{ name: 'Product' }"
                     class="btn btn-info text-white mb-0 text-gray-800"
                     >All Products</router-link
                 >
@@ -41,6 +41,7 @@
                                 <div class="row login-form">
                                     <div class="col-lg-6">
                                         <div class="form-group">
+                                            <label>Product Name</label>
                                             <input
                                                 type="text"
                                                 class="form-control"
@@ -56,6 +57,7 @@
                                         </div>
 
                                         <div class="form-group">
+                                            <label>Product Code</label>
                                             <input
                                                 type="text"
                                                 class="form-control"
@@ -69,6 +71,7 @@
                                             >
                                         </div>
                                         <div class="form-group">
+                                            <label>Product Quantity</label>
                                             <input
                                                 type="number"
                                                 class="form-control"
@@ -82,7 +85,24 @@
                                             >
                                         </div>
                                         <div class="form-group">
+                                            <label>Product Buying Date</label>
+                                            <input
+                                                type="date"
+                                                class="form-control"
+                                                placeholder="Enter Buying Date"
+                                                v-model="form.buying_date"
+                                            />
+                                            <small
+                                                class="text-danger"
+                                                v-if="errors.buying_date"
+                                                >{{
+                                                    errors.buying_date[0]
+                                                }}</small
+                                            >
+                                        </div>
+                                        <div class="form-group">
                                             <div class="custom-file">
+                                                <label>Product Photo</label>
                                                 <input
                                                     type="file"
                                                     class="custom-file-input"
@@ -114,6 +134,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
+                                            <label>Product Category</label>
                                             <select
                                                 class="form-control mb-3"
                                                 v-model="form.category_id"
@@ -140,6 +161,7 @@
                                             >
                                         </div>
                                         <div class="form-group">
+                                            <label>Product Supplier</label>
                                             <select
                                                 class="form-control mb-3"
                                                 v-model="form.supplier_id"
@@ -166,6 +188,7 @@
                                             >
                                         </div>
                                         <div class="form-group">
+                                            <label>Product Buying Price</label>
                                             <input
                                                 type="number"
                                                 class="form-control"
@@ -181,6 +204,7 @@
                                             >
                                         </div>
                                         <div class="form-group">
+                                            <label>Product Selling Price</label>
                                             <input
                                                 type="number"
                                                 class="form-control"
@@ -195,22 +219,9 @@
                                                 }}</small
                                             >
                                         </div>
+
                                         <div class="form-group">
-                                            <input
-                                                type="date"
-                                                class="form-control"
-                                                placeholder="Enter Buying Date"
-                                                v-model="form.buying_date"
-                                            />
-                                            <small
-                                                class="text-danger"
-                                                v-if="errors.buying_date"
-                                                >{{
-                                                    errors.buying_date[0]
-                                                }}</small
-                                            >
-                                        </div>
-                                        <div class="form-group">
+                                            <label>Product Root</label>
                                             <input
                                                 type="text"
                                                 class="form-control"
