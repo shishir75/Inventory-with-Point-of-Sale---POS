@@ -53,6 +53,9 @@ import Customer from "./components/Admin/Customer/index.vue";
 import CreateCustomer from "./components/Admin/Customer/create.vue";
 import EditCustomer from "./components/Admin/Customer/edit.vue";
 
+// POS Module Componenet
+import Pos from "./components/Admin/Pos/index.vue";
+
 const router = new VueRouter({
     mode: "history",
     // linkExactActiveClass: "text-dark bg-primary",
@@ -197,6 +200,11 @@ const router = new VueRouter({
                     path: "customer/:id/edit",
                     name: "EditCustomer",
                     component: EditCustomer
+                },
+                {
+                    path: "pos",
+                    name: "Pos",
+                    component: Pos
                 }
             ]
         },
