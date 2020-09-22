@@ -35,7 +35,7 @@ class ProductController extends Controller
         $request->validate( [
             'name'          => 'required|unique:products|max:255',
             'code'          => 'required|unique:products',
-            'quantity'      => 'required|integer',
+            'quantity'      => 'required|integer|gte:0',
             'category_id'   => 'required|integer',
             'supplier_id'   => 'required|integer',
             'buying_date'   => 'required|date',
@@ -101,7 +101,7 @@ class ProductController extends Controller
         $request->validate( [
             'name'          => 'required|unique:products,name,' . $product->id,
             'code'          => 'required|unique:products,code,' . $product->id,
-            'quantity'      => 'required|integer',
+            'quantity'      => 'required|integer|gte:0',
             'category_id'   => 'required|integer',
             'supplier_id'   => 'required|integer',
             'buying_date'   => 'required|date',
@@ -163,7 +163,7 @@ class ProductController extends Controller
     public function update_stock( Request $request, $id )
     {
         $request->validate( [
-            'quantity' => 'required|integer',
+            'quantity' => 'required|integer|gte:0',
         ] );
 
         $product = Product::findOrFail( $id );
