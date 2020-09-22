@@ -46,11 +46,11 @@
                         </div>
                         <div class="table-responsive">
                             <table
-                                class="table align-items-center table-flush table-bordered"
+                                class="table align-items-center table-flush table-bordered text-center"
                             >
                                 <thead class="thead-light">
                                     <tr>
-                                        <th>Serial</th>
+                                        <th>S.L</th>
                                         <th>Product Name</th>
                                         <th>Product Code</th>
                                         <th>Photo</th>
@@ -58,10 +58,9 @@
                                         <th>Supplier</th>
                                         <th>Buying Price</th>
                                         <th>Selling Price</th>
+                                        <th>Status</th>
                                         <th>Quantity</th>
-                                        <th>Root</th>
-                                        <th>Buying Date</th>
-                                        <th width="10%">Actions</th>
+                                        <th width="13%">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -91,9 +90,20 @@
                                         <td>{{ product.buying_price }}</td>
 
                                         <td>{{ product.selling_price }}</td>
+                                        <td>
+                                            <span
+                                                v-if="product.quantity > 0"
+                                                class="badge badge-success"
+                                                >Available</span
+                                            >
+                                            <span
+                                                v-else
+                                                class="badge badge-danger"
+                                                >Stock Out</span
+                                            >
+                                        </td>
                                         <td>{{ product.quantity }}</td>
-                                        <td>{{ product.root }}</td>
-                                        <td>{{ product.buying_date }}</td>
+
                                         <td>
                                             <router-link
                                                 :to="{
@@ -103,6 +113,19 @@
                                                 class="btn btn-sm btn-info"
                                                 >Edit</router-link
                                             >
+
+                                            <button
+                                                type="button"
+                                                class="btn btn-sm btn-primary"
+                                                data-toggle="modal"
+                                                data-target="#exampleModalCenter"
+                                                id="#modalCenter"
+                                                @click.prevent="
+                                                    editStock(product.id)
+                                                "
+                                            >
+                                                Stock
+                                            </button>
                                             <button
                                                 @click="deleteData(product.id)"
                                                 class="btn btn-sm btn-danger"
@@ -124,6 +147,70 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Modal Center -->
+            <div
+                class="modal fade"
+                id="exampleModalCenter"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="exampleModalCenterTitle"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5
+                                class="modal-title"
+                                id="exampleModalCenterTitle"
+                            >
+                                Update Product Stock
+                            </h5>
+                            <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                            >
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Product Quantity</label>
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    placeholder="Enter Product Quantity"
+                                    v-model="form.quantity"
+                                />
+                                <small
+                                    class="text-danger"
+                                    v-if="errors.quantity"
+                                    >{{ errors.quantity[0] }}</small
+                                >
+                            </div>
+                            <input type="hidden" v-model="form.product_id" />
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-outline-secondary"
+                                data-dismiss="modal"
+                            >
+                                Close
+                            </button>
+                            <button
+                                type="button"
+                                @click.prevent="updateStock"
+                                class="btn btn-primary"
+                            >
+                                Update
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!--Row-->
         </div>
     </div>
@@ -133,7 +220,12 @@
 export default {
     data() {
         return {
-            searchItem: ""
+            searchItem: "",
+            form: {
+                quantity: "",
+                product_id: ""
+            },
+            errors: []
         };
     },
     components: {},
@@ -191,6 +283,39 @@ export default {
                     });
                 }
             });
+        },
+        editStock(id) {
+            axios
+                .get("/api/product/" + id)
+                .then(res => {
+                    this.form.quantity = res.data.product.quantity;
+                    this.form.product_id = res.data.product.id;
+                })
+                .catch(error => {
+                    this.errors = error.response.data.errors;
+                });
+        },
+        updateStock() {
+            let id = this.form.product_id;
+            axios
+                .put("/api/product/stock/" + id, {
+                    quantity: this.form.quantity
+                })
+                .then(res => {
+                    $("#exampleModalCenter").modal("hide");
+                    this.$store.dispatch("getAllProducts");
+                    Toast.fire({
+                        icon: "success",
+                        title: "Product Stock Updated Successfully"
+                    });
+                })
+                .catch(error => {
+                    this.errors = error.response.data.errors;
+                    Toast.fire({
+                        icon: "error",
+                        title: "Product Stock can't be Updated"
+                    });
+                });
         }
     }
 };

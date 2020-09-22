@@ -4972,10 +4972,102 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      searchItem: ""
+      searchItem: "",
+      form: {
+        quantity: "",
+        product_id: ""
+      },
+      errors: []
     };
   },
   components: {},
@@ -5034,6 +5126,39 @@ __webpack_require__.r(__webpack_exports__);
             title: "Product Data Remains Unchanged"
           });
         }
+      });
+    },
+    editStock: function editStock(id) {
+      var _this3 = this;
+
+      axios.get("/api/product/" + id).then(function (res) {
+        _this3.form.quantity = res.data.product.quantity;
+        _this3.form.product_id = res.data.product.id;
+      })["catch"](function (error) {
+        _this3.errors = error.response.data.errors;
+      });
+    },
+    updateStock: function updateStock() {
+      var _this4 = this;
+
+      var id = this.form.product_id;
+      axios.put("/api/product/stock/" + id, {
+        quantity: this.form.quantity
+      }).then(function (res) {
+        $("#exampleModalCenter").modal("hide");
+
+        _this4.$store.dispatch("getAllProducts");
+
+        Toast.fire({
+          icon: "success",
+          title: "Product Stock Updated Successfully"
+        });
+      })["catch"](function (error) {
+        _this4.errors = error.response.data.errors;
+        Toast.fire({
+          icon: "error",
+          title: "Product Stock can't be Updated"
+        });
       });
     }
   }
@@ -51790,7 +51915,7 @@ var render = function() {
                   "table",
                   {
                     staticClass:
-                      "table align-items-center table-flush table-bordered"
+                      "table align-items-center table-flush table-bordered text-center"
                   },
                   [
                     _vm._m(0),
@@ -51830,11 +51955,21 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(product.selling_price))]),
                           _vm._v(" "),
+                          _c("td", [
+                            product.quantity > 0
+                              ? _c(
+                                  "span",
+                                  { staticClass: "badge badge-success" },
+                                  [_vm._v("Available")]
+                                )
+                              : _c(
+                                  "span",
+                                  { staticClass: "badge badge-danger" },
+                                  [_vm._v("Stock Out")]
+                                )
+                          ]),
+                          _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(product.quantity))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(product.root))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(product.buying_date))]),
                           _vm._v(" "),
                           _c(
                             "td",
@@ -51851,6 +51986,30 @@ var render = function() {
                                   }
                                 },
                                 [_vm._v("Edit")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-sm btn-primary",
+                                  attrs: {
+                                    type: "button",
+                                    "data-toggle": "modal",
+                                    "data-target": "#exampleModalCenter",
+                                    id: "#modalCenter"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.editStock(product.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                            Stock\n                                        "
+                                  )
+                                ]
                               ),
                               _vm._v(" "),
                               _c(
@@ -51903,7 +52062,127 @@ var render = function() {
               _c("div", { staticClass: "card-footer" })
             ])
           ])
-        ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "modal fade",
+            attrs: {
+              id: "exampleModalCenter",
+              tabindex: "-1",
+              role: "dialog",
+              "aria-labelledby": "exampleModalCenterTitle",
+              "aria-hidden": "true"
+            }
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass: "modal-dialog modal-dialog-centered",
+                attrs: { role: "document" }
+              },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Product Quantity")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.quantity,
+                            expression: "form.quantity"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "number",
+                          placeholder: "Enter Product Quantity"
+                        },
+                        domProps: { value: _vm.form.quantity },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.form, "quantity", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.quantity
+                        ? _c("small", { staticClass: "text-danger" }, [
+                            _vm._v(_vm._s(_vm.errors.quantity[0]))
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.product_id,
+                          expression: "form.product_id"
+                        }
+                      ],
+                      attrs: { type: "hidden" },
+                      domProps: { value: _vm.form.product_id },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "product_id", $event.target.value)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-outline-secondary",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Close\n                        "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.updateStock($event)
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Update\n                        "
+                        )
+                      ]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        )
       ]
     )
   ])
@@ -51915,7 +52194,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", { staticClass: "thead-light" }, [
       _c("tr", [
-        _c("th", [_vm._v("Serial")]),
+        _c("th", [_vm._v("S.L")]),
         _vm._v(" "),
         _c("th", [_vm._v("Product Name")]),
         _vm._v(" "),
@@ -51931,14 +52210,44 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Selling Price")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Status")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Quantity")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Root")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Buying Date")]),
-        _vm._v(" "),
-        _c("th", { attrs: { width: "10%" } }, [_vm._v("Actions")])
+        _c("th", { attrs: { width: "13%" } }, [_vm._v("Actions")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        {
+          staticClass: "modal-title",
+          attrs: { id: "exampleModalCenterTitle" }
+        },
+        [
+          _vm._v(
+            "\n                            Update Product Stock\n                        "
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
     ])
   }
 ]

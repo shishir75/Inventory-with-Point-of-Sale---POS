@@ -36,4 +36,5 @@ Route::group( ['namespace' => 'Admin', 'middleware' => 'auth:sanctum'], function
         '/salary'   => 'SalaryController',
     ] );
     Route::get( '/salary/{month_year}/monthly', "SalaryController@month_year" );
+    Route::put( '/product/stock/{id}', "ProductController@update_stock" );
 } );
