@@ -86,7 +86,39 @@ class CustomerController extends Controller
      */
     public function update( Request $request, Customer $customer )
     {
-        //
+        $request->validate( [
+            'name'    => 'required|unique:customers,name,' . $customer->id,
+            'email'   => 'required|email|unique:customers,email,' . $customer->id,
+            'address' => 'required',
+            'phone'   => 'required|numeric|unique:customers,phone,' . $customer->id,
+        ] );
+
+        if ( $request->photo ) {
+            $position = strpos( $request->photo, ';' );
+            $sub = Str::substr( $request->photo, 0, $position );
+            $extention = explode( '/', $sub )[1];
+
+            $img_name = time() . '.' . $extention;
+            $path = public_path() . "/assets/img/customer/";
+
+            $img = Image::make( $request->photo );
+            $img->resize( 300, 200 );
+            $img->save( $path . $img_name );
+
+            if ( $customer->photo ) {
+                @unlink( public_path() . "/assets/img/customer/" . $customer->photo );
+            }
+
+        } else {
+            $img_name = $customer->photo;
+        }
+
+        $customer->name = $request->name;
+        $customer->email = $request->email;
+        $customer->address = $request->address;
+        $customer->phone = $request->phone;
+        $customer->photo = $img_name;
+        $customer->save();
     }
 
     /**
@@ -97,6 +129,10 @@ class CustomerController extends Controller
      */
     public function destroy( Customer $customer )
     {
-        //
+        $photo = $customer->photo;
+        if ( $photo ) {
+            @unlink( public_path() . "/assets/img/customer/" . $photo );
+        }
+        $customer->delete();
     }
 }

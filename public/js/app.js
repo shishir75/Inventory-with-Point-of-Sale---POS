@@ -2698,21 +2698,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2721,7 +2706,6 @@ __webpack_require__.r(__webpack_exports__);
         email: "",
         address: "",
         phone: "",
-        shop_name: "",
         photo: ""
       },
       errors: []
@@ -2732,8 +2716,8 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     var id = this.$route.params.id;
-    axios.get("/api/supplier/" + id).then(function (res) {
-      _this.form = res.data.supplier;
+    axios.get("/api/customer/" + id).then(function (res) {
+      _this.form = res.data.customer;
     })["catch"](function (error) {
       _this.errors = error.response.data.errors;
     });
@@ -2768,27 +2752,27 @@ __webpack_require__.r(__webpack_exports__);
       if (img.length > 100) {
         return this.form.photo;
       } else {
-        return "/assets/img/supplier/" + this.form.photo;
+        return "/assets/img/customer/" + this.form.photo;
       }
     },
     updateForm: function updateForm() {
       var _this3 = this;
 
       var id = this.$route.params.id;
-      axios.patch("/api/supplier/" + id, this.form).then(function (res) {
+      axios.put("/api/customer/" + id, this.form).then(function (res) {
         _this3.$router.push({
-          name: "Supplier"
+          name: "Customer"
         });
 
         Toast.fire({
           icon: "success",
-          title: "Supplier Updated Succesfully"
+          title: "Customer Updated Succesfully"
         });
       })["catch"](function (error) {
         _this3.errors = error.response.data.errors;
         Toast.fire({
           icon: "error",
-          title: "Supplier can't be Updated"
+          title: "Customer can't be Updated"
         });
       });
     }
@@ -49030,9 +49014,9 @@ var render = function() {
             "router-link",
             {
               staticClass: "btn btn-info text-white mb-0 text-gray-800",
-              attrs: { to: { name: "Employee" } }
+              attrs: { to: { name: "Customer" } }
             },
-            [_vm._v("All Suppliers")]
+            [_vm._v("All Customers")]
           ),
           _vm._v(" "),
           _c("ol", { staticClass: "breadcrumb" }, [
@@ -49047,10 +49031,10 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _c("li", { staticClass: "breadcrumb-item" }, [_vm._v("Supplier")]),
+            _c("li", { staticClass: "breadcrumb-item" }, [_vm._v("Customer")]),
             _vm._v(" "),
             _c("li", { staticClass: "breadcrumb-item" }, [
-              _vm._v("All Suppliers")
+              _vm._v("All Customers")
             ]),
             _vm._v(" "),
             _c(
@@ -49059,7 +49043,7 @@ var render = function() {
                 staticClass: "breadcrumb-item active",
                 attrs: { "aria-current": "page" }
               },
-              [_vm._v("\n                    Edit Supplier\n                ")]
+              [_vm._v("\n                    Edit Customer\n                ")]
             )
           ])
         ],
@@ -49101,7 +49085,7 @@ var render = function() {
                           attrs: {
                             type: "text",
                             id: "exampleInputFirstName",
-                            placeholder: "Enter Your Full Name"
+                            placeholder: "Enter Customer Full Name"
                           },
                           domProps: { value: _vm.form.name },
                           on: {
@@ -49117,43 +49101,6 @@ var render = function() {
                         _vm.errors.name
                           ? _c("small", { staticClass: "text-danger" }, [
                               _vm._v(_vm._s(_vm.errors.name[0]))
-                            ])
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.shop_name,
-                              expression: "form.shop_name"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            placeholder: "Enter Shop Name"
-                          },
-                          domProps: { value: _vm.form.shop_name },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.form,
-                                "shop_name",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _vm.errors.shop_name
-                          ? _c("small", { staticClass: "text-danger" }, [
-                              _vm._v(_vm._s(_vm.errors.shop_name[0]))
                             ])
                           : _vm._e()
                       ]),
@@ -49222,7 +49169,7 @@ var render = function() {
                               staticClass: "rounded",
                               attrs: {
                                 src: _vm.postPhoto(),
-                                alt: "Supplier Photo",
+                                alt: "Customer Photo",
                                 height: "70px",
                                 width: "70px"
                               }
@@ -49282,7 +49229,7 @@ var render = function() {
                             name: "address",
                             id: "address",
                             rows: "5",
-                            placeholder: "Enter Your Address"
+                            placeholder: "Enter Customer Address"
                           },
                           domProps: { value: _vm.form.address },
                           on: {
@@ -49327,7 +49274,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "text-center" }, [
       _c("h1", { staticClass: "h4 text-gray-900 mt-4" }, [
         _vm._v(
-          "\n                                Update Supplier\n                            "
+          "\n                                Update Customer\n                            "
         )
       ])
     ])

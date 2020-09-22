@@ -5,9 +5,9 @@
                 class="d-sm-flex align-items-center justify-content-between mb-4"
             >
                 <router-link
-                    :to="{ name: 'Employee' }"
+                    :to="{ name: 'Customer' }"
                     class="btn btn-info text-white mb-0 text-gray-800"
-                    >All Suppliers</router-link
+                    >All Customers</router-link
                 >
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
@@ -15,10 +15,10 @@
                             >Dashboard</router-link
                         >
                     </li>
-                    <li class="breadcrumb-item">Supplier</li>
-                    <li class="breadcrumb-item">All Suppliers</li>
+                    <li class="breadcrumb-item">Customer</li>
+                    <li class="breadcrumb-item">All Customers</li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        Edit Supplier
+                        Edit Customer
                     </li>
                 </ol>
             </div>
@@ -28,7 +28,7 @@
                         <div class="col-12">
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mt-4">
-                                    Update Supplier
+                                    Update Customer
                                 </h1>
                             </div>
 
@@ -45,7 +45,7 @@
                                                 type="text"
                                                 class="form-control"
                                                 id="exampleInputFirstName"
-                                                placeholder="Enter Your Full Name"
+                                                placeholder="Enter Customer Full Name"
                                                 v-model="form.name"
                                             />
                                             <small
@@ -55,21 +55,6 @@
                                             >
                                         </div>
 
-                                        <div class="form-group">
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                placeholder="Enter Shop Name"
-                                                v-model="form.shop_name"
-                                            />
-                                            <small
-                                                class="text-danger"
-                                                v-if="errors.shop_name"
-                                                >{{
-                                                    errors.shop_name[0]
-                                                }}</small
-                                            >
-                                        </div>
                                         <div class="form-group">
                                             <input
                                                 type="number"
@@ -106,7 +91,7 @@
                                         <div class="form-group">
                                             <img
                                                 :src="postPhoto()"
-                                                alt="Supplier Photo"
+                                                alt="Customer Photo"
                                                 height="70px"
                                                 width="70px"
                                                 class="rounded"
@@ -138,7 +123,7 @@
                                                 id="address"
                                                 rows="5"
                                                 class="form-control"
-                                                placeholder="Enter Your Address"
+                                                placeholder="Enter Customer Address"
                                             ></textarea>
                                         </div>
                                     </div>
@@ -168,7 +153,6 @@ export default {
                 email: "",
                 address: "",
                 phone: "",
-                shop_name: "",
                 photo: ""
             },
             errors: []
@@ -178,9 +162,9 @@ export default {
     mounted() {
         let id = this.$route.params.id;
         axios
-            .get("/api/supplier/" + id)
+            .get("/api/customer/" + id)
             .then(res => {
-                this.form = res.data.supplier;
+                this.form = res.data.customer;
             })
             .catch(error => {
                 this.errors = error.response.data.errors;
@@ -210,25 +194,25 @@ export default {
             if (img.length > 100) {
                 return this.form.photo;
             } else {
-                return "/assets/img/supplier/" + this.form.photo;
+                return "/assets/img/customer/" + this.form.photo;
             }
         },
         updateForm() {
             let id = this.$route.params.id;
             axios
-                .patch("/api/supplier/" + id, this.form)
+                .put("/api/customer/" + id, this.form)
                 .then(res => {
-                    this.$router.push({ name: "Supplier" });
+                    this.$router.push({ name: "Customer" });
                     Toast.fire({
                         icon: "success",
-                        title: "Supplier Updated Succesfully"
+                        title: "Customer Updated Succesfully"
                     });
                 })
                 .catch(error => {
                     this.errors = error.response.data.errors;
                     Toast.fire({
                         icon: "error",
-                        title: "Supplier can't be Updated"
+                        title: "Customer can't be Updated"
                     });
                 });
         }
