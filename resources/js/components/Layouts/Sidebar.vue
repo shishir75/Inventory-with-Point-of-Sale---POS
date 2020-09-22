@@ -33,6 +33,16 @@
             </li>
             <hr class="sidebar-divider" />
             <div class="sidebar-heading">
+                Point of Sale
+            </div>
+            <li class="nav-item active">
+                <router-link class="nav-link" :to="{ name: 'Pos' }">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>POS</span></router-link
+                >
+            </li>
+            <hr class="sidebar-divider" />
+            <div class="sidebar-heading">
                 Features
             </div>
             <li class="nav-item">
@@ -232,30 +242,66 @@
                     class="nav-link collapsed"
                     href="#"
                     data-toggle="collapse"
-                    data-target="#collapseTable"
+                    data-target="#customer"
                     aria-expanded="true"
                     aria-controls="collapseTable"
                 >
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span>
+                    <span>Customer</span>
                 </a>
                 <div
-                    id="collapseTable"
+                    id="customer"
                     class="collapse"
                     aria-labelledby="headingTable"
                     data-parent="#accordionSidebar"
                 >
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Tables</h6>
-                        <a class="collapse-item" href="simple-tables.html"
-                            >Simple Tables</a
+                        <router-link
+                            :to="{ name: 'CreateCustomer' }"
+                            class="collapse-item"
+                            >Add Customer</router-link
                         >
-                        <a class="collapse-item" href="datatables.html"
-                            >DataTables</a
+                        <router-link
+                            class="collapse-item"
+                            :to="{ name: 'Customer' }"
+                            >All Customers</router-link
                         >
                     </div>
                 </div>
             </li>
+            <li class="nav-item">
+                <a
+                    class="nav-link collapsed"
+                    href="#"
+                    data-toggle="collapse"
+                    data-target="#report"
+                    aria-expanded="true"
+                    aria-controls="collapseTable"
+                >
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Report</span>
+                </a>
+                <div
+                    id="report"
+                    class="collapse"
+                    aria-labelledby="headingTable"
+                    data-parent="#accordionSidebar"
+                >
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <router-link
+                            :to="{ name: 'CreateCustomer' }"
+                            class="collapse-item"
+                            >Report One</router-link
+                        >
+                        <router-link
+                            class="collapse-item"
+                            :to="{ name: 'Customer' }"
+                            >Report Two</router-link
+                        >
+                    </div>
+                </div>
+            </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="ui-colors.html">
                     <i class="fas fa-fw fa-palette"></i>

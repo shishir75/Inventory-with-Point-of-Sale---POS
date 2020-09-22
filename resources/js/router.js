@@ -48,6 +48,11 @@ import CreateSalary from "./components/Admin/Salary/create.vue";
 import MonthlySalary from "./components/Admin/Salary/monthly.vue";
 import EditSalary from "./components/Admin/Salary/edit.vue";
 
+// Customer Module Components
+import Customer from "./components/Admin/Customer/index.vue";
+import CreateCustomer from "./components/Admin/Customer/create.vue";
+import EditCustomer from "./components/Admin/Customer/edit.vue";
+
 const router = new VueRouter({
     mode: "history",
     // linkExactActiveClass: "text-dark bg-primary",
@@ -177,6 +182,21 @@ const router = new VueRouter({
                     path: "salary/:id/edit",
                     name: "EditSalary",
                     component: EditSalary
+                },
+                {
+                    path: "customer",
+                    name: "Customer",
+                    component: Customer
+                },
+                {
+                    path: "customer/create",
+                    name: "CreateCustomer",
+                    component: CreateCustomer
+                },
+                {
+                    path: "customer/:id/edit",
+                    name: "EditCustomer",
+                    component: EditCustomer
                 }
             ]
         },

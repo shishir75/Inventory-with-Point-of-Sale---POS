@@ -7,7 +7,8 @@ export default {
         allProducts: [],
         allExpenses: [],
         allMonths: [],
-        allSalaries: []
+        allSalaries: [],
+        allCustomers: []
     },
     getters: {
         isLoggedIn(state) {
@@ -33,6 +34,9 @@ export default {
         },
         getAllSalaries(state) {
             return state.allSalaries;
+        },
+        getAllCustomers(state) {
+            return state.allCustomers;
         }
     },
     mutations: {
@@ -59,6 +63,9 @@ export default {
         },
         getAllSalaries(state, payload) {
             state.allSalaries = payload;
+        },
+        getAllCustomers(state, payload) {
+            state.allCustomers = payload;
         }
     },
     actions: {
@@ -95,6 +102,11 @@ export default {
         getAllSalaries(context, month_year) {
             axios.get("/api/salary/" + month_year + "/monthly").then(res => {
                 context.commit("getAllSalaries", res.data.salaries);
+            });
+        },
+        getAllCustomers(context) {
+            axios.get("/api/customer").then(res => {
+                context.commit("getAllCustomers", res.data.customers);
             });
         }
     }
