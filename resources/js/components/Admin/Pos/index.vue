@@ -1,218 +1,192 @@
 <template>
     <div>
-        <!-- Container Fluid-->
-        <div class="container-fluid" id="container-wrapper">
-            <div
-                class="d-sm-flex align-items-center justify-content-between mb-4"
-            >
-                <router-link
-                    :to="{ name: 'CreateProduct' }"
-                    class="btn btn-info text-white mb-0 text-gray-800"
-                    >Add New Product</router-link
-                >
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <router-link :to="{ name: 'Dashboard' }"
-                            >Dashboard</router-link
-                        >
-                    </li>
-                    <li class="breadcrumb-item">Product</li>
-                    <li class="breadcrumb-item active" aria-current="page">
-                        All Products
-                    </li>
-                </ol>
-            </div>
+        <div class="d-sm-flex align-items-center justify-content-between">
+            <h1 class="h3 mb-0 text-gray-800">Point of Sale</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <router-link :to="{ name: 'Home' }">Home</router-link>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    POS
+                </li>
+            </ol>
+        </div>
 
-            <div class="row">
-                <div class="col-lg-12 mb-4">
-                    <!-- Simple Tables -->
-                    <div class="card">
-                        <div
-                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
-                        >
-                            <h4 class="m-0 font-weight-bold">
-                                ALL PRODUCT LISTS
-                            </h4>
-                            <h6>
-                                <form>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Search...."
-                                        v-model="searchItem"
-                                    />
-                                </form>
-                            </h6>
-                        </div>
-                        <div class="table-responsive">
-                            <table
-                                class="table align-items-center table-flush table-bordered text-center"
+        <div class="row mb-3">
+            <!-- Area Chart -->
+            <div class="col-xl-5 col-lg-5">
+                <div class="card mb-4">
+                    <div
+                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+                    >
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            Monthly Recap Report
+                        </h6>
+                    </div>
+                    <div class="card-body"></div>
+                </div>
+            </div>
+            <!-- Pie Chart -->
+            <div class="col-xl-7 col-lg-7">
+                <div class="card mb-4">
+                    <div
+                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+                    >
+                        <h3 class="m-0 font-weight-bold text-primary">
+                            Products List
+                        </h3>
+                        <form>
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Search...."
+                                v-model="searchItem"
+                            />
+                        </form>
+                    </div>
+
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a
+                                class="nav-item nav-link active"
+                                id="nav-products-tab"
+                                data-toggle="tab"
+                                href="#nav-products"
+                                role="tab"
+                                aria-controls="nav-products"
+                                aria-selected="true"
+                                >All Product</a
                             >
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th>S.L</th>
-                                        <th>Product Name</th>
-                                        <th>Product Code</th>
-                                        <th>Photo</th>
-                                        <th>Category</th>
-                                        <th>Supplier</th>
-                                        <th>Buying Price</th>
-                                        <th>Selling Price</th>
-                                        <th>Status</th>
-                                        <th>Quantity</th>
-                                        <th width="13%">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr
-                                        v-for="(product, index) in filterSearch"
+                            <a
+                                class="nav-item nav-link"
+                                id="nav-category-tab"
+                                data-toggle="tab"
+                                href="#nav-category"
+                                role="tab"
+                                aria-controls="nav-category"
+                                aria-selected="false"
+                                >Category</a
+                            >
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div
+                            class="tab-pane fade show active"
+                            id="nav-products"
+                            role="tabpanel"
+                            aria-labelledby="nav-products-tab"
+                        >
+                            <div class="card-body">
+                                <div class="row">
+                                    <div
+                                        class="col-lg-3 col-md-3 col-sm6 col-6"
+                                        v-for="product in filterSearch"
                                         :key="product.id"
                                     >
-                                        <td>{{ index + 1 }}</td>
-                                        <td>{{ product.name }}</td>
-                                        <td>{{ product.code }}</td>
-                                        <td>
+                                        <div class="card text-center">
                                             <img
-                                                v-if="product.photo"
                                                 :src="photo(product.photo)"
-                                                :alt="product.name"
-                                                width="50px"
-                                                height="40px"
+                                                class="card-img-top"
+                                                alt="..."
                                             />
-                                            <span
-                                                v-else
-                                                class="badge badge-warning"
-                                                >No Image</span
-                                            >
-                                        </td>
-                                        <td>{{ product.category.name }}</td>
-                                        <td>{{ product.supplier.name }}</td>
-                                        <td>{{ product.buying_price }}</td>
-
-                                        <td>{{ product.selling_price }}</td>
-                                        <td>
-                                            <span
-                                                v-if="product.quantity > 0"
-                                                class="badge badge-success"
-                                                >Available</span
-                                            >
-                                            <span
-                                                v-else
-                                                class="badge badge-danger"
-                                                >Stock Out</span
-                                            >
-                                        </td>
-                                        <td>{{ product.quantity }}</td>
-
-                                        <td>
-                                            <router-link
-                                                :to="{
-                                                    name: 'EditProduct',
-                                                    params: { id: product.id }
-                                                }"
-                                                class="btn btn-sm btn-info"
-                                                >Edit</router-link
-                                            >
-
-                                            <button
-                                                type="button"
-                                                class="btn btn-sm btn-primary"
-                                                data-toggle="modal"
-                                                data-target="#exampleModalCenter"
-                                                id="#modalCenter"
-                                                @click.prevent="
-                                                    editStock(product.id)
-                                                "
-                                            >
-                                                Stock
-                                            </button>
-                                            <button
-                                                @click="deleteData(product.id)"
-                                                class="btn btn-sm btn-danger"
-                                            >
-                                                Delete
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <h3
-                                v-show="filterSearch == ''"
-                                class="text-center text-danger my-5"
-                            >
-                                No Search Result Found
-                            </h3>
-                        </div>
-                        <div class="card-footer"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal Center -->
-            <div
-                class="modal fade"
-                id="exampleModalCenter"
-                tabindex="-1"
-                role="dialog"
-                aria-labelledby="exampleModalCenterTitle"
-                aria-hidden="true"
-            >
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5
-                                class="modal-title"
-                                id="exampleModalCenterTitle"
-                            >
-                                Update Product Stock
-                            </h5>
-                            <button
-                                type="button"
-                                class="close"
-                                data-dismiss="modal"
-                                aria-label="Close"
-                            >
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label>Product Quantity</label>
-                                <input
-                                    type="number"
-                                    class="form-control"
-                                    placeholder="Enter Product Quantity"
-                                    v-model="form.quantity"
-                                />
-                                <small
-                                    class="text-danger"
-                                    v-if="errors.quantity"
-                                    >{{ errors.quantity[0] }}</small
-                                >
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    {{ product.name }}
+                                                </h5>
+                                                <h6>
+                                                    Price:
+                                                    {{ product.selling_price }}
+                                                    BDT
+                                                    <span
+                                                        class="badge badge-success py-1"
+                                                        v-if="
+                                                            product.quantity > 0
+                                                        "
+                                                        >{{
+                                                            product.quantity
+                                                        }}
+                                                        units Available</span
+                                                    >
+                                                </h6>
+                                                <a
+                                                    href="#"
+                                                    class="btn btn-primary"
+                                                    v-if="product.quantity > 0"
+                                                    >Add to Cart</a
+                                                >
+                                                <button
+                                                    v-else
+                                                    class="btn btn-danger"
+                                                >
+                                                    Out of Stock
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <input type="hidden" v-model="form.product_id" />
                         </div>
-                        <div class="modal-footer">
-                            <button
-                                type="button"
-                                class="btn btn-outline-secondary"
-                                data-dismiss="modal"
-                            >
-                                Close
-                            </button>
-                            <button
-                                type="button"
-                                @click.prevent="updateStock"
-                                class="btn btn-primary"
-                            >
-                                Update
-                            </button>
+                        <div
+                            class="tab-pane fade"
+                            id="nav-category"
+                            role="tabpanel"
+                            aria-labelledby="nav-category-tab"
+                        >
+                            <div class="card-body">
+                                <div class="row">
+                                    <div
+                                        class="col-lg-3 col-md-3 col-sm6 col-6"
+                                        v-for="product in filterSearch"
+                                        :key="product.id"
+                                    >
+                                        <div class="card text-center">
+                                            <img
+                                                :src="photo(product.photo)"
+                                                class="card-img-top"
+                                                alt="..."
+                                            />
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    {{ product.name }}
+                                                </h5>
+                                                <h6>
+                                                    Price:
+                                                    {{ product.selling_price }}
+                                                    BDT
+                                                    <span
+                                                        class="badge badge-success py-1"
+                                                        v-if="
+                                                            product.quantity > 0
+                                                        "
+                                                        >{{
+                                                            product.quantity
+                                                        }}
+                                                        units Available</span
+                                                    >
+                                                </h6>
+                                                <a
+                                                    href="#"
+                                                    class="btn btn-primary"
+                                                    v-if="product.quantity > 0"
+                                                    >Add to Cart</a
+                                                >
+                                                <button
+                                                    v-else
+                                                    class="btn btn-danger"
+                                                >
+                                                    Out of Stock
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--Row-->
         </div>
+        <!--Row-->
     </div>
 </template>
 
