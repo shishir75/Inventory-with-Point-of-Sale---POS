@@ -55,7 +55,7 @@
                                 role="tab"
                                 aria-controls="nav-products"
                                 aria-selected="true"
-                                @click="allProducts"
+                                @click="getAllProducts"
                                 >All Product</a
                             >
                             <a
@@ -305,7 +305,7 @@ export default {
         categoryProducts(id) {
             this.$store.dispatch("getAlLProductsByCategory", id);
         },
-        allProducts() {
+        getAllProducts() {
             this.$store.dispatch("getAllProducts");
         }
     }

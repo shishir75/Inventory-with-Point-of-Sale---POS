@@ -5102,7 +5102,7 @@ __webpack_require__.r(__webpack_exports__);
     categoryProducts: function categoryProducts(id) {
       this.$store.dispatch("getAlLProductsByCategory", id);
     },
-    allProducts: function allProducts() {
+    getAllProducts: function getAllProducts() {
       this.$store.dispatch("getAllProducts");
     }
   }
@@ -52677,7 +52677,7 @@ var render = function() {
                       "aria-controls": "nav-products",
                       "aria-selected": "true"
                     },
-                    on: { click: _vm.allProducts }
+                    on: { click: _vm.getAllProducts }
                   },
                   [_vm._v("All Product")]
                 ),
