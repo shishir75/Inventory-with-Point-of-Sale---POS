@@ -4986,6 +4986,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5000,6 +5004,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {},
   mounted: function mounted() {
     this.$store.dispatch("getAllProducts");
+    this.$store.dispatch("getAllCategories");
   },
   created: function created() {},
   computed: {
@@ -5016,6 +5021,12 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         return this.allProducts;
       }
+    },
+    allCategories: function allCategories() {
+      return this.$store.getters.getAllCategories;
+    },
+    alLProductsByCategory: function alLProductsByCategory() {
+      return this.$store.getters.getAlLProductsByCategory;
     }
   },
   methods: {
@@ -5087,6 +5098,12 @@ __webpack_require__.r(__webpack_exports__);
           title: "Product Stock can't be Updated"
         });
       });
+    },
+    categoryProducts: function categoryProducts(id) {
+      this.$store.dispatch("getAlLProductsByCategory", id);
+    },
+    allProducts: function allProducts() {
+      this.$store.dispatch("getAllProducts");
     }
   }
 });
@@ -52640,7 +52657,58 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm._m(1),
+          _c("nav", [
+            _c(
+              "div",
+              {
+                staticClass: "nav nav-tabs",
+                attrs: { id: "nav-tab", role: "tablist" }
+              },
+              [
+                _c(
+                  "a",
+                  {
+                    staticClass: "nav-item nav-link active",
+                    attrs: {
+                      id: "nav-products-tab",
+                      "data-toggle": "tab",
+                      href: "#nav-products",
+                      role: "tab",
+                      "aria-controls": "nav-products",
+                      "aria-selected": "true"
+                    },
+                    on: { click: _vm.allProducts }
+                  },
+                  [_vm._v("All Product")]
+                ),
+                _vm._v(" "),
+                _vm._l(_vm.allCategories, function(category) {
+                  return _c(
+                    "a",
+                    {
+                      key: category.id,
+                      staticClass: "nav-item nav-link",
+                      attrs: {
+                        id: "nav-category-tab",
+                        "data-toggle": "tab",
+                        href: "#nav-category",
+                        role: "tab",
+                        "aria-controls": "nav-category",
+                        "aria-selected": "false"
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.categoryProducts(category.id)
+                        }
+                      }
+                    },
+                    [_vm._v(_vm._s(category.name))]
+                  )
+                })
+              ],
+              2
+            )
+          ]),
           _vm._v(" "),
           _c(
             "div",
@@ -52754,7 +52822,7 @@ var render = function() {
                     _c(
                       "div",
                       { staticClass: "row" },
-                      _vm._l(_vm.filterSearch, function(product) {
+                      _vm._l(_vm.alLProductsByCategory, function(product) {
                         return _c(
                           "div",
                           {
@@ -52862,53 +52930,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("div", { staticClass: "card-body" })
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("nav", [
-      _c(
-        "div",
-        {
-          staticClass: "nav nav-tabs",
-          attrs: { id: "nav-tab", role: "tablist" }
-        },
-        [
-          _c(
-            "a",
-            {
-              staticClass: "nav-item nav-link active",
-              attrs: {
-                id: "nav-products-tab",
-                "data-toggle": "tab",
-                href: "#nav-products",
-                role: "tab",
-                "aria-controls": "nav-products",
-                "aria-selected": "true"
-              }
-            },
-            [_vm._v("All Product")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "nav-item nav-link",
-              attrs: {
-                id: "nav-category-tab",
-                "data-toggle": "tab",
-                href: "#nav-category",
-                role: "tab",
-                "aria-controls": "nav-category",
-                "aria-selected": "false"
-              }
-            },
-            [_vm._v("Category")]
-          )
-        ]
-      )
     ])
   }
 ]
@@ -77998,7 +78019,8 @@ __webpack_require__.r(__webpack_exports__);
     allExpenses: [],
     allMonths: [],
     allSalaries: [],
-    allCustomers: []
+    allCustomers: [],
+    allProductsByCategory: []
   },
   getters: {
     isLoggedIn: function isLoggedIn(state) {
@@ -78027,6 +78049,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     getAllCustomers: function getAllCustomers(state) {
       return state.allCustomers;
+    },
+    getAlLProductsByCategory: function getAlLProductsByCategory(state) {
+      return state.allProductsByCategory;
     }
   },
   mutations: {
@@ -78056,6 +78081,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     getAllCustomers: function getAllCustomers(state, payload) {
       state.allCustomers = payload;
+    },
+    getAlLProductsByCategory: function getAlLProductsByCategory(state, payload) {
+      state.allProductsByCategory = payload;
     }
   },
   actions: {
@@ -78097,6 +78125,11 @@ __webpack_require__.r(__webpack_exports__);
     getAllCustomers: function getAllCustomers(context) {
       axios.get("/api/customer").then(function (res) {
         context.commit("getAllCustomers", res.data.customers);
+      });
+    },
+    getAlLProductsByCategory: function getAlLProductsByCategory(context, id) {
+      axios.get("/api/category/" + id + "/product").then(function (res) {
+        context.commit("getAlLProductsByCategory", res.data.products);
       });
     }
   }

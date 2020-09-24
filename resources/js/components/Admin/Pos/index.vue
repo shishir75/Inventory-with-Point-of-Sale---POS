@@ -55,9 +55,12 @@
                                 role="tab"
                                 aria-controls="nav-products"
                                 aria-selected="true"
+                                @click="allProducts"
                                 >All Product</a
                             >
                             <a
+                                v-for="category in allCategories"
+                                :key="category.id"
                                 class="nav-item nav-link"
                                 id="nav-category-tab"
                                 data-toggle="tab"
@@ -65,7 +68,8 @@
                                 role="tab"
                                 aria-controls="nav-category"
                                 aria-selected="false"
-                                >Category</a
+                                @click="categoryProducts(category.id)"
+                                >{{ category.name }}</a
                             >
                         </div>
                     </nav>
@@ -136,7 +140,7 @@
                                 <div class="row">
                                     <div
                                         class="col-lg-3 col-md-3 col-sm6 col-6"
-                                        v-for="product in filterSearch"
+                                        v-for="product in alLProductsByCategory"
                                         :key="product.id"
                                     >
                                         <div class="card text-center">
@@ -205,6 +209,7 @@ export default {
     components: {},
     mounted() {
         this.$store.dispatch("getAllProducts");
+        this.$store.dispatch("getAllCategories");
     },
     created() {},
     computed: {
@@ -219,6 +224,12 @@ export default {
             } else {
                 return this.allProducts;
             }
+        },
+        allCategories() {
+            return this.$store.getters.getAllCategories;
+        },
+        alLProductsByCategory() {
+            return this.$store.getters.getAlLProductsByCategory;
         }
     },
     methods: {
@@ -290,6 +301,12 @@ export default {
                         title: "Product Stock can't be Updated"
                     });
                 });
+        },
+        categoryProducts(id) {
+            this.$store.dispatch("getAlLProductsByCategory", id);
+        },
+        allProducts() {
+            this.$store.dispatch("getAllProducts");
         }
     }
 };
