@@ -20,10 +20,171 @@
                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                     >
                         <h6 class="m-0 font-weight-bold text-primary">
-                            Monthly Recap Report
+                            Add Expense
                         </h6>
+                        <router-link
+                            :to="{ name: 'CreateCustomer' }"
+                            class="btn btn-sm btn-info"
+                            >Add Customer</router-link
+                        >
                     </div>
-                    <div class="card-body"></div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table
+                                class="table align-items-center table-flush"
+                                style="font-size:12px"
+                            >
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Serial</th>
+                                        <th>Product Title</th>
+                                        <th>Quantity</th>
+                                        <th>Unit Price</th>
+                                        <th>Total Price</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Udin Wayang</td>
+                                        <td>2</td>
+                                        <td>100</td>
+                                        <td>200</td>
+                                        <td>
+                                            <a
+                                                href="#"
+                                                class="btn btn-sm btn-danger"
+                                                >X</a
+                                            >
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <ul class="list-group">
+                            <li
+                                class="list-group-item d-flex justify-content-between align-items-center"
+                            >
+                                Total Quantity : <strong>77</strong>
+                            </li>
+                            <li
+                                class="list-group-item d-flex justify-content-between align-items-center"
+                            >
+                                Sub Total : <strong>$ 123450.00</strong>
+                            </li>
+                            <li
+                                class="list-group-item d-flex justify-content-between align-items-center"
+                            >
+                                <p>Vat <small>(15%)</small></p>
+                                : <strong>$ 178.90</strong>
+                            </li>
+                            <li
+                                class="list-group-item d-flex justify-content-between align-items-center"
+                            >
+                                Total Amount : <strong>$ 135798.00</strong>
+                            </li>
+                        </ul>
+
+                        <form action="" class="mt-5">
+                            <div class="form-group">
+                                <label for="">Select Customer</label>
+                                <select
+                                    v-model="form.customer_id"
+                                    class="form-control"
+                                >
+                                    <option value="" selected disabled
+                                        >Select Customer</option
+                                    >
+                                    <option
+                                        v-for="customer in allCustomers"
+                                        :key="customer.id"
+                                        :value="customer.id"
+                                        >{{ customer.name }} -
+                                        {{ customer.phone }}</option
+                                    >
+                                </select>
+                                <small
+                                    class="text-danger"
+                                    v-if="errors.customer_id"
+                                    >{{ errors.category_id[0] }}</small
+                                >
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Pay Amount</label>
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            placeholder="Enter Pay Amount"
+                                            v-model="form.pay"
+                                        />
+                                        <small
+                                            class="text-danger"
+                                            v-if="errors.pay"
+                                            >{{ errors.pay[0] }}</small
+                                        >
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Due Amount</label>
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            placeholder="Enter Due Amount"
+                                            v-model="form.due"
+                                        />
+                                        <small
+                                            class="text-danger"
+                                            v-if="errors.due"
+                                            >{{ errors.due[0] }}</small
+                                        >
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for=""
+                                            >Select Payment Method</label
+                                        >
+                                        <select
+                                            v-model="form.payment_method"
+                                            class="form-control"
+                                        >
+                                            <option value="" selected disabled
+                                                >Payment Method</option
+                                            >
+                                            <option value="HandCash"
+                                                >Hand Cash</option
+                                            >
+                                            <option value="HandCash"
+                                                >Cheaque</option
+                                            >
+                                            <option value="HandCash"
+                                                >Gift Card</option
+                                            >
+                                        </select>
+                                        <small
+                                            class="text-danger"
+                                            v-if="errors.payment_method"
+                                            >{{
+                                                errors.payment_method[0]
+                                            }}</small
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <button
+                                type="submit"
+                                class="btn btn-success float-right my-4"
+                            >
+                                Payment Confirm
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
             <!-- Pie Chart -->
@@ -201,7 +362,11 @@ export default {
             searchItem: "",
             form: {
                 quantity: "",
-                product_id: ""
+                product_id: "",
+                customer_id: "",
+                pay: "",
+                due: "",
+                payment_method: ""
             },
             errors: []
         };
@@ -210,6 +375,7 @@ export default {
     mounted() {
         this.$store.dispatch("getAllProducts");
         this.$store.dispatch("getAllCategories");
+        this.$store.dispatch("getAllCustomers");
     },
     created() {},
     computed: {
@@ -230,6 +396,9 @@ export default {
         },
         alLProductsByCategory() {
             return this.$store.getters.getAlLProductsByCategory;
+        },
+        allCustomers() {
+            return this.$store.getters.getAllCustomers;
         }
     },
     methods: {
