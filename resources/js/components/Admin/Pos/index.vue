@@ -49,12 +49,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Udin Wayang</td>
-                                        <td>2</td>
-                                        <td>100</td>
-                                        <td>200</td>
+                                    <tr
+                                        v-for="(cart, index) in allCartProducts"
+                                        :key="cart.id"
+                                    >
+                                        <td>{{ index + 1 }}</td>
+                                        <td>{{ cart.product.name }}</td>
+                                        <td>{{ cart.quantity }}</td>
+                                        <td>
+                                            {{ cart.product.selling_price }}
+                                        </td>
+                                        <td>
+                                            {{ cart.product.selling_price }}
+                                        </td>
                                         <td>
                                             <a
                                                 href="#"
@@ -544,7 +551,9 @@ export default {
         this.$store.dispatch("getAllCategories");
         this.$store.dispatch("getAllCustomers");
     },
-    created() {},
+    created() {
+        this.$store.dispatch("getAllCartProducts");
+    },
     computed: {
         allProducts() {
             return this.$store.getters.getAllProducts;
@@ -566,6 +575,9 @@ export default {
         },
         allCustomers() {
             return this.$store.getters.getAllCustomers;
+        },
+        allCartProducts() {
+            return this.$store.getters.getAllCartProducts;
         }
     },
     methods: {
@@ -650,6 +662,7 @@ export default {
             axios
                 .post("/api/cart", { id: id })
                 .then(res => {
+                    this.$store.dispatch("getAllCartProducts");
                     Toast.fire({
                         icon: "success",
                         title: "Add to Cart Succesfully"

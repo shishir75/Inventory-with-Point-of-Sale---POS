@@ -9,7 +9,8 @@ export default {
         allMonths: [],
         allSalaries: [],
         allCustomers: [],
-        allProductsByCategory: []
+        allProductsByCategory: [],
+        allCartProducts: []
     },
     getters: {
         isLoggedIn(state) {
@@ -41,6 +42,9 @@ export default {
         },
         getAlLProductsByCategory(state) {
             return state.allProductsByCategory;
+        },
+        getAllCartProducts(state) {
+            return state.allCartProducts;
         }
     },
     mutations: {
@@ -73,6 +77,9 @@ export default {
         },
         getAlLProductsByCategory(state, payload) {
             state.allProductsByCategory = payload;
+        },
+        getAllCartProducts(state, payload) {
+            state.allCartProducts = payload;
         }
     },
     actions: {
@@ -119,6 +126,11 @@ export default {
         getAlLProductsByCategory(context, id) {
             axios.get("/api/category/" + id + "/product").then(res => {
                 context.commit("getAlLProductsByCategory", res.data.products);
+            });
+        },
+        getAllCartProducts(context) {
+            axios.get("/api/cart").then(res => {
+                context.commit("getAllCartProducts", res.data.products);
             });
         }
     }

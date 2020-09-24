@@ -5313,6 +5313,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5339,7 +5346,9 @@ __webpack_require__.r(__webpack_exports__);
     this.$store.dispatch("getAllCategories");
     this.$store.dispatch("getAllCustomers");
   },
-  created: function created() {},
+  created: function created() {
+    this.$store.dispatch("getAllCartProducts");
+  },
   computed: {
     allProducts: function allProducts() {
       return this.$store.getters.getAllProducts;
@@ -5363,6 +5372,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     allCustomers: function allCustomers() {
       return this.$store.getters.getAllCustomers;
+    },
+    allCartProducts: function allCartProducts() {
+      return this.$store.getters.getAllCartProducts;
     }
   },
   methods: {
@@ -5450,9 +5462,13 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     addToCart: function addToCart(id) {
+      var _this5 = this;
+
       axios.post("/api/cart", {
         id: id
       }).then(function (res) {
+        _this5.$store.dispatch("getAllCartProducts");
+
         Toast.fire({
           icon: "success",
           title: "Add to Cart Succesfully"
@@ -52977,10 +52993,55 @@ var render = function() {
         _c("div", { staticClass: "card mb-4" }, [
           _vm._m(0),
           _vm._v(" "),
-          _vm._m(1),
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "table-responsive" }, [
+              _c(
+                "table",
+                {
+                  staticClass: "table align-items-center table-flush",
+                  staticStyle: { "font-size": "12px" }
+                },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.allCartProducts, function(cart, index) {
+                      return _c("tr", { key: cart.id }, [
+                        _c("td", [_vm._v(_vm._s(index + 1))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(cart.product.name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(cart.quantity))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            "\n                                        " +
+                              _vm._s(cart.product.selling_price) +
+                              "\n                                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            "\n                                        " +
+                              _vm._s(cart.product.selling_price) +
+                              "\n                                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(2, true)
+                      ])
+                    }),
+                    0
+                  )
+                ]
+              )
+            ])
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-footer" }, [
-            _vm._m(2),
+            _vm._m(3),
             _vm._v(" "),
             _c("form", { staticClass: "mt-5", attrs: { action: "" } }, [
               _c("div", { staticClass: "form-group" }, [
@@ -53533,7 +53594,7 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(3),
+              _vm._m(4),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c(
@@ -53807,57 +53868,29 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c("div", { staticClass: "table-responsive" }, [
-        _c(
-          "table",
-          {
-            staticClass: "table align-items-center table-flush",
-            staticStyle: { "font-size": "12px" }
-          },
-          [
-            _c("thead", { staticClass: "thead-light" }, [
-              _c("tr", [
-                _c("th", [_vm._v("Serial")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Product Title")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Quantity")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Unit Price")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Total Price")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Action")])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("tbody", [
-              _c("tr", [
-                _c("td", [_vm._v("1")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("Udin Wayang")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("2")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("100")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("200")]),
-                _vm._v(" "),
-                _c("td", [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-sm btn-danger",
-                      attrs: { href: "#" }
-                    },
-                    [_vm._v("X")]
-                  )
-                ])
-              ])
-            ])
-          ]
-        )
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", [_vm._v("Serial")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Product Title")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Quantity")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Unit Price")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Total Price")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Action")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("a", { staticClass: "btn btn-sm btn-danger", attrs: { href: "#" } }, [
+        _vm._v("X")
       ])
     ])
   },
@@ -79036,7 +79069,8 @@ __webpack_require__.r(__webpack_exports__);
     allMonths: [],
     allSalaries: [],
     allCustomers: [],
-    allProductsByCategory: []
+    allProductsByCategory: [],
+    allCartProducts: []
   },
   getters: {
     isLoggedIn: function isLoggedIn(state) {
@@ -79068,6 +79102,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     getAlLProductsByCategory: function getAlLProductsByCategory(state) {
       return state.allProductsByCategory;
+    },
+    getAllCartProducts: function getAllCartProducts(state) {
+      return state.allCartProducts;
     }
   },
   mutations: {
@@ -79100,6 +79137,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     getAlLProductsByCategory: function getAlLProductsByCategory(state, payload) {
       state.allProductsByCategory = payload;
+    },
+    getAllCartProducts: function getAllCartProducts(state, payload) {
+      state.allCartProducts = payload;
     }
   },
   actions: {
@@ -79146,6 +79186,11 @@ __webpack_require__.r(__webpack_exports__);
     getAlLProductsByCategory: function getAlLProductsByCategory(context, id) {
       axios.get("/api/category/" + id + "/product").then(function (res) {
         context.commit("getAlLProductsByCategory", res.data.products);
+      });
+    },
+    getAllCartProducts: function getAllCartProducts(context) {
+      axios.get("/api/cart").then(function (res) {
+        context.commit("getAllCartProducts", res.data.products);
       });
     }
   }

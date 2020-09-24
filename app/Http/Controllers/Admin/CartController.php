@@ -9,6 +9,15 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+    public function index()
+    {
+        $products = Cart::with( 'product' )->get();
+
+        return response()->json( [
+            'products' => $products,
+        ], 200 );
+    }
+
     public function store( Request $request )
     {
         $product = Product::findOrFail( $request->id );
