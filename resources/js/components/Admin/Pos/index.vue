@@ -57,10 +57,19 @@
                                         <td>{{ cart.product.name }}</td>
                                         <td>{{ cart.quantity }}</td>
                                         <td>
-                                            {{ cart.product.selling_price }}
+                                            {{
+                                                cart.product.selling_price.toFixed(
+                                                    2
+                                                )
+                                            }}
                                         </td>
                                         <td>
-                                            {{ cart.product.selling_price }}
+                                            {{
+                                                totalPrice(
+                                                    cart.product.selling_price,
+                                                    cart.quantity
+                                                )
+                                            }}
                                         </td>
                                         <td>
                                             <a
@@ -79,23 +88,37 @@
                             <li
                                 class="list-group-item d-flex justify-content-between align-items-center"
                             >
-                                Total Quantity : <strong>77</strong>
+                                Total Quantity :
+                                <strong>{{
+                                    totalQuantity(allCartProducts)
+                                }}</strong>
                             </li>
                             <li
                                 class="list-group-item d-flex justify-content-between align-items-center"
                             >
-                                Sub Total : <strong>$ 123450.00</strong>
+                                Sub Total :
+                                <strong
+                                    >$ {{ subTotal(allCartProducts) }}</strong
+                                >
                             </li>
                             <li
                                 class="list-group-item d-flex justify-content-between align-items-center"
                             >
                                 <p>Vat <small>(15%)</small></p>
-                                : <strong>$ 178.90</strong>
+                                :
+                                <strong
+                                    >$
+                                    {{ vat(subTotal(allCartProducts)) }}</strong
+                                >
                             </li>
                             <li
                                 class="list-group-item d-flex justify-content-between align-items-center"
                             >
-                                Total Amount : <strong>$ 135798.00</strong>
+                                Total Amount :
+                                <strong
+                                    >$
+                                    {{ priceWithVat(allCartProducts) }}</strong
+                                >
                             </li>
                         </ul>
 
@@ -674,6 +697,31 @@ export default {
                         title: "Can't Add to Cart"
                     });
                 });
+        },
+        totalPrice(unit_price, quantity) {
+            return (unit_price * quantity).toFixed(2);
+        },
+        subTotal(allCartProducts) {
+            let price = 0;
+            allCartProducts.forEach(cart => {
+                price += cart.product.selling_price * cart.quantity;
+            });
+            return price.toFixed(2);
+        },
+        totalQuantity(allCartProducts) {
+            let quantity = 0;
+            allCartProducts.forEach(cart => {
+                quantity += cart.quantity;
+            });
+            return quantity;
+        },
+        vat(price) {
+            return (price * 0.15).toFixed(2);
+        },
+        priceWithVat(allCartProducts) {
+            let price = parseFloat(this.subTotal(allCartProducts));
+            let vat = parseFloat(price * 0.15);
+            return (price + vat).toFixed(2);
         }
     }
 };

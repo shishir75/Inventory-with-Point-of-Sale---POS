@@ -5320,6 +5320,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5479,6 +5502,31 @@ __webpack_require__.r(__webpack_exports__);
           title: "Can't Add to Cart"
         });
       });
+    },
+    totalPrice: function totalPrice(unit_price, quantity) {
+      return (unit_price * quantity).toFixed(2);
+    },
+    subTotal: function subTotal(allCartProducts) {
+      var price = 0;
+      allCartProducts.forEach(function (cart) {
+        price += cart.product.selling_price * cart.quantity;
+      });
+      return price.toFixed(2);
+    },
+    totalQuantity: function totalQuantity(allCartProducts) {
+      var quantity = 0;
+      allCartProducts.forEach(function (cart) {
+        quantity += cart.quantity;
+      });
+      return quantity;
+    },
+    vat: function vat(price) {
+      return (price * 0.15).toFixed(2);
+    },
+    priceWithVat: function priceWithVat(allCartProducts) {
+      var price = parseFloat(this.subTotal(allCartProducts));
+      var vat = parseFloat(price * 0.15);
+      return (price + vat).toFixed(2);
     }
   }
 });
@@ -53017,7 +53065,7 @@ var render = function() {
                         _c("td", [
                           _vm._v(
                             "\n                                        " +
-                              _vm._s(cart.product.selling_price) +
+                              _vm._s(cart.product.selling_price.toFixed(2)) +
                               "\n                                    "
                           )
                         ]),
@@ -53025,7 +53073,12 @@ var render = function() {
                         _c("td", [
                           _vm._v(
                             "\n                                        " +
-                              _vm._s(cart.product.selling_price) +
+                              _vm._s(
+                                _vm.totalPrice(
+                                  cart.product.selling_price,
+                                  cart.quantity
+                                )
+                              ) +
                               "\n                                    "
                           )
                         ]),
@@ -53041,7 +53094,78 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-footer" }, [
-            _vm._m(3),
+            _c("ul", { staticClass: "list-group" }, [
+              _c(
+                "li",
+                {
+                  staticClass:
+                    "list-group-item d-flex justify-content-between align-items-center"
+                },
+                [
+                  _vm._v(
+                    "\n                            Total Quantity :\n                            "
+                  ),
+                  _c("strong", [
+                    _vm._v(_vm._s(_vm.totalQuantity(_vm.allCartProducts)))
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                {
+                  staticClass:
+                    "list-group-item d-flex justify-content-between align-items-center"
+                },
+                [
+                  _vm._v(
+                    "\n                            Sub Total :\n                            "
+                  ),
+                  _c("strong", [
+                    _vm._v("$ " + _vm._s(_vm.subTotal(_vm.allCartProducts)))
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                {
+                  staticClass:
+                    "list-group-item d-flex justify-content-between align-items-center"
+                },
+                [
+                  _vm._m(3),
+                  _vm._v(
+                    "\n                            :\n                            "
+                  ),
+                  _c("strong", [
+                    _vm._v(
+                      "$\n                                " +
+                        _vm._s(_vm.vat(_vm.subTotal(_vm.allCartProducts)))
+                    )
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                {
+                  staticClass:
+                    "list-group-item d-flex justify-content-between align-items-center"
+                },
+                [
+                  _vm._v(
+                    "\n                            Total Amount :\n                            "
+                  ),
+                  _c("strong", [
+                    _vm._v(
+                      "$\n                                " +
+                        _vm._s(_vm.priceWithVat(_vm.allCartProducts))
+                    )
+                  ])
+                ]
+              )
+            ]),
             _vm._v(" "),
             _c("form", { staticClass: "mt-5", attrs: { action: "" } }, [
               _c("div", { staticClass: "form-group" }, [
@@ -53898,56 +54022,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "list-group" }, [
-      _c(
-        "li",
-        {
-          staticClass:
-            "list-group-item d-flex justify-content-between align-items-center"
-        },
-        [
-          _vm._v("\n                            Total Quantity : "),
-          _c("strong", [_vm._v("77")])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "li",
-        {
-          staticClass:
-            "list-group-item d-flex justify-content-between align-items-center"
-        },
-        [
-          _vm._v("\n                            Sub Total : "),
-          _c("strong", [_vm._v("$ 123450.00")])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "li",
-        {
-          staticClass:
-            "list-group-item d-flex justify-content-between align-items-center"
-        },
-        [
-          _c("p", [_vm._v("Vat "), _c("small", [_vm._v("(15%)")])]),
-          _vm._v("\n                            : "),
-          _c("strong", [_vm._v("$ 178.90")])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "li",
-        {
-          staticClass:
-            "list-group-item d-flex justify-content-between align-items-center"
-        },
-        [
-          _vm._v("\n                            Total Amount : "),
-          _c("strong", [_vm._v("$ 135798.00")])
-        ]
-      )
-    ])
+    return _c("p", [_vm._v("Vat "), _c("small", [_vm._v("(15%)")])])
   },
   function() {
     var _vm = this
