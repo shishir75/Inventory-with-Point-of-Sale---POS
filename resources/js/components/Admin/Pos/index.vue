@@ -281,6 +281,9 @@
                                                     href="#"
                                                     class="btn btn-primary"
                                                     v-if="product.quantity > 0"
+                                                    @click.prevent="
+                                                        addToCart(product.id)
+                                                    "
                                                     >Add to Cart</a
                                                 >
                                                 <button
@@ -337,6 +340,9 @@
                                                     href="#"
                                                     class="btn btn-primary"
                                                     v-if="product.quantity > 0"
+                                                    @click.prevent="
+                                                        addToCart(product.id)
+                                                    "
                                                     >Add to Cart</a
                                                 >
                                                 <button
@@ -637,6 +643,22 @@ export default {
                     Toast.fire({
                         icon: "error",
                         title: "Customer can't be Created"
+                    });
+                });
+        },
+        addToCart(id) {
+            axios
+                .post("/api/cart", { id: id })
+                .then(res => {
+                    Toast.fire({
+                        icon: "success",
+                        title: "Add to Cart Succesfully"
+                    });
+                })
+                .catch(error => {
+                    Toast.fire({
+                        icon: "error",
+                        title: "Can't Add to Cart"
                     });
                 });
         }

@@ -35,6 +35,7 @@ Route::group( ['namespace' => 'Admin', 'middleware' => 'auth:sanctum'], function
         '/expense'  => 'ExpenseController',
         '/salary'   => 'SalaryController',
         '/customer' => 'CustomerController',
+        '/cart'     => 'CartController',
     ] );
     Route::get( '/salary/{month_year}/monthly', "SalaryController@month_year" );
     Route::put( '/product/stock/{id}', "ProductController@update_stock" );

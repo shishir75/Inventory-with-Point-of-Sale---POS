@@ -5307,6 +5307,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5440,6 +5446,21 @@ __webpack_require__.r(__webpack_exports__);
         Toast.fire({
           icon: "error",
           title: "Customer can't be Created"
+        });
+      });
+    },
+    addToCart: function addToCart(id) {
+      axios.post("/api/cart", {
+        id: id
+      }).then(function (res) {
+        Toast.fire({
+          icon: "success",
+          title: "Add to Cart Succesfully"
+        });
+      })["catch"](function (error) {
+        Toast.fire({
+          icon: "error",
+          title: "Can't Add to Cart"
         });
       });
     }
@@ -53357,7 +53378,13 @@ var render = function() {
                                       "a",
                                       {
                                         staticClass: "btn btn-primary",
-                                        attrs: { href: "#" }
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.addToCart(product.id)
+                                          }
+                                        }
                                       },
                                       [_vm._v("Add to Cart")]
                                     )
@@ -53450,7 +53477,13 @@ var render = function() {
                                       "a",
                                       {
                                         staticClass: "btn btn-primary",
-                                        attrs: { href: "#" }
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.addToCart(product.id)
+                                          }
+                                        }
                                       },
                                       [_vm._v("Add to Cart")]
                                     )
