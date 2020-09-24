@@ -5151,6 +5151,162 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5161,7 +5317,12 @@ __webpack_require__.r(__webpack_exports__);
         customer_id: "",
         pay: "",
         due: "",
-        payment_method: ""
+        payment_method: "",
+        name: "",
+        email: "",
+        address: "",
+        phone: "",
+        photo: ""
       },
       errors: []
     };
@@ -5235,44 +5396,52 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    editStock: function editStock(id) {
-      var _this3 = this;
-
-      axios.get("/api/product/" + id).then(function (res) {
-        _this3.form.quantity = res.data.product.quantity;
-        _this3.form.product_id = res.data.product.id;
-      })["catch"](function (error) {
-        _this3.errors = error.response.data.errors;
-      });
-    },
-    updateStock: function updateStock() {
-      var _this4 = this;
-
-      var id = this.form.product_id;
-      axios.put("/api/product/stock/" + id, {
-        quantity: this.form.quantity
-      }).then(function (res) {
-        $("#exampleModalCenter").modal("hide");
-
-        _this4.$store.dispatch("getAllProducts");
-
-        Toast.fire({
-          icon: "success",
-          title: "Product Stock Updated Successfully"
-        });
-      })["catch"](function (error) {
-        _this4.errors = error.response.data.errors;
-        Toast.fire({
-          icon: "error",
-          title: "Product Stock can't be Updated"
-        });
-      });
-    },
     categoryProducts: function categoryProducts(id) {
       this.$store.dispatch("getAlLProductsByCategory", id);
     },
     getAllProducts: function getAllProducts() {
       this.$store.dispatch("getAllProducts");
+    },
+    onFileSelected: function onFileSelected(event) {
+      var _this3 = this;
+
+      var file = event.target.files[0];
+
+      if (file.size > 1048576) {
+        Toast.fire({
+          icon: "error",
+          title: "Image size cannt be more than 1MB!"
+        });
+      } else {
+        var reader = new FileReader();
+
+        reader.onload = function (event) {
+          _this3.form.photo = event.target.result;
+          console.log(event.target.result);
+        };
+
+        reader.readAsDataURL(file);
+      }
+    },
+    saveForm: function saveForm() {
+      var _this4 = this;
+
+      axios.post("/api/customer", this.form).then(function (res) {
+        $("#exampleModalCenter").modal("hide");
+
+        _this4.$store.dispatch("getAllCustomers");
+
+        Toast.fire({
+          icon: "success",
+          title: "Customer Created Succesfully"
+        });
+      })["catch"](function (error) {
+        _this4.errors = error.response.data.errors;
+        Toast.fire({
+          icon: "error",
+          title: "Customer can't be Created"
+        });
+      });
     }
   }
 });
@@ -52785,35 +52954,12 @@ var render = function() {
     _c("div", { staticClass: "row mb-3" }, [
       _c("div", { staticClass: "col-xl-5 col-lg-5" }, [
         _c("div", { staticClass: "card mb-4" }, [
-          _c(
-            "div",
-            {
-              staticClass:
-                "card-header py-3 d-flex flex-row align-items-center justify-content-between"
-            },
-            [
-              _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
-                _vm._v(
-                  "\n                        Add Expense\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "router-link",
-                {
-                  staticClass: "btn btn-sm btn-info",
-                  attrs: { to: { name: "CreateCustomer" } }
-                },
-                [_vm._v("Add Customer")]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
           _vm._m(0),
           _vm._v(" "),
+          _vm._m(1),
+          _vm._v(" "),
           _c("div", { staticClass: "card-footer" }, [
-            _vm._m(1),
+            _vm._m(2),
             _vm._v(" "),
             _c("form", { staticClass: "mt-5", attrs: { action: "" } }, [
               _c("div", { staticClass: "form-group" }, [
@@ -53331,10 +53477,299 @@ var render = function() {
           )
         ])
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "exampleModalCenter",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalCenterTitle",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-xl modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(3),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c(
+                  "form",
+                  {
+                    staticClass: "user",
+                    attrs: { method: "POST", enctype: "multipart/form-data" }
+                  },
+                  [
+                    _c("div", { staticClass: "row login-form" }, [
+                      _c("div", { staticClass: "col-lg-6" }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.name,
+                                expression: "form.name"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              id: "exampleInputFirstName",
+                              placeholder: "Enter Customer Full Name"
+                            },
+                            domProps: { value: _vm.form.name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "name", $event.target.value)
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors.name
+                            ? _c("small", { staticClass: "text-danger" }, [
+                                _vm._v(_vm._s(_vm.errors.name[0]))
+                              ])
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.phone,
+                                expression: "form.phone"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "number",
+                              placeholder: "Enter Phone Number"
+                            },
+                            domProps: { value: _vm.form.phone },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "phone", $event.target.value)
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors.phone
+                            ? _c("small", { staticClass: "text-danger" }, [
+                                _vm._v(_vm._s(_vm.errors.phone[0]))
+                              ])
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("div", { staticClass: "custom-file" }, [
+                            _c("input", {
+                              staticClass: "custom-file-input",
+                              attrs: { type: "file", id: "customFile" },
+                              on: { change: _vm.onFileSelected }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "label",
+                              {
+                                staticClass: "custom-file-label",
+                                attrs: { for: "customFile" }
+                              },
+                              [_vm._v("Choose file")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _vm.errors.photo
+                            ? _c("small", { staticClass: "text-danger" }, [
+                                _vm._v(_vm._s(_vm.errors.photo[0]))
+                              ])
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group" }, [
+                          _vm.form.photo
+                            ? _c("img", {
+                                staticClass: "rounded",
+                                attrs: {
+                                  src: _vm.form.photo,
+                                  alt: "Employee Photo",
+                                  height: "70px",
+                                  width: "70px"
+                                }
+                              })
+                            : _vm._e()
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-lg-6" }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.email,
+                                expression: "form.email"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "email",
+                              id: "exampleInputEmail",
+                              "aria-describedby": "emailHelp",
+                              placeholder: "Enter Email Address"
+                            },
+                            domProps: { value: _vm.form.email },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "email", $event.target.value)
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors.email
+                            ? _c("small", { staticClass: "text-danger" }, [
+                                _vm._v(_vm._s(_vm.errors.email[0]))
+                              ])
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("textarea", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.address,
+                                expression: "form.address"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              name: "address",
+                              id: "address",
+                              rows: "5",
+                              placeholder: "Enter Customer Address"
+                            },
+                            domProps: { value: _vm.form.address },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "address",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors.address
+                            ? _c("small", { staticClass: "text-danger" }, [
+                                _vm._v(_vm._s(_vm.errors.address[0]))
+                              ])
+                            : _vm._e()
+                        ])
+                      ])
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-outline-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                        Close\n                    "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: { click: _vm.saveForm }
+                  },
+                  [
+                    _vm._v(
+                      "\n                        Save Data\n                    "
+                    )
+                  ]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "card-header py-3 d-flex flex-row align-items-center justify-content-between"
+      },
+      [
+        _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
+          _vm._v("\n                        Add Expense\n                    ")
+        ]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-sm btn-primary",
+            attrs: {
+              type: "button",
+              "data-toggle": "modal",
+              "data-target": "#exampleModalCenter",
+              id: "#modalCenter"
+            }
+          },
+          [
+            _vm._v(
+              "\n                        Add Customer\n                    "
+            )
+          ]
+        )
+      ]
+    )
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -53445,6 +53880,38 @@ var staticRenderFns = [
           _vm._v("\n                            Total Amount : "),
           _c("strong", [_vm._v("$ 135798.00")])
         ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        {
+          staticClass: "modal-title",
+          attrs: { id: "exampleModalCenterTitle" }
+        },
+        [
+          _vm._v(
+            "\n                        Add New Customer\n                    "
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
   }

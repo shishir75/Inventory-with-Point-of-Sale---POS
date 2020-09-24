@@ -22,11 +22,15 @@
                         <h6 class="m-0 font-weight-bold text-primary">
                             Add Expense
                         </h6>
-                        <router-link
-                            :to="{ name: 'CreateCustomer' }"
-                            class="btn btn-sm btn-info"
-                            >Add Customer</router-link
+                        <button
+                            type="button"
+                            class="btn btn-sm btn-primary"
+                            data-toggle="modal"
+                            data-target="#exampleModalCenter"
+                            id="#modalCenter"
                         >
+                            Add Customer
+                        </button>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -351,6 +355,158 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal Center -->
+        <div
+            class="modal fade"
+            id="exampleModalCenter"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true"
+        >
+            <div
+                class="modal-dialog modal-xl modal-dialog-centered"
+                role="document"
+            >
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">
+                            Add New Customer
+                        </h5>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form
+                            class="user"
+                            method="POST"
+                            enctype="multipart/form-data"
+                        >
+                            <div class="row login-form">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="exampleInputFirstName"
+                                            placeholder="Enter Customer Full Name"
+                                            v-model="form.name"
+                                        />
+                                        <small
+                                            class="text-danger"
+                                            v-if="errors.name"
+                                            >{{ errors.name[0] }}</small
+                                        >
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            placeholder="Enter Phone Number"
+                                            v-model="form.phone"
+                                        />
+                                        <small
+                                            class="text-danger"
+                                            v-if="errors.phone"
+                                            >{{ errors.phone[0] }}</small
+                                        >
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="custom-file">
+                                            <input
+                                                type="file"
+                                                class="custom-file-input"
+                                                id="customFile"
+                                                @change="onFileSelected"
+                                            />
+                                            <label
+                                                class="custom-file-label"
+                                                for="customFile"
+                                                >Choose file</label
+                                            >
+                                        </div>
+                                        <small
+                                            class="text-danger"
+                                            v-if="errors.photo"
+                                            >{{ errors.photo[0] }}</small
+                                        >
+                                    </div>
+                                    <div class="form-group">
+                                        <img
+                                            :src="form.photo"
+                                            alt="Employee Photo"
+                                            height="70px"
+                                            width="70px"
+                                            class="rounded"
+                                            v-if="form.photo"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <input
+                                            type="email"
+                                            class="form-control"
+                                            id="exampleInputEmail"
+                                            aria-describedby="emailHelp"
+                                            placeholder="Enter Email Address"
+                                            v-model="form.email"
+                                        />
+                                        <small
+                                            class="text-danger"
+                                            v-if="errors.email"
+                                            >{{ errors.email[0] }}</small
+                                        >
+                                    </div>
+
+                                    <div class="form-group">
+                                        <textarea
+                                            name="address"
+                                            v-model="form.address"
+                                            id="address"
+                                            rows="5"
+                                            class="form-control"
+                                            placeholder="Enter Customer Address"
+                                        ></textarea>
+                                        <small
+                                            class="text-danger"
+                                            v-if="errors.address"
+                                            >{{ errors.address[0] }}</small
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-outline-secondary"
+                            data-dismiss="modal"
+                        >
+                            Close
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            @click="saveForm"
+                        >
+                            Save Data
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Row-->
+
         <!--Row-->
     </div>
 </template>
@@ -366,7 +522,12 @@ export default {
                 customer_id: "",
                 pay: "",
                 due: "",
-                payment_method: ""
+                payment_method: "",
+                name: "",
+                email: "",
+                address: "",
+                phone: "",
+                photo: ""
             },
             errors: []
         };
@@ -438,44 +599,46 @@ export default {
                 }
             });
         },
-        editStock(id) {
-            axios
-                .get("/api/product/" + id)
-                .then(res => {
-                    this.form.quantity = res.data.product.quantity;
-                    this.form.product_id = res.data.product.id;
-                })
-                .catch(error => {
-                    this.errors = error.response.data.errors;
-                });
+        categoryProducts(id) {
+            this.$store.dispatch("getAlLProductsByCategory", id);
         },
-        updateStock() {
-            let id = this.form.product_id;
+        getAllProducts() {
+            this.$store.dispatch("getAllProducts");
+        },
+        onFileSelected(event) {
+            let file = event.target.files[0];
+            if (file.size > 1048576) {
+                Toast.fire({
+                    icon: "error",
+                    title: "Image size cannt be more than 1MB!"
+                });
+            } else {
+                let reader = new FileReader();
+                reader.onload = event => {
+                    this.form.photo = event.target.result;
+                    console.log(event.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        },
+        saveForm() {
             axios
-                .put("/api/product/stock/" + id, {
-                    quantity: this.form.quantity
-                })
+                .post("/api/customer", this.form)
                 .then(res => {
                     $("#exampleModalCenter").modal("hide");
-                    this.$store.dispatch("getAllProducts");
+                    this.$store.dispatch("getAllCustomers");
                     Toast.fire({
                         icon: "success",
-                        title: "Product Stock Updated Successfully"
+                        title: "Customer Created Succesfully"
                     });
                 })
                 .catch(error => {
                     this.errors = error.response.data.errors;
                     Toast.fire({
                         icon: "error",
-                        title: "Product Stock can't be Updated"
+                        title: "Customer can't be Created"
                     });
                 });
-        },
-        categoryProducts(id) {
-            this.$store.dispatch("getAlLProductsByCategory", id);
-        },
-        getAllProducts() {
-            this.$store.dispatch("getAllProducts");
         }
     }
 };
