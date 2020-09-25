@@ -55,7 +55,44 @@
                                     >
                                         <td>{{ index + 1 }}</td>
                                         <td>{{ cart.product.name }}</td>
-                                        <td>{{ cart.quantity }}</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <button
+                                                        type="button"
+                                                        class="quantity-left-minus btn btn-sm btn-secondary btn-number mt-2"
+                                                        data-type="minus"
+                                                        data-field=""
+                                                    >
+                                                        <i
+                                                            class="fas fa-minus"
+                                                        ></i>
+                                                    </button>
+                                                </span>
+                                                <input
+                                                    type="text"
+                                                    id="quantity"
+                                                    name="quantity"
+                                                    class="form-control input-number mt-1 rounded"
+                                                    :value="cart.quantity"
+                                                    min="1"
+                                                    max="100"
+                                                    style="height:29px"
+                                                />
+                                                <span class="input-group-btn">
+                                                    <button
+                                                        type="button"
+                                                        class="quantity-right-plus btn btn-sm btn-success btn-number mt-2"
+                                                        data-type="plus"
+                                                        data-field=""
+                                                    >
+                                                        <i
+                                                            class="fas fa-plus"
+                                                        ></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </td>
                                         <td>
                                             {{
                                                 cart.product.selling_price.toFixed(
