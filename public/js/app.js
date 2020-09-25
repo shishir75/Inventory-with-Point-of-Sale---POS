@@ -5370,6 +5370,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5554,6 +5558,42 @@ __webpack_require__.r(__webpack_exports__);
     },
     totalPrice: function totalPrice(unit_price, quantity) {
       return (unit_price * quantity).toFixed(2);
+    },
+    increaseItem: function increaseItem(id) {
+      var _this6 = this;
+
+      axios.put("/api/cart/increase/" + id).then(function (res) {
+        _this6.$store.dispatch("getAllCartProducts");
+
+        Toast.fire({
+          icon: "success",
+          title: "Quantity Increased Succesfully"
+        });
+      })["catch"](function (error) {
+        _this6.errors = error.response.data.errors;
+        Toast.fire({
+          icon: "error",
+          title: "Quantity can't be Increased"
+        });
+      });
+    },
+    decreaseItem: function decreaseItem(id) {
+      var _this7 = this;
+
+      axios.put("/api/cart/decrease/" + id).then(function (res) {
+        _this7.$store.dispatch("getAllCartProducts");
+
+        Toast.fire({
+          icon: "success",
+          title: "Quantity Decreased Succesfully"
+        });
+      })["catch"](function (error) {
+        _this7.errors = error.response.data.errors;
+        Toast.fire({
+          icon: "error",
+          title: "Quantity can't be Decreased"
+        });
+      });
     }
   }
 });
@@ -53089,23 +53129,47 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", [
                           _c("div", { staticClass: "input-group" }, [
-                            _vm._m(2, true),
+                            _c("span", { staticClass: "input-group-btn" }, [
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "quantity-left-minus btn btn-sm btn-secondary btn-number mt-2",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.decreaseItem(cart.id)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-minus" })]
+                              )
+                            ]),
                             _vm._v(" "),
                             _c("input", {
                               staticClass:
                                 "form-control input-number mt-1 rounded",
                               staticStyle: { height: "29px" },
-                              attrs: {
-                                type: "text",
-                                id: "quantity",
-                                name: "quantity",
-                                min: "1",
-                                max: "100"
-                              },
+                              attrs: { type: "text", min: "1", max: "100" },
                               domProps: { value: cart.quantity }
                             }),
                             _vm._v(" "),
-                            _vm._m(3, true)
+                            _c("span", { staticClass: "input-group-btn" }, [
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "quantity-right-plus btn btn-sm btn-success btn-number mt-2",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.increaseItem(cart.id)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-plus" })]
+                              )
+                            ])
                           ])
                         ]),
                         _vm._v(" "),
@@ -53130,7 +53194,7 @@ var render = function() {
                           )
                         ]),
                         _vm._v(" "),
-                        _vm._m(4, true)
+                        _vm._m(2, true)
                       ])
                     }),
                     0
@@ -53177,7 +53241,7 @@ var render = function() {
                     "list-group-item d-flex justify-content-between align-items-center"
                 },
                 [
-                  _vm._m(5),
+                  _vm._m(3),
                   _vm._v(
                     "\n                            :\n                            "
                   ),
@@ -53751,7 +53815,7 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(6),
+              _vm._m(4),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c(
@@ -54039,38 +54103,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Action")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "input-group-btn" }, [
-      _c(
-        "button",
-        {
-          staticClass:
-            "quantity-left-minus btn btn-sm btn-secondary btn-number mt-2",
-          attrs: { type: "button", "data-type": "minus", "data-field": "" }
-        },
-        [_c("i", { staticClass: "fas fa-minus" })]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "input-group-btn" }, [
-      _c(
-        "button",
-        {
-          staticClass:
-            "quantity-right-plus btn btn-sm btn-success btn-number mt-2",
-          attrs: { type: "button", "data-type": "plus", "data-field": "" }
-        },
-        [_c("i", { staticClass: "fas fa-plus" })]
-      )
     ])
   },
   function() {

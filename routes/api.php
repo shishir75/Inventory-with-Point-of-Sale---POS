@@ -40,4 +40,6 @@ Route::group( ['namespace' => 'Admin', 'middleware' => 'auth:sanctum'], function
     Route::get( '/salary/{month_year}/monthly', "SalaryController@month_year" );
     Route::put( '/product/stock/{id}', "ProductController@update_stock" );
     Route::get( '/category/{category}/product', "PosController@category_product" );
+    Route::put( '/cart/increase/{id}', "CartController@increase" );
+    Route::put( '/cart/decrease/{id}', "CartController@decrease" );
 } );

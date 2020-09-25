@@ -61,8 +61,11 @@
                                                     <button
                                                         type="button"
                                                         class="quantity-left-minus btn btn-sm btn-secondary btn-number mt-2"
-                                                        data-type="minus"
-                                                        data-field=""
+                                                        @click="
+                                                            decreaseItem(
+                                                                cart.id
+                                                            )
+                                                        "
                                                     >
                                                         <i
                                                             class="fas fa-minus"
@@ -71,8 +74,6 @@
                                                 </span>
                                                 <input
                                                     type="text"
-                                                    id="quantity"
-                                                    name="quantity"
                                                     class="form-control input-number mt-1 rounded"
                                                     :value="cart.quantity"
                                                     min="1"
@@ -83,8 +84,11 @@
                                                     <button
                                                         type="button"
                                                         class="quantity-right-plus btn btn-sm btn-success btn-number mt-2"
-                                                        data-type="plus"
-                                                        data-field=""
+                                                        @click="
+                                                            increaseItem(
+                                                                cart.id
+                                                            )
+                                                        "
                                                     >
                                                         <i
                                                             class="fas fa-plus"
@@ -749,6 +753,42 @@ export default {
         },
         totalPrice(unit_price, quantity) {
             return (unit_price * quantity).toFixed(2);
+        },
+        increaseItem(id) {
+            axios
+                .put("/api/cart/increase/" + id)
+                .then(res => {
+                    this.$store.dispatch("getAllCartProducts");
+                    Toast.fire({
+                        icon: "success",
+                        title: "Quantity Increased Succesfully"
+                    });
+                })
+                .catch(error => {
+                    this.errors = error.response.data.errors;
+                    Toast.fire({
+                        icon: "error",
+                        title: "Quantity can't be Increased"
+                    });
+                });
+        },
+        decreaseItem(id) {
+            axios
+                .put("/api/cart/decrease/" + id)
+                .then(res => {
+                    this.$store.dispatch("getAllCartProducts");
+                    Toast.fire({
+                        icon: "success",
+                        title: "Quantity Decreased Succesfully"
+                    });
+                })
+                .catch(error => {
+                    this.errors = error.response.data.errors;
+                    Toast.fire({
+                        icon: "error",
+                        title: "Quantity can't be Decreased"
+                    });
+                });
         }
     }
 };

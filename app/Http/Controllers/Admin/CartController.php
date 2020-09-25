@@ -34,4 +34,23 @@ class CartController extends Controller
             $cart->save();
         }
     }
+
+    public function increase( $id )
+    {
+        $cart = Cart::findOrFail( $id );
+        $cart->quantity = $cart->quantity + 1;
+        $cart->save();
+    }
+
+    public function decrease( $id )
+    {
+        $cart = Cart::findOrFail( $id );
+        $cart->quantity = $cart->quantity - 1;
+        $cart->save();
+
+        if ( $cart->quantity === 0 ) {
+            $cart->delete();
+        }
+    }
+
 }
