@@ -5374,6 +5374,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5469,23 +5473,23 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: "Yes, Delete It!"
       }).then(function (result) {
         if (result.isConfirmed) {
-          axios["delete"]("/api/product/" + id).then(function (res) {
-            _this2.$store.dispatch("getAllProducts");
+          axios["delete"]("/api/cart/" + id).then(function (res) {
+            _this2.$store.dispatch("getAllCartProducts");
 
             Toast.fire({
               icon: "success",
-              title: "Product Data Deleted Successfully"
+              title: "Product Deleted Successfully from Cart"
             });
           })["catch"](function (error) {
             Toast.fire({
               icon: "error",
-              title: "Data cann't be Deleted"
+              title: "Product can't be Deleted from Cart"
             });
           });
         } else {
           Toast.fire({
             icon: "info",
-            title: "Product Data Remains Unchanged"
+            title: "Product Remains Unchanged in Cart"
           });
         }
       });
@@ -53194,7 +53198,25 @@ var render = function() {
                           )
                         ]),
                         _vm._v(" "),
-                        _vm._m(2, true)
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-sm btn-danger",
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteData(cart.id)
+                                }
+                              }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fa fa-times",
+                                attrs: { "aria-hidden": "true" }
+                              })
+                            ]
+                          )
+                        ])
                       ])
                     }),
                     0
@@ -53241,7 +53263,7 @@ var render = function() {
                     "list-group-item d-flex justify-content-between align-items-center"
                 },
                 [
-                  _vm._m(3),
+                  _vm._m(2),
                   _vm._v(
                     "\n                            :\n                            "
                   ),
@@ -53815,7 +53837,7 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(4),
+              _vm._m(3),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c(
@@ -54102,16 +54124,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Total Price")]),
         _vm._v(" "),
         _c("th", [_vm._v("Action")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("a", { staticClass: "btn btn-sm btn-danger", attrs: { href: "#" } }, [
-        _vm._v("X")
       ])
     ])
   },

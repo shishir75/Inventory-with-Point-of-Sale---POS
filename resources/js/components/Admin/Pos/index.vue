@@ -113,11 +113,15 @@
                                             }}
                                         </td>
                                         <td>
-                                            <a
-                                                href="#"
+                                            <button
                                                 class="btn btn-sm btn-danger"
-                                                >X</a
+                                                @click="deleteData(cart.id)"
                                             >
+                                                <i
+                                                    class="fa fa-times"
+                                                    aria-hidden="true"
+                                                ></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -671,24 +675,24 @@ export default {
             }).then(result => {
                 if (result.isConfirmed) {
                     axios
-                        .delete("/api/product/" + id)
+                        .delete("/api/cart/" + id)
                         .then(res => {
-                            this.$store.dispatch("getAllProducts");
+                            this.$store.dispatch("getAllCartProducts");
                             Toast.fire({
                                 icon: "success",
-                                title: "Product Data Deleted Successfully"
+                                title: "Product Deleted Successfully from Cart"
                             });
                         })
                         .catch(error => {
                             Toast.fire({
                                 icon: "error",
-                                title: "Data cann't be Deleted"
+                                title: "Product can't be Deleted from Cart"
                             });
                         });
                 } else {
                     Toast.fire({
                         icon: "info",
-                        title: "Product Data Remains Unchanged"
+                        title: "Product Remains Unchanged in Cart"
                     });
                 }
             });
