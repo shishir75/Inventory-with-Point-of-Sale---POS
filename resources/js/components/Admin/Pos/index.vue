@@ -102,7 +102,7 @@
                             >
                                 <p>Vat <small>(15%)</small></p>
                                 :
-                                <strong>$ {{ vat(subTotal) }}</strong>
+                                <strong>$ {{ vat }}</strong>
                             </li>
                             <li
                                 class="list-group-item d-flex justify-content-between align-items-center"
@@ -599,6 +599,9 @@ export default {
             });
             return price.toFixed(2);
         },
+        vat() {
+            return (this.subTotal * 0.15).toFixed(2);
+        },
         totalQuantity() {
             let quantity = 0;
             this.allCartProducts.forEach(cart => {
@@ -709,9 +712,6 @@ export default {
         },
         totalPrice(unit_price, quantity) {
             return (unit_price * quantity).toFixed(2);
-        },
-        vat(price) {
-            return (price * 0.15).toFixed(2);
         }
     }
 };

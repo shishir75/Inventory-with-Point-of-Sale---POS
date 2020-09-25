@@ -5396,6 +5396,9 @@ __webpack_require__.r(__webpack_exports__);
       });
       return price.toFixed(2);
     },
+    vat: function vat() {
+      return (this.subTotal * 0.15).toFixed(2);
+    },
     totalQuantity: function totalQuantity() {
       var quantity = 0;
       this.allCartProducts.forEach(function (cart) {
@@ -5514,9 +5517,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     totalPrice: function totalPrice(unit_price, quantity) {
       return (unit_price * quantity).toFixed(2);
-    },
-    vat: function vat(price) {
-      return (price * 0.15).toFixed(2);
     }
   }
 });
@@ -53124,7 +53124,7 @@ var render = function() {
                   _vm._v(
                     "\n                            :\n                            "
                   ),
-                  _c("strong", [_vm._v("$ " + _vm._s(_vm.vat(_vm.subTotal)))])
+                  _c("strong", [_vm._v("$ " + _vm._s(_vm.vat))])
                 ]
               ),
               _vm._v(" "),
