@@ -200,22 +200,6 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Due Amount</label>
-                                        <input
-                                            type="number"
-                                            class="form-control"
-                                            placeholder="Enter Due Amount"
-                                            v-model="form.due"
-                                        />
-                                        <small
-                                            class="text-danger"
-                                            v-if="errors.due"
-                                            >{{ errors.due[0] }}</small
-                                        >
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
                                         <label for=""
                                             >Select Payment Method</label
                                         >
@@ -243,6 +227,23 @@
                                                 errors.payment_method[0]
                                             }}</small
                                         >
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <p class="text-center">Due Amount</p>
+                                        <div class="row justify-content-center">
+                                            <h2
+                                                class="btn btn-sm"
+                                                :class="
+                                                    duePrice == '0.00'
+                                                        ? 'btn-success'
+                                                        : 'btn-danger'
+                                                "
+                                            >
+                                                {{ duePrice }}
+                                            </h2>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -592,7 +593,6 @@ export default {
                 product_id: "",
                 customer_id: "",
                 pay: "",
-                due: "",
                 payment_method: "",
                 name: "",
                 email: "",
@@ -658,6 +658,11 @@ export default {
             let price = parseFloat(this.subTotal);
             let vat = parseFloat(price * 0.15);
             return (price + vat).toFixed(2);
+        },
+        duePrice() {
+            let paid = this.form.pay;
+            let due = parseFloat(this.priceWithVat) - parseFloat(paid);
+            return due.toFixed(2);
         }
     },
     methods: {

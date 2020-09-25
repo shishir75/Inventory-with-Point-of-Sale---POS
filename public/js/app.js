@@ -5378,6 +5378,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5387,7 +5388,6 @@ __webpack_require__.r(__webpack_exports__);
         product_id: "",
         customer_id: "",
         pay: "",
-        due: "",
         payment_method: "",
         name: "",
         email: "",
@@ -5455,6 +5455,11 @@ __webpack_require__.r(__webpack_exports__);
       var price = parseFloat(this.subTotal);
       var vat = parseFloat(price * 0.15);
       return (price + vat).toFixed(2);
+    },
+    duePrice: function duePrice() {
+      var paid = this.form.pay;
+      var due = parseFloat(this.priceWithVat) - parseFloat(paid);
+      return due.toFixed(2);
     }
   },
   methods: {
@@ -53395,43 +53400,6 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-4" }, [
                   _c("div", { staticClass: "form-group" }, [
-                    _c("label", [_vm._v("Due Amount")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.due,
-                          expression: "form.due"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "number",
-                        placeholder: "Enter Due Amount"
-                      },
-                      domProps: { value: _vm.form.due },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.form, "due", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.errors.due
-                      ? _c("small", { staticClass: "text-danger" }, [
-                          _vm._v(_vm._s(_vm.errors.due[0]))
-                        ])
-                      : _vm._e()
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-4" }, [
-                  _c("div", { staticClass: "form-group" }, [
                     _c("label", { attrs: { for: "" } }, [
                       _vm._v("Select Payment Method")
                     ]),
@@ -53494,6 +53462,34 @@ var render = function() {
                           _vm._v(_vm._s(_vm.errors.payment_method[0]))
                         ])
                       : _vm._e()
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("p", { staticClass: "text-center" }, [
+                      _vm._v("Due Amount")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row justify-content-center" }, [
+                      _c(
+                        "h2",
+                        {
+                          staticClass: "btn btn-sm",
+                          class:
+                            _vm.duePrice == "0.00"
+                              ? "btn-success"
+                              : "btn-danger"
+                        },
+                        [
+                          _vm._v(
+                            "\n                                            " +
+                              _vm._s(_vm.duePrice) +
+                              "\n                                        "
+                          )
+                        ]
+                      )
+                    ])
                   ])
                 ])
               ]),
