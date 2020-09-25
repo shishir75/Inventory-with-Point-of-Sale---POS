@@ -89,36 +89,26 @@
                                 class="list-group-item d-flex justify-content-between align-items-center"
                             >
                                 Total Quantity :
-                                <strong>{{
-                                    totalQuantity(allCartProducts)
-                                }}</strong>
+                                <strong>{{ totalQuantity }}</strong>
                             </li>
                             <li
                                 class="list-group-item d-flex justify-content-between align-items-center"
                             >
                                 Sub Total :
-                                <strong
-                                    >$ {{ subTotal(allCartProducts) }}</strong
-                                >
+                                <strong>$ {{ subTotal }}</strong>
                             </li>
                             <li
                                 class="list-group-item d-flex justify-content-between align-items-center"
                             >
                                 <p>Vat <small>(15%)</small></p>
                                 :
-                                <strong
-                                    >$
-                                    {{ vat(subTotal(allCartProducts)) }}</strong
-                                >
+                                <strong>$ {{ vat(subTotal) }}</strong>
                             </li>
                             <li
                                 class="list-group-item d-flex justify-content-between align-items-center"
                             >
                                 Total Amount :
-                                <strong
-                                    >$
-                                    {{ priceWithVat(allCartProducts) }}</strong
-                                >
+                                <strong>$ {{ priceWithVat }}</strong>
                             </li>
                         </ul>
 
@@ -601,6 +591,25 @@ export default {
         },
         allCartProducts() {
             return this.$store.getters.getAllCartProducts;
+        },
+        subTotal() {
+            let price = 0;
+            this.allCartProducts.forEach(cart => {
+                price += cart.product.selling_price * cart.quantity;
+            });
+            return price.toFixed(2);
+        },
+        totalQuantity() {
+            let quantity = 0;
+            this.allCartProducts.forEach(cart => {
+                quantity += cart.quantity;
+            });
+            return quantity;
+        },
+        priceWithVat() {
+            let price = parseFloat(this.subTotal);
+            let vat = parseFloat(price * 0.15);
+            return (price + vat).toFixed(2);
         }
     },
     methods: {
@@ -701,27 +710,8 @@ export default {
         totalPrice(unit_price, quantity) {
             return (unit_price * quantity).toFixed(2);
         },
-        subTotal(allCartProducts) {
-            let price = 0;
-            allCartProducts.forEach(cart => {
-                price += cart.product.selling_price * cart.quantity;
-            });
-            return price.toFixed(2);
-        },
-        totalQuantity(allCartProducts) {
-            let quantity = 0;
-            allCartProducts.forEach(cart => {
-                quantity += cart.quantity;
-            });
-            return quantity;
-        },
         vat(price) {
             return (price * 0.15).toFixed(2);
-        },
-        priceWithVat(allCartProducts) {
-            let price = parseFloat(this.subTotal(allCartProducts));
-            let vat = parseFloat(price * 0.15);
-            return (price + vat).toFixed(2);
         }
     }
 };

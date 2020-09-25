@@ -5333,16 +5333,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5398,6 +5388,25 @@ __webpack_require__.r(__webpack_exports__);
     },
     allCartProducts: function allCartProducts() {
       return this.$store.getters.getAllCartProducts;
+    },
+    subTotal: function subTotal() {
+      var price = 0;
+      this.allCartProducts.forEach(function (cart) {
+        price += cart.product.selling_price * cart.quantity;
+      });
+      return price.toFixed(2);
+    },
+    totalQuantity: function totalQuantity() {
+      var quantity = 0;
+      this.allCartProducts.forEach(function (cart) {
+        quantity += cart.quantity;
+      });
+      return quantity;
+    },
+    priceWithVat: function priceWithVat() {
+      var price = parseFloat(this.subTotal);
+      var vat = parseFloat(price * 0.15);
+      return (price + vat).toFixed(2);
     }
   },
   methods: {
@@ -5506,27 +5515,8 @@ __webpack_require__.r(__webpack_exports__);
     totalPrice: function totalPrice(unit_price, quantity) {
       return (unit_price * quantity).toFixed(2);
     },
-    subTotal: function subTotal(allCartProducts) {
-      var price = 0;
-      allCartProducts.forEach(function (cart) {
-        price += cart.product.selling_price * cart.quantity;
-      });
-      return price.toFixed(2);
-    },
-    totalQuantity: function totalQuantity(allCartProducts) {
-      var quantity = 0;
-      allCartProducts.forEach(function (cart) {
-        quantity += cart.quantity;
-      });
-      return quantity;
-    },
     vat: function vat(price) {
       return (price * 0.15).toFixed(2);
-    },
-    priceWithVat: function priceWithVat(allCartProducts) {
-      var price = parseFloat(this.subTotal(allCartProducts));
-      var vat = parseFloat(price * 0.15);
-      return (price + vat).toFixed(2);
     }
   }
 });
@@ -53105,9 +53095,7 @@ var render = function() {
                   _vm._v(
                     "\n                            Total Quantity :\n                            "
                   ),
-                  _c("strong", [
-                    _vm._v(_vm._s(_vm.totalQuantity(_vm.allCartProducts)))
-                  ])
+                  _c("strong", [_vm._v(_vm._s(_vm.totalQuantity))])
                 ]
               ),
               _vm._v(" "),
@@ -53121,9 +53109,7 @@ var render = function() {
                   _vm._v(
                     "\n                            Sub Total :\n                            "
                   ),
-                  _c("strong", [
-                    _vm._v("$ " + _vm._s(_vm.subTotal(_vm.allCartProducts)))
-                  ])
+                  _c("strong", [_vm._v("$ " + _vm._s(_vm.subTotal))])
                 ]
               ),
               _vm._v(" "),
@@ -53138,12 +53124,7 @@ var render = function() {
                   _vm._v(
                     "\n                            :\n                            "
                   ),
-                  _c("strong", [
-                    _vm._v(
-                      "$\n                                " +
-                        _vm._s(_vm.vat(_vm.subTotal(_vm.allCartProducts)))
-                    )
-                  ])
+                  _c("strong", [_vm._v("$ " + _vm._s(_vm.vat(_vm.subTotal)))])
                 ]
               ),
               _vm._v(" "),
@@ -53157,12 +53138,7 @@ var render = function() {
                   _vm._v(
                     "\n                            Total Amount :\n                            "
                   ),
-                  _c("strong", [
-                    _vm._v(
-                      "$\n                                " +
-                        _vm._s(_vm.priceWithVat(_vm.allCartProducts))
-                    )
-                  ])
+                  _c("strong", [_vm._v("$ " + _vm._s(_vm.priceWithVat))])
                 ]
               )
             ]),
