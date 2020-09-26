@@ -22,6 +22,73 @@
                     </li>
                 </ol>
             </div>
+            <div class="row">
+                <div class="col-md-6 py-5">
+                    <h2>Inventory Management Syestem with POS</h2>
+                    <h5>Developed By: Md. Obydullah Sarder (SHISHIR)</h5>
+                    <h6>M.Sc in ICT at Jahangirnagar University</h6>
+                    <h6>Savar, Dhaka - 1342</h6>
+                    <h6>
+                        GitHub:
+                        <a href="https://github.com/shishir75"
+                            >https://github.com/shishir75</a
+                        >
+                    </h6>
+                    <h6>Email: obydullah.srdr18@gmail.com</h6>
+                    <h6>Cell: +8801744681133, +8801614681133</h6>
+                </div>
+                <div class="col-md-6 text-right">
+                    <h2>Order Details</h2>
+                    <h5>
+                        Order Number:
+                        <strong>POS-20200926{{ customerOrder.id }}</strong>
+                    </h5>
+                    <h6>
+                        Customer Name:
+                        <strong>{{ customerOrder.customer.name }}</strong>
+                    </h6>
+                    <h6>
+                        Mobile: +88{{ customerOrder.customer.phone }},
+                        <span
+                            >Address: {{ customerOrder.customer.address }}</span
+                        >
+                    </h6>
+                    <h6>
+                        Total Quantity:
+                        <strong>{{ customerOrder.quantity }},</strong>
+                        <span
+                            >Sub Total: $
+                            {{ customerOrder.sub_total | numberFormat }},</span
+                        >
+                        <span
+                            >Vat<small>(15%)</small>: $
+                            {{ customerOrder.vat | numberFormat }}</span
+                        >
+                    </h6>
+                    <h6>
+                        Total:
+                        <strong
+                            >$ {{ customerOrder.total | numberFormat }}</strong
+                        >
+                    </h6>
+                    <h6>
+                        <span class="badge badge-success py-2"
+                            >Paid: $
+                            {{ customerOrder.paid | numberFormat }}</span
+                        >
+                        <span class="badge badge-danger py-2"
+                            >Due: $ {{ customerOrder.due | numberFormat }}</span
+                        >
+                    </h6>
+                    <h6>
+                        Payment Medium:
+                        <strong>{{ customerOrder.paidBy }}</strong>
+                    </h6>
+                    <h6>
+                        Order Date: <strong>{{ customerOrder.date }}</strong>
+                    </h6>
+                </div>
+            </div>
 
             <div class="row">
                 <div class="col-lg-12 mb-4">
@@ -31,7 +98,7 @@
                             class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                         >
                             <h4 class="m-0 font-weight-bold">
-                                VIEW ORDERS DETAILS
+                                PRODUCTS LIST
                             </h4>
                             <h6>
                                 <form>
@@ -52,10 +119,10 @@
                                     <tr>
                                         <th>Serial</th>
                                         <th>Product Name</th>
+                                        <th>Product Photo</th>
                                         <th>Quantity</th>
                                         <th>Unit Price</th>
                                         <th>Sub Total Price</th>
-                                        <th width="10%">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -65,6 +132,23 @@
                                     >
                                         <td>{{ index + 1 }}</td>
                                         <td>{{ order.product.name }}</td>
+                                        <td>
+                                            <img
+                                                v-if="order.product.photo"
+                                                :src="
+                                                    photo(order.product.photo)
+                                                "
+                                                :alt="order.product.name"
+                                                width="50px"
+                                                height="40px"
+                                                class="rounded"
+                                            />
+                                            <span
+                                                v-else
+                                                class="badge badge-warning"
+                                                >No Image</span
+                                            >
+                                        </td>
                                         <td>{{ order.quantity }}</td>
                                         <td class="text-right">
                                             {{ order.price | numberFormat }}
@@ -72,16 +156,6 @@
                                         <td class="text-right">
                                             $
                                             {{ order.sub_total | numberFormat }}
-                                        </td>
-                                        <td>
-                                            <router-link
-                                                :to="{
-                                                    name: 'ViewOrder',
-                                                    params: { id: order.id }
-                                                }"
-                                                class="btn btn-sm btn-info text-white"
-                                                >View Details</router-link
-                                            >
                                         </td>
                                     </tr>
                                 </tbody>
@@ -126,41 +200,14 @@ export default {
             } else {
                 return this.orderDetails;
             }
+        },
+        customerOrder() {
+            return this.$store.getters.getCustomerOrder;
         }
     },
     methods: {
-        deleteData(id) {
-            Swal.fire({
-                title: "Are you sure?",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, Delete It!"
-            }).then(result => {
-                if (result.isConfirmed) {
-                    axios
-                        .delete("/api/expense/" + id)
-                        .then(res => {
-                            this.$store.dispatch("getAllExpenses");
-                            Toast.fire({
-                                icon: "success",
-                                title: "Expense Data Deleted Successfully"
-                            });
-                        })
-                        .catch(error => {
-                            Toast.fire({
-                                icon: "error",
-                                title: "Data cann't be Deleted"
-                            });
-                        });
-                } else {
-                    Toast.fire({
-                        icon: "info",
-                        title: "Expense Data Remains Unchanged"
-                    });
-                }
-            });
+        photo(img) {
+            return "/assets/img/product/" + img;
         }
     }
 };

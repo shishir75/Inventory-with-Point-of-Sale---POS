@@ -69,8 +69,11 @@ class OrderController extends Controller
     {
         $orders = OrderDetail::with( 'product' )->where( 'order_id', $id )->get();
 
+        $customerOrder = Order::with( 'customer' )->where( 'id', $id )->first();
+
         return response()->json( [
-            'orders' => $orders,
+            'orders'        => $orders,
+            'customerOrder' => $customerOrder,
         ], 200 );
     }
 }

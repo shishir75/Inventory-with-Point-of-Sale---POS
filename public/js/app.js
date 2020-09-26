@@ -5059,6 +5059,80 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5084,41 +5158,14 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         return this.orderDetails;
       }
+    },
+    customerOrder: function customerOrder() {
+      return this.$store.getters.getCustomerOrder;
     }
   },
   methods: {
-    deleteData: function deleteData(id) {
-      var _this2 = this;
-
-      Swal.fire({
-        title: "Are you sure?",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, Delete It!"
-      }).then(function (result) {
-        if (result.isConfirmed) {
-          axios["delete"]("/api/expense/" + id).then(function (res) {
-            _this2.$store.dispatch("getAllExpenses");
-
-            Toast.fire({
-              icon: "success",
-              title: "Expense Data Deleted Successfully"
-            });
-          })["catch"](function (error) {
-            Toast.fire({
-              icon: "error",
-              title: "Data cann't be Deleted"
-            });
-          });
-        } else {
-          Toast.fire({
-            icon: "info",
-            title: "Expense Data Remains Unchanged"
-          });
-        }
-      });
+    photo: function photo(img) {
+      return "/assets/img/product/" + img;
     }
   }
 });
@@ -53801,6 +53848,104 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-6 text-right" }, [
+            _c("h2", [_vm._v("Order Details")]),
+            _vm._v(" "),
+            _c("h5", [
+              _vm._v(
+                "\n                    Order Number:\n                    "
+              ),
+              _c("strong", [
+                _vm._v("POS-20200926" + _vm._s(_vm.customerOrder.id))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("h6", [
+              _vm._v(
+                "\n                    Customer Name:\n                    "
+              ),
+              _c("strong", [_vm._v(_vm._s(_vm.customerOrder.customer.name))])
+            ]),
+            _vm._v(" "),
+            _c("h6", [
+              _vm._v(
+                "\n                    Mobile: +88" +
+                  _vm._s(_vm.customerOrder.customer.phone) +
+                  ",\n                    "
+              ),
+              _c("span", [
+                _vm._v("Address: " + _vm._s(_vm.customerOrder.customer.address))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("h6", [
+              _vm._v(
+                "\n                    Total Quantity:\n                    "
+              ),
+              _c("strong", [_vm._v(_vm._s(_vm.customerOrder.quantity) + ",")]),
+              _vm._v(" "),
+              _c("span", [
+                _vm._v(
+                  "Sub Total: $\n                        " +
+                    _vm._s(
+                      _vm._f("numberFormat")(_vm.customerOrder.sub_total)
+                    ) +
+                    ","
+                )
+              ]),
+              _vm._v(" "),
+              _c("span", [
+                _vm._v("Vat"),
+                _c("small", [_vm._v("(15%)")]),
+                _vm._v(
+                  ": $\n                        " +
+                    _vm._s(_vm._f("numberFormat")(_vm.customerOrder.vat))
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("h6", [
+              _vm._v("\n                    Total:\n                    "),
+              _c("strong", [
+                _vm._v(
+                  "$ " + _vm._s(_vm._f("numberFormat")(_vm.customerOrder.total))
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("h6", [
+              _c("span", { staticClass: "badge badge-success py-2" }, [
+                _vm._v(
+                  "Paid: $\n                        " +
+                    _vm._s(_vm._f("numberFormat")(_vm.customerOrder.paid))
+                )
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "badge badge-danger py-2" }, [
+                _vm._v(
+                  "Due: $ " +
+                    _vm._s(_vm._f("numberFormat")(_vm.customerOrder.due))
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("h6", [
+              _vm._v(
+                "\n                    Payment Medium:\n                    "
+              ),
+              _c("strong", [_vm._v(_vm._s(_vm.customerOrder.paidBy))])
+            ]),
+            _vm._v(" "),
+            _c("h6", [
+              _vm._v("\n                    Order Date: "),
+              _c("strong", [_vm._v(_vm._s(_vm.customerOrder.date))])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-lg-12 mb-4" }, [
             _c("div", { staticClass: "card" }, [
               _c(
@@ -53812,7 +53957,7 @@ var render = function() {
                 [
                   _c("h4", { staticClass: "m-0 font-weight-bold" }, [
                     _vm._v(
-                      "\n                            VIEW ORDERS DETAILS\n                        "
+                      "\n                            PRODUCTS LIST\n                        "
                     )
                   ]),
                   _vm._v(" "),
@@ -53852,7 +53997,7 @@ var render = function() {
                       "table align-items-center table-flush table-bordered text-center"
                   },
                   [
-                    _vm._m(0),
+                    _vm._m(1),
                     _vm._v(" "),
                     _c(
                       "tbody",
@@ -53861,6 +54006,24 @@ var render = function() {
                           _c("td", [_vm._v(_vm._s(index + 1))]),
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(order.product.name))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            order.product.photo
+                              ? _c("img", {
+                                  staticClass: "rounded",
+                                  attrs: {
+                                    src: _vm.photo(order.product.photo),
+                                    alt: order.product.name,
+                                    width: "50px",
+                                    height: "40px"
+                                  }
+                                })
+                              : _c(
+                                  "span",
+                                  { staticClass: "badge badge-warning" },
+                                  [_vm._v("No Image")]
+                                )
+                          ]),
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(order.quantity))]),
                           _vm._v(" "),
@@ -53880,27 +54043,7 @@ var render = function() {
                                 ) +
                                 "\n                                    "
                             )
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            [
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass: "btn btn-sm btn-info text-white",
-                                  attrs: {
-                                    to: {
-                                      name: "ViewOrder",
-                                      params: { id: order.id }
-                                    }
-                                  }
-                                },
-                                [_vm._v("View Details")]
-                              )
-                            ],
-                            1
-                          )
+                          ])
                         ])
                       }),
                       0
@@ -53942,19 +54085,44 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6 py-5" }, [
+      _c("h2", [_vm._v("Inventory Management Syestem with POS")]),
+      _vm._v(" "),
+      _c("h5", [_vm._v("Developed By: Md. Obydullah Sarder (SHISHIR)")]),
+      _vm._v(" "),
+      _c("h6", [_vm._v("M.Sc in ICT at Jahangirnagar University")]),
+      _vm._v(" "),
+      _c("h6", [_vm._v("Savar, Dhaka - 1342")]),
+      _vm._v(" "),
+      _c("h6", [
+        _vm._v("\n                    GitHub:\n                    "),
+        _c("a", { attrs: { href: "https://github.com/shishir75" } }, [
+          _vm._v("https://github.com/shishir75")
+        ])
+      ]),
+      _vm._v(" "),
+      _c("h6", [_vm._v("Email: obydullah.srdr18@gmail.com")]),
+      _vm._v(" "),
+      _c("h6", [_vm._v("Cell: +8801744681133, +8801614681133")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("thead", { staticClass: "thead-light" }, [
       _c("tr", [
         _c("th", [_vm._v("Serial")]),
         _vm._v(" "),
         _c("th", [_vm._v("Product Name")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Product Photo")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Quantity")]),
         _vm._v(" "),
         _c("th", [_vm._v("Unit Price")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Sub Total Price")]),
-        _vm._v(" "),
-        _c("th", { attrs: { width: "10%" } }, [_vm._v("Actions")])
+        _c("th", [_vm._v("Sub Total Price")])
       ])
     ])
   }
@@ -80404,7 +80572,8 @@ __webpack_require__.r(__webpack_exports__);
     allProductsByCategory: [],
     allCartProducts: [],
     todayOrders: [],
-    orderDetails: []
+    orderDetails: [],
+    customerOrder: []
   },
   getters: {
     isLoggedIn: function isLoggedIn(state) {
@@ -80445,6 +80614,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     getOrderDetails: function getOrderDetails(state) {
       return state.orderDetails;
+    },
+    getCustomerOrder: function getCustomerOrder(state) {
+      return state.customerOrder;
     }
   },
   mutations: {
@@ -80486,6 +80658,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     getOrderDetails: function getOrderDetails(state, payload) {
       state.orderDetails = payload;
+    },
+    getCustomerOrder: function getCustomerOrder(state, payload) {
+      state.customerOrder = payload;
     }
   },
   actions: {
@@ -80547,6 +80722,7 @@ __webpack_require__.r(__webpack_exports__);
     getOrderDetails: function getOrderDetails(context, id) {
       axios.get("/api/order/" + id).then(function (res) {
         context.commit("getOrderDetails", res.data.orders);
+        context.commit("getCustomerOrder", res.data.customerOrder);
       });
     }
   }
