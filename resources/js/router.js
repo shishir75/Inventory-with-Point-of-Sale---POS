@@ -56,6 +56,9 @@ import EditCustomer from "./components/Admin/Customer/edit.vue";
 // POS Module Componenet
 import Pos from "./components/Admin/Pos/index.vue";
 
+// Order Module Componenets
+import TodayOrder from "./components/Admin/Order/totay.vue";
+
 const router = new VueRouter({
     mode: "history",
     // linkExactActiveClass: "text-dark bg-primary",
@@ -205,6 +208,11 @@ const router = new VueRouter({
                     path: "pos",
                     name: "Pos",
                     component: Pos
+                },
+                {
+                    path: "order",
+                    name: "TodayOrder",
+                    component: TodayOrder
                 }
             ]
         },

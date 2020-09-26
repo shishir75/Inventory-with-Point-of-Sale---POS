@@ -218,10 +218,10 @@
                                             <option value="HandCash"
                                                 >Hand Cash</option
                                             >
-                                            <option value="HandCash"
+                                            <option value="Cheaque"
                                                 >Cheaque</option
                                             >
-                                            <option value="HandCash"
+                                            <option value="Gift Card"
                                                 >Gift Card</option
                                             >
                                         </select>

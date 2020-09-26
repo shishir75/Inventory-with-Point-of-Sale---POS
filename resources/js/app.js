@@ -10,6 +10,9 @@ Vue.use(Vuex);
 import storeData from "./store/index";
 const store = new Vuex.Store(storeData);
 
+// Global Filter
+import filter from "./filter";
+
 // Sweet Alert 2
 import Swal from "sweetalert2";
 const Toast = Swal.mixin({
@@ -18,10 +21,10 @@ const Toast = Swal.mixin({
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
-    onOpen: (toast) => {
+    onOpen: toast => {
         toast.addEventListener("mouseenter", Swal.stopTimer);
         toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
+    }
 });
 window.Swal = Swal;
 window.Toast = Toast;
@@ -45,5 +48,5 @@ Vue.component(
 const app = new Vue({
     el: "#app",
     router,
-    store,
+    store
 });

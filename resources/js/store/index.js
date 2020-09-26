@@ -10,7 +10,8 @@ export default {
         allSalaries: [],
         allCustomers: [],
         allProductsByCategory: [],
-        allCartProducts: []
+        allCartProducts: [],
+        todayOrders: []
     },
     getters: {
         isLoggedIn(state) {
@@ -45,6 +46,9 @@ export default {
         },
         getAllCartProducts(state) {
             return state.allCartProducts;
+        },
+        getTodayOrders(state) {
+            return state.todayOrders;
         }
     },
     mutations: {
@@ -80,6 +84,9 @@ export default {
         },
         getAllCartProducts(state, payload) {
             state.allCartProducts = payload;
+        },
+        getTodayOrders(state, payload) {
+            state.todayOrders = payload;
         }
     },
     actions: {
@@ -131,6 +138,11 @@ export default {
         getAllCartProducts(context) {
             axios.get("/api/cart").then(res => {
                 context.commit("getAllCartProducts", res.data.products);
+            });
+        },
+        getTodayOrders(context) {
+            axios.get("/api/order/today").then(res => {
+                context.commit("getTodayOrders", res.data.orders);
             });
         }
     }

@@ -54,4 +54,14 @@ class OrderController extends Controller
 
         return response( 'Done' );
     }
+
+    public function today_order()
+    {
+        $date = date( 'Y-m-d' );
+        $orders = Order::with( 'customer' )->where( 'date', $date )->latest()->get();
+
+        return response()->json( [
+            'orders' => $orders,
+        ], 200 );
+    }
 }

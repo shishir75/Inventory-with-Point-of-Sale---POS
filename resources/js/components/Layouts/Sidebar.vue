@@ -274,6 +274,33 @@
                     class="nav-link collapsed"
                     href="#"
                     data-toggle="collapse"
+                    data-target="#order"
+                    aria-expanded="true"
+                    aria-controls="collapseTable"
+                >
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Order</span>
+                </a>
+                <div
+                    id="order"
+                    class="collapse"
+                    aria-labelledby="headingTable"
+                    data-parent="#accordionSidebar"
+                >
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <router-link
+                            :to="{ name: 'TodayOrder' }"
+                            class="collapse-item"
+                            >Today's Order</router-link
+                        >
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a
+                    class="nav-link collapsed"
+                    href="#"
+                    data-toggle="collapse"
                     data-target="#report"
                     aria-expanded="true"
                     aria-controls="collapseTable"
