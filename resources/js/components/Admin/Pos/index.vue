@@ -79,6 +79,7 @@
                                                     min="1"
                                                     max="100"
                                                     style="height:29px"
+                                                    readonly
                                                 />
                                                 <span class="input-group-btn">
                                                     <button
@@ -157,7 +158,11 @@
                             </li>
                         </ul>
 
-                        <form action="" class="mt-5">
+                        <form
+                            action=""
+                            class="mt-5"
+                            @submit.prevent="submitPayment"
+                        >
                             <div class="form-group">
                                 <label for="">Select Customer</label>
                                 <select
@@ -178,7 +183,7 @@
                                 <small
                                     class="text-danger"
                                     v-if="errors.customer_id"
-                                    >{{ errors.category_id[0] }}</small
+                                    >{{ errors.customer_id[0] }}</small
                                 >
                             </div>
                             <div class="row">
@@ -189,12 +194,12 @@
                                             type="number"
                                             class="form-control"
                                             placeholder="Enter Pay Amount"
-                                            v-model="form.pay"
+                                            v-model="form.paid"
                                         />
                                         <small
                                             class="text-danger"
-                                            v-if="errors.pay"
-                                            >{{ errors.pay[0] }}</small
+                                            v-if="errors.paid"
+                                            >{{ errors.paid[0] }}</small
                                         >
                                     </div>
                                 </div>
@@ -204,7 +209,7 @@
                                             >Select Payment Method</label
                                         >
                                         <select
-                                            v-model="form.payment_method"
+                                            v-model="form.paidBy"
                                             class="form-control"
                                         >
                                             <option value="" selected disabled
@@ -222,10 +227,8 @@
                                         </select>
                                         <small
                                             class="text-danger"
-                                            v-if="errors.payment_method"
-                                            >{{
-                                                errors.payment_method[0]
-                                            }}</small
+                                            v-if="errors.paidBy"
+                                            >{{ errors.paidBy[0] }}</small
                                         >
                                     </div>
                                 </div>
@@ -593,8 +596,8 @@ export default {
                 quantity: "",
                 product_id: "",
                 customer_id: "",
-                pay: "",
-                payment_method: "",
+                paid: "",
+                paidBy: "",
                 name: "",
                 email: "",
                 address: "",
@@ -661,7 +664,7 @@ export default {
             return (price + vat).toFixed(2);
         },
         duePrice() {
-            let paid = this.form.pay;
+            let paid = this.form.paid;
             let due = parseFloat(this.priceWithVat) - parseFloat(paid);
             return due.toFixed(2);
         },
@@ -804,6 +807,33 @@ export default {
                     Toast.fire({
                         icon: "error",
                         title: "Quantity can't be Decreased"
+                    });
+                });
+        },
+        submitPayment() {
+            let data = {
+                total: this.priceWithVat,
+                quantity: this.totalQuantity,
+                sub_total: this.subTotal,
+                vat: this.vat,
+                customer_id: this.form.customer_id,
+                paid: this.form.paid,
+                paidBy: this.form.paidBy
+            };
+            axios
+                .post("/api/order/submit", data)
+                .then(res => {
+                    this.$router.push({ name: "Dashboard" });
+                    Toast.fire({
+                        icon: "success",
+                        title: "Payemet Submit Succesfully"
+                    });
+                })
+                .catch(error => {
+                    this.errors = error.response.data.errors;
+                    Toast.fire({
+                        icon: "error",
+                        title: "Payement can't be Successful. Try again..."
                     });
                 });
         }

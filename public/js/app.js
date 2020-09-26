@@ -5380,6 +5380,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5388,8 +5391,8 @@ __webpack_require__.r(__webpack_exports__);
         quantity: "",
         product_id: "",
         customer_id: "",
-        pay: "",
-        payment_method: "",
+        paid: "",
+        paidBy: "",
         name: "",
         email: "",
         address: "",
@@ -5458,7 +5461,7 @@ __webpack_require__.r(__webpack_exports__);
       return (price + vat).toFixed(2);
     },
     duePrice: function duePrice() {
-      var paid = this.form.pay;
+      var paid = this.form.paid;
       var due = parseFloat(this.priceWithVat) - parseFloat(paid);
       return due.toFixed(2);
     },
@@ -5609,6 +5612,35 @@ __webpack_require__.r(__webpack_exports__);
         Toast.fire({
           icon: "error",
           title: "Quantity can't be Decreased"
+        });
+      });
+    },
+    submitPayment: function submitPayment() {
+      var _this8 = this;
+
+      var data = {
+        total: this.priceWithVat,
+        quantity: this.totalQuantity,
+        sub_total: this.subTotal,
+        vat: this.vat,
+        customer_id: this.form.customer_id,
+        paid: this.form.paid,
+        paidBy: this.form.paidBy
+      };
+      axios.post("/api/order/submit", data).then(function (res) {
+        _this8.$router.push({
+          name: "Dashboard"
+        });
+
+        Toast.fire({
+          icon: "success",
+          title: "Payemet Submit Succesfully"
+        });
+      })["catch"](function (error) {
+        _this8.errors = error.response.data.errors;
+        Toast.fire({
+          icon: "error",
+          title: "Payement can't be Successful. Try again..."
         });
       });
     }
@@ -53167,7 +53199,12 @@ var render = function() {
                               staticClass:
                                 "form-control input-number mt-1 rounded",
                               staticStyle: { height: "29px" },
-                              attrs: { type: "text", min: "1", max: "100" },
+                              attrs: {
+                                type: "text",
+                                min: "1",
+                                max: "100",
+                                readonly: ""
+                              },
                               domProps: { value: cart.quantity }
                             }),
                             _vm._v(" "),
@@ -53299,222 +53336,240 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("form", { staticClass: "mt-5", attrs: { action: "" } }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "" } }, [
-                  _vm._v("Select Customer")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.customer_id,
-                        expression: "form.customer_id"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          _vm.form,
-                          "customer_id",
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
-                      }
-                    }
-                  },
-                  [
-                    _c(
-                      "option",
-                      { attrs: { value: "", selected: "", disabled: "" } },
-                      [_vm._v("Select Customer")]
-                    ),
-                    _vm._v(" "),
-                    _vm._l(_vm.allCustomers, function(customer) {
-                      return _c(
-                        "option",
-                        { key: customer.id, domProps: { value: customer.id } },
-                        [
-                          _vm._v(
-                            _vm._s(customer.name) +
-                              " -\n                                    " +
-                              _vm._s(customer.phone)
-                          )
-                        ]
-                      )
-                    })
-                  ],
-                  2
-                ),
-                _vm._v(" "),
-                _vm.errors.customer_id
-                  ? _c("small", { staticClass: "text-danger" }, [
-                      _vm._v(_vm._s(_vm.errors.category_id[0]))
-                    ])
-                  : _vm._e()
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-4" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", [_vm._v("Pay Amount")]),
-                    _vm._v(" "),
-                    _c("input", {
+            _c(
+              "form",
+              {
+                staticClass: "mt-5",
+                attrs: { action: "" },
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.submitPayment($event)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "" } }, [
+                    _vm._v("Select Customer")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
                       directives: [
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.form.pay,
-                          expression: "form.pay"
+                          value: _vm.form.customer_id,
+                          expression: "form.customer_id"
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: {
-                        type: "number",
-                        placeholder: "Enter Pay Amount"
-                      },
-                      domProps: { value: _vm.form.pay },
                       on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.form, "pay", $event.target.value)
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.form,
+                            "customer_id",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
                         }
                       }
-                    }),
-                    _vm._v(" "),
-                    _vm.errors.pay
-                      ? _c("small", { staticClass: "text-danger" }, [
-                          _vm._v(_vm._s(_vm.errors.pay[0]))
-                        ])
-                      : _vm._e()
-                  ])
+                    },
+                    [
+                      _c(
+                        "option",
+                        { attrs: { value: "", selected: "", disabled: "" } },
+                        [_vm._v("Select Customer")]
+                      ),
+                      _vm._v(" "),
+                      _vm._l(_vm.allCustomers, function(customer) {
+                        return _c(
+                          "option",
+                          {
+                            key: customer.id,
+                            domProps: { value: customer.id }
+                          },
+                          [
+                            _vm._v(
+                              _vm._s(customer.name) +
+                                " -\n                                    " +
+                                _vm._s(customer.phone)
+                            )
+                          ]
+                        )
+                      })
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _vm.errors.customer_id
+                    ? _c("small", { staticClass: "text-danger" }, [
+                        _vm._v(_vm._s(_vm.errors.customer_id[0]))
+                      ])
+                    : _vm._e()
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-md-4" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "" } }, [
-                      _vm._v("Select Payment Method")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Pay Amount")]),
+                      _vm._v(" "),
+                      _c("input", {
                         directives: [
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.form.payment_method,
-                            expression: "form.payment_method"
+                            value: _vm.form.paid,
+                            expression: "form.paid"
                           }
                         ],
                         staticClass: "form-control",
+                        attrs: {
+                          type: "number",
+                          placeholder: "Enter Pay Amount"
+                        },
+                        domProps: { value: _vm.form.paid },
                         on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.form,
-                              "payment_method",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.form, "paid", $event.target.value)
                           }
                         }
-                      },
-                      [
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.paid
+                        ? _c("small", { staticClass: "text-danger" }, [
+                            _vm._v(_vm._s(_vm.errors.paid[0]))
+                          ])
+                        : _vm._e()
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Select Payment Method")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.paidBy,
+                              expression: "form.paidBy"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.form,
+                                "paidBy",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "option",
+                            {
+                              attrs: { value: "", selected: "", disabled: "" }
+                            },
+                            [_vm._v("Payment Method")]
+                          ),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "HandCash" } }, [
+                            _vm._v("Hand Cash")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "HandCash" } }, [
+                            _vm._v("Cheaque")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "HandCash" } }, [
+                            _vm._v("Gift Card")
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm.errors.paidBy
+                        ? _c("small", { staticClass: "text-danger" }, [
+                            _vm._v(_vm._s(_vm.errors.paidBy[0]))
+                          ])
+                        : _vm._e()
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("p", { staticClass: "text-center" }, [
+                        _vm._v("Due Amount")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row justify-content-center" }, [
                         _c(
-                          "option",
-                          { attrs: { value: "", selected: "", disabled: "" } },
-                          [_vm._v("Payment Method")]
-                        ),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "HandCash" } }, [
-                          _vm._v("Hand Cash")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "HandCash" } }, [
-                          _vm._v("Cheaque")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "HandCash" } }, [
-                          _vm._v("Gift Card")
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _vm.errors.payment_method
-                      ? _c("small", { staticClass: "text-danger" }, [
-                          _vm._v(_vm._s(_vm.errors.payment_method[0]))
-                        ])
-                      : _vm._e()
+                          "h2",
+                          {
+                            staticClass: "btn btn-sm",
+                            class:
+                              _vm.duePrice == "0.00"
+                                ? "btn-success"
+                                : "btn-danger"
+                          },
+                          [
+                            _vm._v(
+                              "\n                                            " +
+                                _vm._s(_vm.duePrice) +
+                                "\n                                        "
+                            )
+                          ]
+                        )
+                      ])
+                    ])
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-md-4" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("p", { staticClass: "text-center" }, [
-                      _vm._v("Due Amount")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row justify-content-center" }, [
-                      _c(
-                        "h2",
-                        {
-                          staticClass: "btn btn-sm",
-                          class:
-                            _vm.duePrice == "0.00"
-                              ? "btn-success"
-                              : "btn-danger"
-                        },
-                        [
-                          _vm._v(
-                            "\n                                            " +
-                              _vm._s(_vm.duePrice) +
-                              "\n                                        "
-                          )
-                        ]
-                      )
-                    ])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-success float-right my-4",
-                  attrs: { type: "submit", disabled: _vm.disabledButton }
-                },
-                [
-                  _vm._v(
-                    "\n                            Payment Confirm\n                        "
-                  )
-                ]
-              )
-            ])
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success float-right my-4",
+                    attrs: { type: "submit", disabled: _vm.disabledButton }
+                  },
+                  [
+                    _vm._v(
+                      "\n                            Payment Confirm\n                        "
+                    )
+                  ]
+                )
+              ]
+            )
           ])
         ])
       ]),

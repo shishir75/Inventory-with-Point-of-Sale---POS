@@ -42,4 +42,5 @@ Route::group( ['namespace' => 'Admin', 'middleware' => 'auth:sanctum'], function
     Route::get( '/category/{category}/product', "PosController@category_product" );
     Route::put( '/cart/increase/{id}', "CartController@increase" );
     Route::put( '/cart/decrease/{id}', "CartController@decrease" );
+    Route::post( '/order/submit', "OrderController@order_submit" );
 } );
