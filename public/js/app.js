@@ -53196,8 +53196,7 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("input", {
-                              staticClass:
-                                "form-control input-number mt-1 rounded",
+                              staticClass: "form-control mt-1 rounded px-2",
                               staticStyle: { height: "29px" },
                               attrs: {
                                 type: "text",

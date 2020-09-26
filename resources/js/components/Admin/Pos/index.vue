@@ -74,7 +74,7 @@
                                                 </span>
                                                 <input
                                                     type="text"
-                                                    class="form-control input-number mt-1 rounded"
+                                                    class="form-control mt-1 rounded px-2"
                                                     :value="cart.quantity"
                                                     min="1"
                                                     max="100"
