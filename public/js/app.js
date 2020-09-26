@@ -5379,6 +5379,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5460,6 +5461,13 @@ __webpack_require__.r(__webpack_exports__);
       var paid = this.form.pay;
       var due = parseFloat(this.priceWithVat) - parseFloat(paid);
       return due.toFixed(2);
+    },
+    disabledButton: function disabledButton() {
+      if (this.duePrice < 0) {
+        return true;
+      } else {
+        return false;
+      }
     }
   },
   methods: {
@@ -53498,7 +53506,7 @@ var render = function() {
                 "button",
                 {
                   staticClass: "btn btn-success float-right my-4",
-                  attrs: { type: "submit" }
+                  attrs: { type: "submit", disabled: _vm.disabledButton }
                 },
                 [
                   _vm._v(

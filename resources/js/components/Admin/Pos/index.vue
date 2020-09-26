@@ -250,6 +250,7 @@
                             <button
                                 type="submit"
                                 class="btn btn-success float-right my-4"
+                                :disabled="disabledButton"
                             >
                                 Payment Confirm
                             </button>
@@ -663,6 +664,13 @@ export default {
             let paid = this.form.pay;
             let due = parseFloat(this.priceWithVat) - parseFloat(paid);
             return due.toFixed(2);
+        },
+        disabledButton() {
+            if (this.duePrice < 0) {
+                return true;
+            } else {
+                return false;
+            }
         }
     },
     methods: {
