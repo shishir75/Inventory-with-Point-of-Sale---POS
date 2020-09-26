@@ -58,6 +58,7 @@ import Pos from "./components/Admin/Pos/index.vue";
 
 // Order Module Componenets
 import TodayOrder from "./components/Admin/Order/totay.vue";
+import ViewOrder from "./components/Admin/Order/view.vue";
 
 const router = new VueRouter({
     mode: "history",
@@ -213,6 +214,11 @@ const router = new VueRouter({
                     path: "order",
                     name: "TodayOrder",
                     component: TodayOrder
+                },
+                {
+                    path: "order/:id",
+                    name: "ViewOrder",
+                    component: ViewOrder
                 }
             ]
         },

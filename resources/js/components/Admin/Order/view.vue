@@ -6,9 +6,9 @@
                 class="d-sm-flex align-items-center justify-content-between mb-4"
             >
                 <router-link
-                    :to="{ name: 'Pos' }"
+                    :to="{ name: 'TodayOrder' }"
                     class="btn btn-info text-white mb-0 text-gray-800"
-                    >POS</router-link
+                    >Today's Order</router-link
                 >
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
@@ -18,7 +18,7 @@
                     </li>
                     <li class="breadcrumb-item">Order</li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        Today's Order
+                        View Order Details
                     </li>
                 </ol>
             </div>
@@ -31,7 +31,7 @@
                             class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                         >
                             <h4 class="m-0 font-weight-bold">
-                                TODAY'S ALL ORDERS LIST
+                                VIEW ORDERS DETAILS
                             </h4>
                             <h6>
                                 <form>
@@ -51,13 +51,10 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th>Serial</th>
-                                        <th>Customer Name</th>
-                                        <th>Customer Phone</th>
+                                        <th>Product Name</th>
                                         <th>Quantity</th>
-                                        <th>Total Price</th>
-                                        <th>Paid Amount</th>
-                                        <th>Due Amount</th>
-                                        <th>Payment Medium</th>
+                                        <th>Unit Price</th>
+                                        <th>Sub Total Price</th>
                                         <th width="10%">Actions</th>
                                     </tr>
                                 </thead>
@@ -67,28 +64,15 @@
                                         :key="order.id"
                                     >
                                         <td>{{ index + 1 }}</td>
-                                        <td>{{ order.customer.name }}</td>
-                                        <td>{{ order.customer.phone }}</td>
+                                        <td>{{ order.product.name }}</td>
+                                        <td>{{ order.quantity }}</td>
                                         <td class="text-right">
-                                            {{ order.quantity }}
-                                        </td>
-                                        <td class="text-right">
-                                            $ {{ order.total | numberFormat }}
+                                            {{ order.price | numberFormat }}
                                         </td>
                                         <td class="text-right">
-                                            $ {{ order.paid | numberFormat }}
+                                            $
+                                            {{ order.sub_total | numberFormat }}
                                         </td>
-                                        <td
-                                            class="text-right"
-                                            :class="
-                                                order.due == 0
-                                                    ? 'text-success'
-                                                    : 'text-danger'
-                                            "
-                                        >
-                                            $ {{ order.due | numberFormat }}
-                                        </td>
-                                        <td>{{ order.paidBy }}</td>
                                         <td>
                                             <router-link
                                                 :to="{
@@ -127,24 +111,58 @@ export default {
     },
     components: {},
     mounted() {
-        this.$store.dispatch("getTodayOrders");
+        this.$store.dispatch("getOrderDetails", this.$route.params.id);
     },
     created() {},
     computed: {
-        allTodayOrder() {
-            return this.$store.getters.getTodayOrders;
+        orderDetails() {
+            return this.$store.getters.getOrderDetails;
         },
         filterSearch() {
             if (this.searchItem != "") {
-                return this.allTodayOrder.filter(item => {
-                    return item.customer.name.match(this.searchItem);
+                return this.orderDetails.filter(item => {
+                    return item.product.name.match(this.searchItem);
                 });
             } else {
-                return this.allTodayOrder;
+                return this.orderDetails;
             }
         }
     },
-    methods: {}
+    methods: {
+        deleteData(id) {
+            Swal.fire({
+                title: "Are you sure?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, Delete It!"
+            }).then(result => {
+                if (result.isConfirmed) {
+                    axios
+                        .delete("/api/expense/" + id)
+                        .then(res => {
+                            this.$store.dispatch("getAllExpenses");
+                            Toast.fire({
+                                icon: "success",
+                                title: "Expense Data Deleted Successfully"
+                            });
+                        })
+                        .catch(error => {
+                            Toast.fire({
+                                icon: "error",
+                                title: "Data cann't be Deleted"
+                            });
+                        });
+                } else {
+                    Toast.fire({
+                        icon: "info",
+                        title: "Expense Data Remains Unchanged"
+                    });
+                }
+            });
+        }
+    }
 };
 </script>
 

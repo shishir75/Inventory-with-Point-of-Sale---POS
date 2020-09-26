@@ -64,4 +64,13 @@ class OrderController extends Controller
             'orders' => $orders,
         ], 200 );
     }
+
+    public function view_order_details( $id )
+    {
+        $orders = OrderDetail::with( 'product' )->where( 'order_id', $id )->get();
+
+        return response()->json( [
+            'orders' => $orders,
+        ], 200 );
+    }
 }

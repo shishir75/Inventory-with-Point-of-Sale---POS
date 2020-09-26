@@ -823,7 +823,7 @@ export default {
             axios
                 .post("/api/order/submit", data)
                 .then(res => {
-                    this.$router.push({ name: "Dashboard" });
+                    this.$router.push({ name: "TodayOrder" });
                     Toast.fire({
                         icon: "success",
                         title: "Payemet Submit Succesfully"
