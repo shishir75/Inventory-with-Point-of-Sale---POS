@@ -293,6 +293,11 @@
                             class="collapse-item"
                             >Today's Order</router-link
                         >
+                        <router-link
+                            :to="{ name: 'AllOrders' }"
+                            class="collapse-item"
+                            >All Orders</router-link
+                        >
                     </div>
                 </div>
             </li>

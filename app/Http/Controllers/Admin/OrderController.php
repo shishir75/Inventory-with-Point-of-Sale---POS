@@ -76,4 +76,13 @@ class OrderController extends Controller
             'customerOrder' => $customerOrder,
         ], 200 );
     }
+
+    public function all_orders()
+    {
+        $orders = Order::with( 'customer' )->latest()->get();
+
+        return response()->json( [
+            'orders' => $orders,
+        ], 200 );
+    }
 }

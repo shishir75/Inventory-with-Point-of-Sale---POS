@@ -13,7 +13,8 @@ export default {
         allCartProducts: [],
         todayOrders: [],
         orderDetails: [],
-        customerOrder: []
+        customerOrder: [],
+        allOrders: []
     },
     getters: {
         isLoggedIn(state) {
@@ -57,6 +58,9 @@ export default {
         },
         getCustomerOrder(state) {
             return state.customerOrder;
+        },
+        getAllOrders(state) {
+            return state.allOrders;
         }
     },
     mutations: {
@@ -101,6 +105,9 @@ export default {
         },
         getCustomerOrder(state, payload) {
             state.customerOrder = payload;
+        },
+        getAllOrders(state, payload) {
+            state.allOrders = payload;
         }
     },
     actions: {
@@ -163,6 +170,11 @@ export default {
             axios.get("/api/order/" + id).then(res => {
                 context.commit("getOrderDetails", res.data.orders);
                 context.commit("getCustomerOrder", res.data.customerOrder);
+            });
+        },
+        getAllOrders(context) {
+            axios.get("/api/all-orders").then(res => {
+                context.commit("getAllOrders", res.data.orders);
             });
         }
     }
