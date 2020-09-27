@@ -36,9 +36,18 @@
                             <h6>
                                 <form>
                                     <input
+                                        type="date"
+                                        class="form-control"
+                                        v-model="searchItemByDate"
+                                    />
+                                </form>
+                            </h6>
+                            <h6>
+                                <form>
+                                    <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Search...."
+                                        placeholder="Search by Name...."
                                         v-model="searchItem"
                                     />
                                 </form>
@@ -124,7 +133,8 @@
 export default {
     data() {
         return {
-            searchItem: ""
+            searchItem: "",
+            searchItemByDate: ""
         };
     },
     components: {},
@@ -140,6 +150,10 @@ export default {
             if (this.searchItem != "") {
                 return this.allOrders.filter(item => {
                     return item.customer.name.match(this.searchItem);
+                });
+            } else if (this.searchItemByDate !== "") {
+                return this.allOrders.filter(item => {
+                    return item.date.match(this.searchItemByDate);
                 });
             } else {
                 return this.allOrders;

@@ -4916,10 +4916,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      searchItem: ""
+      searchItem: "",
+      searchItemByDate: ""
     };
   },
   components: {},
@@ -4937,6 +4947,10 @@ __webpack_require__.r(__webpack_exports__);
       if (this.searchItem != "") {
         return this.allOrders.filter(function (item) {
           return item.customer.name.match(_this.searchItem);
+        });
+      } else if (this.searchItemByDate !== "") {
+        return this.allOrders.filter(function (item) {
+          return item.date.match(_this.searchItemByDate);
         });
       } else {
         return this.allOrders;
@@ -53772,12 +53786,41 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
+                            value: _vm.searchItemByDate,
+                            expression: "searchItemByDate"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "date" },
+                        domProps: { value: _vm.searchItemByDate },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.searchItemByDate = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("h6", [
+                    _c("form", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
                             value: _vm.searchItem,
                             expression: "searchItem"
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "text", placeholder: "Search...." },
+                        attrs: {
+                          type: "text",
+                          placeholder: "Search by Name...."
+                        },
                         domProps: { value: _vm.searchItem },
                         on: {
                           input: function($event) {
