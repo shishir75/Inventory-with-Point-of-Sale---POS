@@ -41,7 +41,10 @@
                     <h2>Order Details</h2>
                     <h5>
                         Order Number:
-                        <strong>POS-20200926{{ customerOrder.id }}</strong>
+                        <strong
+                            >POS-{{ customerOrder.date | dateToString
+                            }}{{ customerOrder.id }}</strong
+                        >
                     </h5>
                     <h6>
                         Customer Name:
