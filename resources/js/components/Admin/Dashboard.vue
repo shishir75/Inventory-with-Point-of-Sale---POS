@@ -13,7 +13,7 @@
         </div>
 
         <div class="row mb-3">
-            <!-- Earnings (Monthly) Card Example -->
+            <!-- Earnings (Today) Card Example -->
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card h-100">
                     <div class="card-body">
@@ -22,19 +22,19 @@
                                 <div
                                     class="text-xs font-weight-bold text-uppercase mb-1"
                                 >
-                                    Earnings (Monthly)
+                                    Earnings (Today)
                                 </div>
                                 <div
                                     class="h5 mb-0 font-weight-bold text-gray-800"
                                 >
-                                    $40,000
+                                    $ {{ todayHistory.paid | numberFormat }}
                                 </div>
                                 <div class="mt-2 mb-0 text-muted text-xs">
                                     <span class="text-success mr-2"
                                         ><i class="fa fa-arrow-up"></i>
                                         3.48%</span
                                     >
-                                    <span>Since last month</span>
+                                    <span>Since yesterday</span>
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -46,7 +46,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Earnings (Annual) Card Example -->
+            <!-- Sales (Today) Card Example -->
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card h-100">
                     <div class="card-body">
@@ -55,19 +55,19 @@
                                 <div
                                     class="text-xs font-weight-bold text-uppercase mb-1"
                                 >
-                                    Sales
+                                    Sales (Today)
                                 </div>
                                 <div
                                     class="h5 mb-0 font-weight-bold text-gray-800"
                                 >
-                                    650
+                                    $ {{ todayHistory.total | numberFormat }}
                                 </div>
                                 <div class="mt-2 mb-0 text-muted text-xs">
                                     <span class="text-success mr-2"
                                         ><i class="fas fa-arrow-up"></i>
                                         12%</span
                                     >
-                                    <span>Since last years</span>
+                                    <span>Since yesterday</span>
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -79,7 +79,7 @@
                     </div>
                 </div>
             </div>
-            <!-- New User Card Example -->
+            <!-- Due (Today) Card Example -->
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card h-100">
                     <div class="card-body">
@@ -88,19 +88,19 @@
                                 <div
                                     class="text-xs font-weight-bold text-uppercase mb-1"
                                 >
-                                    New User
+                                    Due (Today)
                                 </div>
                                 <div
                                     class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
                                 >
-                                    366
+                                    $ {{ todayHistory.due | numberFormat }}
                                 </div>
                                 <div class="mt-2 mb-0 text-muted text-xs">
                                     <span class="text-success mr-2"
                                         ><i class="fas fa-arrow-up"></i>
                                         20.4%</span
                                     >
-                                    <span>Since last month</span>
+                                    <span>Since yesterday</span>
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -110,7 +110,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Pending Requests Card Example -->
+            <!-- Expense (Today) Card Example -->
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card h-100">
                     <div class="card-body">
@@ -119,12 +119,12 @@
                                 <div
                                     class="text-xs font-weight-bold text-uppercase mb-1"
                                 >
-                                    Pending Requests
+                                    Expense (Today)
                                 </div>
                                 <div
                                     class="h5 mb-0 font-weight-bold text-gray-800"
                                 >
-                                    18
+                                    $ {{ todayHistory.expense | numberFormat }}
                                 </div>
                                 <div class="mt-2 mb-0 text-muted text-xs">
                                     <span class="text-danger mr-2"
@@ -581,9 +581,19 @@ export default {
         return {};
     },
     components: {},
-    mounted() {},
+    mounted() {
+        this.$store.dispatch("getAllTodayHistory");
+        this.$store.dispatch("getAllMonthlyHistory");
+    },
     created() {},
-    computed: {},
+    computed: {
+        todayHistory() {
+            return this.$store.getters.getAllTodayHistory;
+        },
+        monthlyHistory() {
+            return this.$store.getters.getAllMonthlyHistory;
+        }
+    },
     methods: {}
 };
 </script>

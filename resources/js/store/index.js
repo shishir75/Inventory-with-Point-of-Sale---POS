@@ -14,7 +14,8 @@ export default {
         todayOrders: [],
         orderDetails: [],
         customerOrder: [],
-        allOrders: []
+        allOrders: [],
+        todayHistory: []
     },
     getters: {
         isLoggedIn(state) {
@@ -61,6 +62,9 @@ export default {
         },
         getAllOrders(state) {
             return state.allOrders;
+        },
+        getAllTodayHistory(state) {
+            return state.todayHistory;
         }
     },
     mutations: {
@@ -108,6 +112,9 @@ export default {
         },
         getAllOrders(state, payload) {
             state.allOrders = payload;
+        },
+        getAllTodayHistory(state, payload) {
+            state.todayHistory = payload;
         }
     },
     actions: {
@@ -175,6 +182,11 @@ export default {
         getAllOrders(context) {
             axios.get("/api/all-orders").then(res => {
                 context.commit("getAllOrders", res.data.orders);
+            });
+        },
+        getAllTodayHistory(context) {
+            axios.get("/api/pos/today").then(res => {
+                context.commit("getAllTodayHistory", res.data.data);
             });
         }
     }
