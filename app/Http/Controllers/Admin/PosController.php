@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Expense;
 use App\Http\Controllers\Controller;
 use App\Order;
+use App\OrderDetail;
 use App\Product;
+use Illuminate\Support\Facades\DB;
 
 class PosController extends Controller
 {
@@ -26,6 +28,9 @@ class PosController extends Controller
         $data['paid'] = Order::where( 'date', $today )->sum( 'paid' );
         $data['due'] = Order::where( 'date', $today )->sum( 'due' );
         $data['expense'] = Expense::where( 'date', $today )->sum( 'amount' );
+        $data['top_sold'] = OrderDetail::with( 'product' )->select( 'product_id', DB::raw( 'SUM(quantity) as total_sold' ) )->groupBy( 'product_id' )->orderBy( 'total_sold', 'desc' )->take( 9 )->get();
+
+        // return $data['top_sold'];
 
         return response()->json( [
             'data' => $data,
@@ -34,15 +39,6 @@ class PosController extends Controller
 
     public function monthly_history()
     {
-        $month = date( 'F' );
-        $data = [];
-        $data['total'] = Order::where( 'month', $month )->sum( 'total' );
-        $data['paid'] = Order::where( 'month', $month )->sum( 'paid' );
-        $data['due'] = Order::where( 'month', $month )->sum( 'due' );
-        // $data['expense'] = Expense::where( 'date', $today )->sum( 'amount' );
-
-        return response()->json( [
-            'data' => $data,
-        ], 200 );
+        //
     }
 }

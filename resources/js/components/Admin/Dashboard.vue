@@ -153,42 +153,9 @@
                         <h6 class="m-0 font-weight-bold text-primary">
                             Monthly Recap Report
                         </h6>
-                        <div class="dropdown no-arrow">
-                            <a
-                                class="dropdown-toggle"
-                                href="#"
-                                role="button"
-                                id="dropdownMenuLink"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                            >
-                                <i
-                                    class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"
-                                ></i>
-                            </a>
-                            <div
-                                class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                aria-labelledby="dropdownMenuLink"
-                            >
-                                <div class="dropdown-header">
-                                    Dropdown Header:
-                                </div>
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#"
-                                    >Another action</a
-                                >
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#"
-                                    >Something else here</a
-                                >
-                            </div>
-                        </div>
                     </div>
                     <div class="card-body">
-                        <div class="chart-area">
-                            <canvas id="myAreaChart"></canvas>
-                        </div>
+                        <chart></chart>
                     </div>
                 </div>
             </div>
@@ -199,132 +166,43 @@
                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                     >
                         <h6 class="m-0 font-weight-bold text-primary">
-                            Products Sold
+                            Top 9 Sold Products
                         </h6>
-                        <div class="dropdown no-arrow">
-                            <a
-                                class="dropdown-toggle btn btn-primary btn-sm"
-                                href="#"
-                                role="button"
-                                id="dropdownMenuLink"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                            >
-                                Month <i class="fas fa-chevron-down"></i>
-                            </a>
-                            <div
-                                class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                aria-labelledby="dropdownMenuLink"
-                            >
-                                <div class="dropdown-header">
-                                    Select Periode
-                                </div>
-                                <a class="dropdown-item" href="#">Today</a>
-                                <a class="dropdown-item" href="#">Week</a>
-                                <a class="dropdown-item active" href="#"
-                                    >Month</a
-                                >
-                                <a class="dropdown-item" href="#">This Year</a>
-                            </div>
-                        </div>
                     </div>
                     <div class="card-body">
-                        <div class="mb-3">
+                        <div
+                            class="mb-3"
+                            v-for="(top, index) in todayHistory.top_sold"
+                            :key="index"
+                        >
                             <div class="small text-gray-500">
-                                Oblong T-Shirt
+                                {{ top.product.name }}
                                 <div class="small float-right">
-                                    <b>600 of 800 Items</b>
-                                </div>
-                            </div>
-                            <div class="progress" style="height: 12px;">
-                                <div
-                                    class="progress-bar bg-warning"
-                                    role="progressbar"
-                                    style="width: 80%"
-                                    aria-valuenow="80"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100"
-                                ></div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <div class="small text-gray-500">
-                                Gundam 90'Editions
-                                <div class="small float-right">
-                                    <b>500 of 800 Items</b>
+                                    <b
+                                        >{{ top.total_sold }} of
+                                        {{
+                                            totalUnits(
+                                                top.total_sold,
+                                                top.product.quantity
+                                            )
+                                        }}
+                                        Items</b
+                                    >
                                 </div>
                             </div>
                             <div class="progress" style="height: 12px;">
                                 <div
                                     class="progress-bar bg-success"
                                     role="progressbar"
-                                    style="width: 70%"
-                                    aria-valuenow="70"
+                                    :style="{
+                                        width: widthPercentage(top.total_sold)
+                                    }"
+                                    aria-valuenow="top.total_sold"
                                     aria-valuemin="0"
                                     aria-valuemax="100"
                                 ></div>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <div class="small text-gray-500">
-                                Rounded Hat
-                                <div class="small float-right">
-                                    <b>455 of 800 Items</b>
-                                </div>
-                            </div>
-                            <div class="progress" style="height: 12px;">
-                                <div
-                                    class="progress-bar bg-danger"
-                                    role="progressbar"
-                                    style="width: 55%"
-                                    aria-valuenow="55"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100"
-                                ></div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <div class="small text-gray-500">
-                                Indomie Goreng
-                                <div class="small float-right">
-                                    <b>400 of 800 Items</b>
-                                </div>
-                            </div>
-                            <div class="progress" style="height: 12px;">
-                                <div
-                                    class="progress-bar bg-info"
-                                    role="progressbar"
-                                    style="width: 50%"
-                                    aria-valuenow="50"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100"
-                                ></div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <div class="small text-gray-500">
-                                Remote Control Car Racing
-                                <div class="small float-right">
-                                    <b>200 of 800 Items</b>
-                                </div>
-                            </div>
-                            <div class="progress" style="height: 12px;">
-                                <div
-                                    class="progress-bar bg-success"
-                                    role="progressbar"
-                                    style="width: 30%"
-                                    aria-valuenow="30"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100"
-                                ></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer text-center">
-                        <a class="m-0 small text-primary card-link" href="#"
-                            >View More <i class="fas fa-chevron-right"></i
-                        ></a>
                     </div>
                 </div>
             </div>
@@ -517,84 +395,35 @@
             </div>
         </div>
         <!--Row-->
-
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <p>
-                    Do you like this template ? you can download from
-                    <a
-                        href="https://github.com/indrijunanda/RuangAdmin"
-                        class="btn btn-primary btn-sm"
-                        target="_blank"
-                        ><i class="fab fa-fw fa-github"></i>&nbsp;GitHub</a
-                    >
-                </p>
-            </div>
-        </div>
-
-        <!-- Modal Logout -->
-        <div
-            class="modal fade"
-            id="logoutModal"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="exampleModalLabelLogout"
-            aria-hidden="true"
-        >
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabelLogout">
-                            Ohh No!
-                        </h5>
-                        <button
-                            type="button"
-                            class="close"
-                            data-dismiss="modal"
-                            aria-label="Close"
-                        >
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure you want to logout?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button
-                            type="button"
-                            class="btn btn-outline-primary"
-                            data-dismiss="modal"
-                        >
-                            Cancel
-                        </button>
-                        <a href="login.html" class="btn btn-primary">Logout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 
 <script>
+import Chart from "./Chart";
 export default {
     data() {
         return {};
     },
-    components: {},
+    components: {
+        Chart
+    },
     mounted() {
         this.$store.dispatch("getAllTodayHistory");
-        this.$store.dispatch("getAllMonthlyHistory");
     },
     created() {},
     computed: {
         todayHistory() {
             return this.$store.getters.getAllTodayHistory;
-        },
-        monthlyHistory() {
-            return this.$store.getters.getAllMonthlyHistory;
         }
     },
-    methods: {}
+    methods: {
+        totalUnits(sold, stock) {
+            return parseInt(sold) + parseInt(stock);
+        },
+        widthPercentage(sold) {
+            return sold + "%"; // this will be changed in real life
+        }
+    }
 };
 </script>
 
