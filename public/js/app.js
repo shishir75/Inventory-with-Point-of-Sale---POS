@@ -5341,6 +5341,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     customerOrder: function customerOrder() {
       return this.$store.getters.getCustomerOrder;
+    },
+    idNumber: function idNumber() {
+      var str = "" + this.customerOrder.id;
+      var pad = "0000";
+      var ans = pad.substring(0, pad.length - str.length) + str;
+      return ans;
     }
   },
   methods: {
@@ -75864,7 +75870,7 @@ var render = function() {
                 _vm._v(
                   "POS-" +
                     _vm._s(_vm._f("dateToString")(_vm.customerOrder.date)) +
-                    _vm._s(_vm.customerOrder.id)
+                    _vm._s(_vm.idNumber)
                 )
               ])
             ]),

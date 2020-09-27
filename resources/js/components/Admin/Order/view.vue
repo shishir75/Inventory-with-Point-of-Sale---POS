@@ -43,7 +43,7 @@
                         Order Number:
                         <strong
                             >POS-{{ customerOrder.date | dateToString
-                            }}{{ customerOrder.id }}</strong
+                            }}{{ idNumber }}</strong
                         >
                     </h5>
                     <h6>
@@ -206,6 +206,13 @@ export default {
         },
         customerOrder() {
             return this.$store.getters.getCustomerOrder;
+        },
+        idNumber() {
+            let str = "" + this.customerOrder.id;
+            let pad = "0000";
+            let ans = pad.substring(0, pad.length - str.length) + str;
+
+            return ans;
         }
     },
     methods: {
