@@ -28,9 +28,10 @@ class PosController extends Controller
         $data['paid'] = Order::where( 'date', $today )->sum( 'paid' );
         $data['due'] = Order::where( 'date', $today )->sum( 'due' );
         $data['expense'] = Expense::where( 'date', $today )->sum( 'amount' );
-        $data['top_sold'] = OrderDetail::with( 'product' )->select( 'product_id', DB::raw( 'SUM(quantity) as total_sold' ) )->groupBy( 'product_id' )->orderBy( 'total_sold', 'desc' )->take( 9 )->get();
+        $data['top_sold'] = OrderDetail::with( 'product' )->select( 'product_id', DB::raw( 'SUM(quantity) as total_sold' ) )
+            ->groupBy( 'product_id' )->orderBy( 'total_sold', 'desc' )->take( 9 )->get();
 
-        // return $data['top_sold'];
+        $data['months'] = Order::distinct()->select( 'month' )->where( 'year', date( 'Y' ) )->get();
 
         return response()->json( [
             'data' => $data,

@@ -3,19 +3,25 @@ import VueCharts from "vue-chartjs";
 
 export default {
     extends: VueCharts.Line,
+    created() {
+        this.$store.dispatch("getAllTodayHistory");
+    },
+    computed: {
+        todayHistory() {
+            return this.$store.getters.getAllTodayHistory;
+        },
+        monthsList() {
+            let arr = [];
+            this.todayHistory.months.forEach((value, index) => {
+                arr.push(value.month);
+            });
+            return arr;
+        }
+    },
     mounted() {
         this.renderChart(
             {
-                labels: [
-                    "January",
-                    "February",
-                    "March",
-                    "April",
-                    "May",
-                    "June",
-                    "July",
-                    "August"
-                ],
+                labels: this.monthsList,
                 datasets: [
                     {
                         label: "Expense",

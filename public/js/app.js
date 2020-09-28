@@ -2338,9 +2338,24 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   "extends": vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["default"].Line,
+  created: function created() {
+    this.$store.dispatch("getAllTodayHistory");
+  },
+  computed: {
+    todayHistory: function todayHistory() {
+      return this.$store.getters.getAllTodayHistory;
+    },
+    monthsList: function monthsList() {
+      var arr = [];
+      this.todayHistory.months.forEach(function (value, index) {
+        arr.push(value.month);
+      });
+      return arr;
+    }
+  },
   mounted: function mounted() {
     this.renderChart({
-      labels: ["January", "February", "March", "April", "May", "June", "July", "August"],
+      labels: this.monthsList,
       datasets: [{
         label: "Expense",
         backgroundColor: "#6777EF",
