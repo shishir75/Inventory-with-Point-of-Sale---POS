@@ -315,7 +315,7 @@
                                 <tr>
                                     <th>Serial</th>
                                     <th>Product Name</th>
-                                    <th>Quantity</th>
+                                    <th>Stock</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -326,21 +326,32 @@
                                     :key="index"
                                 >
                                     <td>{{ index + 1 }}</td>
-                                    <td>{{ product.name }}</td>
-                                    <td>{{ product.quantity }}</td>
                                     <td>
-                                        <button
-                                            type="button"
-                                            class="btn btn-sm btn-primary"
+                                        {{ product.name | shortLength(20) }}
+                                    </td>
+                                    <td>
+                                        <span
+                                            v-if="product.quantity > 0"
+                                            class="badge badge-warning"
+                                            >{{ product.quantity }}</span
+                                        >
+                                        <span v-else class="badge badge-danger"
+                                            >Out</span
+                                        >
+                                    </td>
+                                    <td>
+                                        <span
+                                            class="badge badge-success text-white py-1"
                                             data-toggle="modal"
                                             data-target="#exampleModalCenter"
                                             id="#modalCenter"
+                                            style="cursor:pointer"
                                             @click.prevent="
                                                 editStock(product.id)
                                             "
                                         >
-                                            Stock
-                                        </button>
+                                            Add Stock
+                                        </span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -376,6 +387,10 @@
                             </button>
                         </div>
                         <div class="modal-body">
+                            <h6>
+                                Product Name:
+                                <strong>{{ product_name }}</strong>
+                            </h6>
                             <div class="form-group">
                                 <label>Product Quantity</label>
                                 <input
@@ -426,6 +441,7 @@ export default {
                 quantity: "",
                 product_id: ""
             },
+            product_name: "",
             errors: []
         };
     },
@@ -454,6 +470,7 @@ export default {
                 .then(res => {
                     this.form.quantity = res.data.product.quantity;
                     this.form.product_id = res.data.product.id;
+                    this.product_name = res.data.product.name;
                 })
                 .catch(error => {
                     this.errors = error.response.data.errors;

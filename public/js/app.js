@@ -3472,6 +3472,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3480,6 +3495,7 @@ __webpack_require__.r(__webpack_exports__);
         quantity: "",
         product_id: ""
       },
+      product_name: "",
       errors: []
     };
   },
@@ -3508,6 +3524,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/api/product/" + id).then(function (res) {
         _this.form.quantity = res.data.product.quantity;
         _this.form.product_id = res.data.product.id;
+        _this.product_name = res.data.product.name;
       })["catch"](function (error) {
         _this.errors = error.response.data.errors;
       });
@@ -89389,17 +89406,31 @@ var render = function() {
                     return _c("tr", { key: index }, [
                       _c("td", [_vm._v(_vm._s(index + 1))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(product.name))]),
+                      _c("td", [
+                        _vm._v(
+                          "\n                                    " +
+                            _vm._s(_vm._f("shortLength")(product.name, 20)) +
+                            "\n                                "
+                        )
+                      ]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(product.quantity))]),
+                      _c("td", [
+                        product.quantity > 0
+                          ? _c("span", { staticClass: "badge badge-warning" }, [
+                              _vm._v(_vm._s(product.quantity))
+                            ])
+                          : _c("span", { staticClass: "badge badge-danger" }, [
+                              _vm._v("Out")
+                            ])
+                      ]),
                       _vm._v(" "),
                       _c("td", [
                         _c(
-                          "button",
+                          "span",
                           {
-                            staticClass: "btn btn-sm btn-primary",
+                            staticClass: "badge badge-success text-white py-1",
+                            staticStyle: { cursor: "pointer" },
                             attrs: {
-                              type: "button",
                               "data-toggle": "modal",
                               "data-target": "#exampleModalCenter",
                               id: "#modalCenter"
@@ -89413,7 +89444,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                                        Stock\n                                    "
+                              "\n                                        Add Stock\n                                    "
                             )
                           ]
                         )
@@ -89452,6 +89483,13 @@ var render = function() {
                 _vm._m(13),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
+                  _c("h6", [
+                    _vm._v(
+                      "\n                            Product Name:\n                            "
+                    ),
+                    _c("strong", [_vm._v(_vm._s(_vm.product_name))])
+                  ]),
+                  _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
                     _c("label", [_vm._v("Product Quantity")]),
                     _vm._v(" "),
@@ -89713,7 +89751,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Product Name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Quantity")]),
+        _c("th", [_vm._v("Stock")]),
         _vm._v(" "),
         _c("th", [_vm._v("Action")])
       ])
@@ -118646,6 +118684,15 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter("numberFormat", function (valu
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter("dateToString", function (value) {
   if (value) {
     return moment__WEBPACK_IMPORTED_MODULE_1___default()(String(value)).format("YYYYMMDD");
+  }
+});
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter("shortLength", function (text, length) {
+  var suffix = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "...";
+
+  if (text.length > length) {
+    return text.substring(0, length) + suffix;
+  } else {
+    return text;
   }
 });
 

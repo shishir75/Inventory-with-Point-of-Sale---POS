@@ -11,3 +11,11 @@ Vue.filter("dateToString", function(value) {
         return moment(String(value)).format("YYYYMMDD");
     }
 });
+
+Vue.filter("shortLength", (text, length, suffix = "...") => {
+    if (text.length > length) {
+        return text.substring(0, length) + suffix;
+    } else {
+        return text;
+    }
+});
