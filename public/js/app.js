@@ -2351,23 +2351,33 @@ __webpack_require__.r(__webpack_exports__);
         arr.push(value.month);
       });
       return arr;
+    },
+    monthlyTotal: function monthlyTotal() {
+      var arr = [];
+      this.todayHistory.monthly_total.forEach(function (value, index) {
+        arr.push(value.total);
+      });
+      return arr;
+    },
+    monthlyDue: function monthlyDue() {
+      var arr = [];
+      this.todayHistory.monthly_due.forEach(function (value, index) {
+        arr.push(value.due);
+      });
+      return arr;
     }
   },
   mounted: function mounted() {
     this.renderChart({
       labels: this.monthsList,
       datasets: [{
-        label: "Expense",
-        backgroundColor: "#6777EF",
-        data: [10, 9, 20, 22, 5, 50, 12, 10]
-      }, {
         label: "Due",
         backgroundColor: "#fc544b",
-        data: [20, 19, 30, 10, 19, 5, 29, 16]
+        data: this.monthlyDue
       }, {
         label: "Total Earnings",
         backgroundColor: "#66bb6a",
-        data: [40, 39, 10, 40, 39, 80, 40, 100]
+        data: this.monthlyTotal
       }]
     }, {
       responsive: true,

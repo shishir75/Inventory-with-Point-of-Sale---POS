@@ -33,6 +33,9 @@ class PosController extends Controller
 
         $data['months'] = Order::distinct()->select( 'month' )->where( 'year', date( 'Y' ) )->get();
 
+        $data['monthly_total'] = Order::select( 'month', DB::raw( 'SUM(total) as total' ) )->groupBy( 'month' )->where( 'year', date( 'Y' ) )->get();
+        $data['monthly_due'] = Order::select( 'month', DB::raw( 'SUM(due) as due' ) )->groupBy( 'month' )->where( 'year', date( 'Y' ) )->get();
+
         return response()->json( [
             'data' => $data,
         ], 200 );
