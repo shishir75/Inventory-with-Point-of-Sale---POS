@@ -15,7 +15,8 @@
         <div class="container my-auto">
             <div class="copyright text-center my-auto">
                 <span
-                    >copyright &copy; 2020 - Developed by
+                    >copyright &copy; {{ new Date().getFullYear() }} - Developed
+                    by
                     <b
                         ><a
                             href="https://facebook.com/obydullah.shishir"

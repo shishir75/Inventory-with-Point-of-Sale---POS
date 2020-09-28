@@ -20,9 +20,9 @@
                 href="#"
             >
                 <div class="sidebar-brand-icon">
-                    <img src="/assets/img/logo/logo2.png" />
+                    <img src="/assets/img/logo/logo2.png" class="rounded" />
                 </div>
-                <div class="sidebar-brand-text mx-3">Inventory - POS</div>
+                <div class="sidebar-brand-text mx-3">Inventory POS</div>
             </a>
             <hr class="sidebar-divider my-0" />
             <li class="nav-item active">

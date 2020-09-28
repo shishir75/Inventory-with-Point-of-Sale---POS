@@ -9237,6 +9237,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
@@ -97612,7 +97613,20 @@ var render = function() {
           staticClass: "sticky-footer bg-white",
           attrs: { id: "footer" }
         },
-        [_vm._m(0)]
+        [
+          _c("div", { staticClass: "container my-auto" }, [
+            _c("div", { staticClass: "copyright text-center my-auto" }, [
+              _c("span", [
+                _vm._v(
+                  "copyright © " +
+                    _vm._s(new Date().getFullYear()) +
+                    " - Developed\n                by\n                "
+                ),
+                _vm._m(0)
+              ])
+            ])
+          ])
+        ]
       )
     : _vm._e()
 }
@@ -97621,24 +97635,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container my-auto" }, [
-      _c("div", { staticClass: "copyright text-center my-auto" }, [
-        _c("span", [
-          _vm._v("copyright © 2020 - Developed by\n                "),
-          _c("b", [
-            _c(
-              "a",
-              {
-                attrs: {
-                  href: "https://facebook.com/obydullah.shishir",
-                  target: "_blank"
-                }
-              },
-              [_vm._v("MD. OBYDULLAH SARDER (SHISHIR)")]
-            )
-          ])
-        ])
-      ])
+    return _c("b", [
+      _c(
+        "a",
+        {
+          attrs: {
+            href: "https://facebook.com/obydullah.shishir",
+            target: "_blank"
+          }
+        },
+        [_vm._v("MD. OBYDULLAH SARDER (SHISHIR)")]
+      )
     ])
   }
 ]
@@ -98100,11 +98107,14 @@ var staticRenderFns = [
       },
       [
         _c("div", { staticClass: "sidebar-brand-icon" }, [
-          _c("img", { attrs: { src: "/assets/img/logo/logo2.png" } })
+          _c("img", {
+            staticClass: "rounded",
+            attrs: { src: "/assets/img/logo/logo2.png" }
+          })
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "sidebar-brand-text mx-3" }, [
-          _vm._v("Inventory - POS")
+          _vm._v("Inventory POS")
         ])
       ]
     )
