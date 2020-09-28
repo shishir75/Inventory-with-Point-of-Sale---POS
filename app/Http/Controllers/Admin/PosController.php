@@ -42,6 +42,8 @@ class PosController extends Controller
         $data['top_categories'] = Product::with( 'category' )->select( 'category_id', DB::raw( 'COUNT(category_id) as category_count' ) )
             ->groupBy( 'category_id' )->orderBy( 'category_count', 'desc' )->get();
 
+        $data['less_stock'] = Product::orderBy( 'quantity', 'asc' )->take( 5 )->get();
+
         return response()->json( [
             'data' => $data,
         ], 200 );

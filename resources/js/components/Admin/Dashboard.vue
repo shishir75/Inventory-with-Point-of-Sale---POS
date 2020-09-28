@@ -294,75 +294,124 @@
                     </div>
                 </div>
             </div>
-            <!-- Message From Customer-->
+            <!-- Top 5 Less Stock Products -->
             <div class="col-xl-4 col-lg-5 ">
                 <div class="card">
                     <div
-                        class="card-header py-4 bg-primary d-flex flex-row align-items-center justify-content-between"
+                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                     >
-                        <h6 class="m-0 font-weight-bold text-light">
-                            Message From Customer
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            Top 5 Less Stock Products
                         </h6>
+                        <router-link
+                            class="m-0 float-right btn btn-success btn-sm"
+                            :to="{ name: 'Product' }"
+                            >View More <i class="fas fa-chevron-right"></i
+                        ></router-link>
                     </div>
-                    <div>
-                        <div class="customer-message align-items-center">
-                            <a class="font-weight-bold" href="#">
-                                <div class="text-truncate message-title">
-                                    Hi there! I am wondering if you can help me
-                                    with a problem I've been having.
-                                </div>
-                                <div
-                                    class="small text-gray-500 message-time font-weight-bold"
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Serial</th>
+                                    <th>Product Name</th>
+                                    <th>Quantity</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    v-for="(product,
+                                    index) in todayHistory.less_stock"
+                                    :key="index"
                                 >
-                                    Udin Cilok · 58m
-                                </div>
-                            </a>
+                                    <td>{{ index + 1 }}</td>
+                                    <td>{{ product.name }}</td>
+                                    <td>{{ product.quantity }}</td>
+                                    <td>
+                                        <button
+                                            type="button"
+                                            class="btn btn-sm btn-primary"
+                                            data-toggle="modal"
+                                            data-target="#exampleModalCenter"
+                                            id="#modalCenter"
+                                            @click.prevent="
+                                                editStock(product.id)
+                                            "
+                                        >
+                                            Stock
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Center -->
+            <div
+                class="modal fade"
+                id="exampleModalCenter"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="exampleModalCenterTitle"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5
+                                class="modal-title"
+                                id="exampleModalCenterTitle"
+                            >
+                                Update Product Stock
+                            </h5>
+                            <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                            >
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                        <div class="customer-message align-items-center">
-                            <a href="#">
-                                <div class="text-truncate message-title">
-                                    But I must explain to you how all this
-                                    mistaken idea
-                                </div>
-                                <div class="small text-gray-500 message-time">
-                                    Nana Haminah · 58m
-                                </div>
-                            </a>
-                        </div>
-                        <div class="customer-message align-items-center">
-                            <a class="font-weight-bold" href="#">
-                                <div class="text-truncate message-title">
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit
-                                </div>
-                                <div
-                                    class="small text-gray-500 message-time font-weight-bold"
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Product Quantity</label>
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    placeholder="Enter Product Quantity"
+                                    v-model="form.quantity"
+                                />
+                                <small
+                                    class="text-danger"
+                                    v-if="errors.quantity"
+                                    >{{ errors.quantity[0] }}</small
                                 >
-                                    Jajang Cincau · 25m
-                                </div>
-                            </a>
+                            </div>
+                            <input type="hidden" v-model="form.product_id" />
                         </div>
-                        <div class="customer-message align-items-center">
-                            <a class="font-weight-bold" href="#">
-                                <div class="text-truncate message-title">
-                                    At vero eos et accusamus et iusto odio
-                                    dignissimos ducimus qui blanditiis
-                                </div>
-                                <div
-                                    class="small text-gray-500 message-time font-weight-bold"
-                                >
-                                    Udin Wayang · 54m
-                                </div>
-                            </a>
-                        </div>
-                        <div class="card-footer text-center">
-                            <a class="m-0 small text-primary card-link" href="#"
-                                >View More <i class="fas fa-chevron-right"></i
-                            ></a>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-outline-secondary"
+                                data-dismiss="modal"
+                            >
+                                Close
+                            </button>
+                            <button
+                                type="button"
+                                @click.prevent="updateStock"
+                                class="btn btn-primary"
+                            >
+                                Update
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
+            <!--Row-->
         </div>
         <!--Row-->
     </div>
@@ -372,7 +421,13 @@
 import Chart from "./Chart";
 export default {
     data() {
-        return {};
+        return {
+            form: {
+                quantity: "",
+                product_id: ""
+            },
+            errors: []
+        };
     },
     components: {
         Chart
@@ -392,6 +447,39 @@ export default {
         },
         widthPercentage(sold) {
             return sold + "%"; // this will be changed in real life
+        },
+        editStock(id) {
+            axios
+                .get("/api/product/" + id)
+                .then(res => {
+                    this.form.quantity = res.data.product.quantity;
+                    this.form.product_id = res.data.product.id;
+                })
+                .catch(error => {
+                    this.errors = error.response.data.errors;
+                });
+        },
+        updateStock() {
+            let id = this.form.product_id;
+            axios
+                .put("/api/product/stock/" + id, {
+                    quantity: this.form.quantity
+                })
+                .then(res => {
+                    $("#exampleModalCenter").modal("hide");
+                    this.$store.dispatch("getAllTodayHistory");
+                    Toast.fire({
+                        icon: "success",
+                        title: "Product Stock Updated Successfully"
+                    });
+                })
+                .catch(error => {
+                    this.errors = error.response.data.errors;
+                    Toast.fire({
+                        icon: "error",
+                        title: "Product Stock can't be Updated"
+                    });
+                });
         }
     }
 };

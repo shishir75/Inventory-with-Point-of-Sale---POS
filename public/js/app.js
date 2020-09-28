@@ -3423,10 +3423,65 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      form: {
+        quantity: "",
+        product_id: ""
+      },
+      errors: []
+    };
   },
   components: {
     Chart: _Chart__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -3446,6 +3501,39 @@ __webpack_require__.r(__webpack_exports__);
     },
     widthPercentage: function widthPercentage(sold) {
       return sold + "%"; // this will be changed in real life
+    },
+    editStock: function editStock(id) {
+      var _this = this;
+
+      axios.get("/api/product/" + id).then(function (res) {
+        _this.form.quantity = res.data.product.quantity;
+        _this.form.product_id = res.data.product.id;
+      })["catch"](function (error) {
+        _this.errors = error.response.data.errors;
+      });
+    },
+    updateStock: function updateStock() {
+      var _this2 = this;
+
+      var id = this.form.product_id;
+      axios.put("/api/product/stock/" + id, {
+        quantity: this.form.quantity
+      }).then(function (res) {
+        $("#exampleModalCenter").modal("hide");
+
+        _this2.$store.dispatch("getAllTodayHistory");
+
+        Toast.fire({
+          icon: "success",
+          title: "Product Stock Updated Successfully"
+        });
+      })["catch"](function (error) {
+        _this2.errors = error.response.data.errors;
+        Toast.fire({
+          icon: "error",
+          title: "Product Stock can't be Updated"
+        });
+      });
     }
   }
 });
@@ -89258,7 +89346,207 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(12)
+      _c("div", { staticClass: "col-xl-4 col-lg-5 " }, [
+        _c("div", { staticClass: "card" }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "card-header py-3 d-flex flex-row align-items-center justify-content-between"
+            },
+            [
+              _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
+                _vm._v(
+                  "\n                        Top 5 Less Stock Products\n                    "
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                {
+                  staticClass: "m-0 float-right btn btn-success btn-sm",
+                  attrs: { to: { name: "Product" } }
+                },
+                [
+                  _vm._v("View More "),
+                  _c("i", { staticClass: "fas fa-chevron-right" })
+                ]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "table-responsive" }, [
+            _c(
+              "table",
+              { staticClass: "table align-items-center table-flush" },
+              [
+                _vm._m(12),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.todayHistory.less_stock, function(product, index) {
+                    return _c("tr", { key: index }, [
+                      _c("td", [_vm._v(_vm._s(index + 1))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(product.name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(product.quantity))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-primary",
+                            attrs: {
+                              type: "button",
+                              "data-toggle": "modal",
+                              "data-target": "#exampleModalCenter",
+                              id: "#modalCenter"
+                            },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.editStock(product.id)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                        Stock\n                                    "
+                            )
+                          ]
+                        )
+                      ])
+                    ])
+                  }),
+                  0
+                )
+              ]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "exampleModalCenter",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-labelledby": "exampleModalCenterTitle",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass: "modal-dialog modal-dialog-centered",
+              attrs: { role: "document" }
+            },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(13),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-body" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Product Quantity")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.quantity,
+                          expression: "form.quantity"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "number",
+                        placeholder: "Enter Product Quantity"
+                      },
+                      domProps: { value: _vm.form.quantity },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "quantity", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.quantity
+                      ? _c("small", { staticClass: "text-danger" }, [
+                          _vm._v(_vm._s(_vm.errors.quantity[0]))
+                        ])
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.product_id,
+                        expression: "form.product_id"
+                      }
+                    ],
+                    attrs: { type: "hidden" },
+                    domProps: { value: _vm.form.product_id },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "product_id", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-outline-secondary",
+                      attrs: { type: "button", "data-dismiss": "modal" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Close\n                        "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.updateStock($event)
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Update\n                        "
+                      )
+                    ]
+                  )
+                ])
+              ])
+            ]
+          )
+        ]
+      )
     ])
   ])
 }
@@ -89419,124 +89707,48 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-xl-4 col-lg-5 " }, [
-      _c("div", { staticClass: "card" }, [
-        _c(
-          "div",
-          {
-            staticClass:
-              "card-header py-4 bg-primary d-flex flex-row align-items-center justify-content-between"
-          },
-          [
-            _c("h6", { staticClass: "m-0 font-weight-bold text-light" }, [
-              _vm._v(
-                "\n                        Message From Customer\n                    "
-              )
-            ])
-          ]
-        ),
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", [_vm._v("Serial")]),
         _vm._v(" "),
-        _c("div", [
-          _c("div", { staticClass: "customer-message align-items-center" }, [
-            _c("a", { staticClass: "font-weight-bold", attrs: { href: "#" } }, [
-              _c("div", { staticClass: "text-truncate message-title" }, [
-                _vm._v(
-                  "\n                                Hi there! I am wondering if you can help me\n                                with a problem I've been having.\n                            "
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "small text-gray-500 message-time font-weight-bold"
-                },
-                [
-                  _vm._v(
-                    "\n                                Udin Cilok · 58m\n                            "
-                  )
-                ]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "customer-message align-items-center" }, [
-            _c("a", { attrs: { href: "#" } }, [
-              _c("div", { staticClass: "text-truncate message-title" }, [
-                _vm._v(
-                  "\n                                But I must explain to you how all this\n                                mistaken idea\n                            "
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "small text-gray-500 message-time" }, [
-                _vm._v(
-                  "\n                                Nana Haminah · 58m\n                            "
-                )
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "customer-message align-items-center" }, [
-            _c("a", { staticClass: "font-weight-bold", attrs: { href: "#" } }, [
-              _c("div", { staticClass: "text-truncate message-title" }, [
-                _vm._v(
-                  "\n                                Lorem ipsum dolor sit amet, consectetur\n                                adipiscing elit\n                            "
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "small text-gray-500 message-time font-weight-bold"
-                },
-                [
-                  _vm._v(
-                    "\n                                Jajang Cincau · 25m\n                            "
-                  )
-                ]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "customer-message align-items-center" }, [
-            _c("a", { staticClass: "font-weight-bold", attrs: { href: "#" } }, [
-              _c("div", { staticClass: "text-truncate message-title" }, [
-                _vm._v(
-                  "\n                                At vero eos et accusamus et iusto odio\n                                dignissimos ducimus qui blanditiis\n                            "
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "small text-gray-500 message-time font-weight-bold"
-                },
-                [
-                  _vm._v(
-                    "\n                                Udin Wayang · 54m\n                            "
-                  )
-                ]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-footer text-center" }, [
-            _c(
-              "a",
-              {
-                staticClass: "m-0 small text-primary card-link",
-                attrs: { href: "#" }
-              },
-              [
-                _vm._v("View More "),
-                _c("i", { staticClass: "fas fa-chevron-right" })
-              ]
-            )
-          ])
-        ])
+        _c("th", [_vm._v("Product Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Quantity")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Action")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        {
+          staticClass: "modal-title",
+          attrs: { id: "exampleModalCenterTitle" }
+        },
+        [
+          _vm._v(
+            "\n                            Update Product Stock\n                        "
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
     ])
   }
 ]
