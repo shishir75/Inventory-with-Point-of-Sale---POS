@@ -175,7 +175,7 @@
                             v-for="(top, index) in todayHistory.top_sold"
                             :key="index"
                         >
-                            <div class="small text-gray-500">
+                            <div class="small">
                                 {{ top.product.name }}
                                 <div class="small float-right">
                                     <b
@@ -206,122 +206,92 @@
                     </div>
                 </div>
             </div>
-            <!-- Invoice Example -->
-            <div class="col-xl-8 col-lg-7 mb-4">
+            <!-- Top 5 Customers Example -->
+            <div class="col-xl-5 col-lg-5 mb-4">
                 <div class="card">
                     <div
                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                     >
                         <h6 class="m-0 font-weight-bold text-primary">
-                            Invoice
+                            Top 5 Customers
                         </h6>
-                        <a
-                            class="m-0 float-right btn btn-danger btn-sm"
-                            href="#"
+                        <router-link
+                            class="m-0 float-right btn btn-success btn-sm"
+                            :to="{ name: 'Customer' }"
                             >View More <i class="fas fa-chevron-right"></i
-                        ></a>
+                        ></router-link>
                     </div>
                     <div class="table-responsive">
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>Order ID</th>
-                                    <th>Customer</th>
-                                    <th>Item</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
+                                    <th>Serial</th>
+                                    <th>Customer Name</th>
+                                    <th>Customer Phone</th>
+                                    <th>Order Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><a href="#">RA0449</a></td>
-                                    <td>Udin Wayang</td>
-                                    <td>Nasi Padang</td>
+                                <tr
+                                    v-for="(top_customer,
+                                    index) in todayHistory.top_customers"
+                                    :key="top_customer.id"
+                                >
+                                    <td>{{ index + 1 }}</td>
+                                    <td>{{ top_customer.customer.name }}</td>
                                     <td>
-                                        <span class="badge badge-success"
-                                            >Delivered</span
-                                        >
+                                        +88{{ top_customer.customer.phone }}
                                     </td>
-                                    <td>
-                                        <a
-                                            href="#"
-                                            class="btn btn-sm btn-primary"
-                                            >Detail</a
-                                        >
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">RA5324</a></td>
-                                    <td>Jaenab Bajigur</td>
-                                    <td>Gundam 90' Edition</td>
-                                    <td>
-                                        <span class="badge badge-warning"
-                                            >Shipping</span
-                                        >
-                                    </td>
-                                    <td>
-                                        <a
-                                            href="#"
-                                            class="btn btn-sm btn-primary"
-                                            >Detail</a
-                                        >
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">RA8568</a></td>
-                                    <td>Rivat Mahesa</td>
-                                    <td>Oblong T-Shirt</td>
-                                    <td>
-                                        <span class="badge badge-danger"
-                                            >Pending</span
-                                        >
-                                    </td>
-                                    <td>
-                                        <a
-                                            href="#"
-                                            class="btn btn-sm btn-primary"
-                                            >Detail</a
-                                        >
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">RA1453</a></td>
-                                    <td>Indri Junanda</td>
-                                    <td>Hat Rounded</td>
-                                    <td>
-                                        <span class="badge badge-info"
-                                            >Processing</span
-                                        >
-                                    </td>
-                                    <td>
-                                        <a
-                                            href="#"
-                                            class="btn btn-sm btn-primary"
-                                            >Detail</a
-                                        >
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">RA1998</a></td>
-                                    <td>Udin Cilok</td>
-                                    <td>Baby Powder</td>
-                                    <td>
-                                        <span class="badge badge-success"
-                                            >Delivered</span
-                                        >
-                                    </td>
-                                    <td>
-                                        <a
-                                            href="#"
-                                            class="btn btn-sm btn-primary"
-                                            >Detail</a
-                                        >
+                                    <td class="text-right">
+                                        $
+                                        {{
+                                            top_customer.total_amount
+                                                | numberFormat
+                                        }}
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="card-footer"></div>
+                </div>
+            </div>
+            <!-- Invoice Example -->
+            <div class="col-xl-3 col-lg-3 mb-4">
+                <div class="card">
+                    <div
+                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+                    >
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            Top 5 Categories
+                        </h6>
+                        <router-link
+                            class="m-0 float-right btn btn-success btn-sm"
+                            :to="{ name: 'Category' }"
+                            >View More <i class="fas fa-chevron-right"></i
+                        ></router-link>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Serial</th>
+                                    <th>Name</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    v-for="(top_category,
+                                    index) in todayHistory.top_categories"
+                                    :key="index"
+                                >
+                                    <td>{{ index + 1 }}</td>
+                                    <td>{{ top_category.category.name }}</td>
+                                    <td>{{ top_category.category_count }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <!-- Message From Customer-->

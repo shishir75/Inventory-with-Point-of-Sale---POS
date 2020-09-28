@@ -36,6 +36,12 @@ class PosController extends Controller
         $data['monthly_total'] = Order::select( 'month', DB::raw( 'SUM(total) as total' ) )->groupBy( 'month' )->where( 'year', date( 'Y' ) )->get();
         $data['monthly_due'] = Order::select( 'month', DB::raw( 'SUM(due) as due' ) )->groupBy( 'month' )->where( 'year', date( 'Y' ) )->get();
 
+        $data['top_customers'] = Order::with( 'customer' )->select( 'customer_id', DB::raw( 'SUM(total) as total_amount' ) )
+            ->groupBy( 'customer_id' )->orderBy( 'total_amount', 'desc' )->take( 5 )->get();
+
+        $data['top_categories'] = Product::with( 'category' )->select( 'category_id', DB::raw( 'COUNT(category_id) as category_count' ) )
+            ->groupBy( 'category_id' )->orderBy( 'category_count', 'desc' )->get();
+
         return response()->json( [
             'data' => $data,
         ], 200 );
