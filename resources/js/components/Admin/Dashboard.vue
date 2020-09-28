@@ -451,7 +451,9 @@ export default {
     mounted() {
         this.$store.dispatch("getAllTodayHistory");
     },
-    created() {},
+    created() {
+        this.$store.dispatch("getUser");
+    },
     computed: {
         todayHistory() {
             return this.$store.getters.getAllTodayHistory;

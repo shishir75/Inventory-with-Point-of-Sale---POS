@@ -1,6 +1,7 @@
 export default {
     state: {
         isLoggedIn: null,
+        user: [],
         allEmployees: [],
         allSuppliers: [],
         allCategories: [],
@@ -20,6 +21,9 @@ export default {
     getters: {
         isLoggedIn(state) {
             return state.isLoggedIn !== null;
+        },
+        getUser(state) {
+            return state.user;
         },
         getAllEmployees(state) {
             return state.allEmployees;
@@ -71,6 +75,9 @@ export default {
         isLogIn(state, payload) {
             state.isLoggedIn = payload;
         },
+        getUser(state, payload) {
+            state.user = payload;
+        },
         getAllEmployees(state, payload) {
             state.allEmployees = payload;
         },
@@ -118,6 +125,11 @@ export default {
         }
     },
     actions: {
+        getUser(context) {
+            axios.get("/api/user").then(res => {
+                context.commit("getUser", res.data);
+            });
+        },
         getAllEmployees(context) {
             axios.get("/api/employee").then(res => {
                 context.commit("getAllEmployees", res.data.employees);

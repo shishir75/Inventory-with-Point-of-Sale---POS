@@ -3505,7 +3505,9 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.$store.dispatch("getAllTodayHistory");
   },
-  created: function created() {},
+  created: function created() {
+    this.$store.dispatch("getUser");
+  },
   computed: {
     todayHistory: function todayHistory() {
       return this.$store.getters.getAllTodayHistory;
@@ -9570,88 +9572,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
@@ -9733,280 +9653,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
@@ -10014,11 +9660,15 @@ __webpack_require__.r(__webpack_exports__);
   components: {},
   mounted: function mounted() {
     this.$store.commit("isLogIn", window.auth_user);
+    this.$store.dispatch("getUser");
   },
   created: function created() {},
   computed: {
     isLoggedIn: function isLoggedIn() {
       return this.$store.getters.isLoggedIn;
+    },
+    getUser: function getUser() {
+      return this.$store.getters.getUser;
     }
   },
   methods: {
@@ -98429,68 +98079,7 @@ var render = function() {
                     )
                   ]
                 )
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "nav-item" }, [
-                _vm._m(9),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "collapse",
-                    attrs: {
-                      id: "report",
-                      "aria-labelledby": "headingTable",
-                      "data-parent": "#accordionSidebar"
-                    }
-                  },
-                  [
-                    _c(
-                      "div",
-                      { staticClass: "bg-white py-2 collapse-inner rounded" },
-                      [
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "collapse-item",
-                            attrs: { to: { name: "CreateCustomer" } }
-                          },
-                          [_vm._v("Report One")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "collapse-item",
-                            attrs: { to: { name: "Customer" } }
-                          },
-                          [_vm._v("Report Two")]
-                        )
-                      ],
-                      1
-                    )
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _vm._m(10),
-              _vm._v(" "),
-              _c("hr", { staticClass: "sidebar-divider" }),
-              _vm._v(" "),
-              _c("div", { staticClass: "sidebar-heading" }, [
-                _vm._v("\n            Examples\n        ")
-              ]),
-              _vm._v(" "),
-              _vm._m(11),
-              _vm._v(" "),
-              _vm._m(12),
-              _vm._v(" "),
-              _c("hr", { staticClass: "sidebar-divider" }),
-              _vm._v(" "),
-              _c("div", {
-                staticClass: "version",
-                attrs: { id: "version-ruangadmin" }
-              })
+              ])
             ]
           )
         ]
@@ -98703,124 +98292,6 @@ var staticRenderFns = [
         _c("span", [_vm._v("Order")])
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "nav-link collapsed",
-        attrs: {
-          href: "#",
-          "data-toggle": "collapse",
-          "data-target": "#report",
-          "aria-expanded": "true",
-          "aria-controls": "collapseTable"
-        }
-      },
-      [
-        _c("i", { staticClass: "fas fa-fw fa-table" }),
-        _vm._v(" "),
-        _c("span", [_vm._v("Report")])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c("a", { staticClass: "nav-link", attrs: { href: "ui-colors.html" } }, [
-        _c("i", { staticClass: "fas fa-fw fa-palette" }),
-        _vm._v(" "),
-        _c("span", [_vm._v("UI Colors")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c(
-        "a",
-        {
-          staticClass: "nav-link collapsed",
-          attrs: {
-            href: "#",
-            "data-toggle": "collapse",
-            "data-target": "#collapsePage",
-            "aria-expanded": "true",
-            "aria-controls": "collapsePage"
-          }
-        },
-        [
-          _c("i", { staticClass: "fas fa-fw fa-columns" }),
-          _vm._v(" "),
-          _c("span", [_vm._v("Pages")])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "collapse",
-          attrs: {
-            id: "collapsePage",
-            "aria-labelledby": "headingPage",
-            "data-parent": "#accordionSidebar"
-          }
-        },
-        [
-          _c("div", { staticClass: "bg-white py-2 collapse-inner rounded" }, [
-            _c("h6", { staticClass: "collapse-header" }, [
-              _vm._v("Example Pages")
-            ]),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "collapse-item", attrs: { href: "login.html" } },
-              [_vm._v("Login")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "collapse-item",
-                attrs: { href: "register.html" }
-              },
-              [_vm._v("Register")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "collapse-item", attrs: { href: "404.html" } },
-              [_vm._v("404 Page")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "collapse-item", attrs: { href: "blank.html" } },
-              [_vm._v("Blank Page")]
-            )
-          ])
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c("a", { staticClass: "nav-link", attrs: { href: "charts.html" } }, [
-        _c("i", { staticClass: "fas fa-fw fa-chart-area" }),
-        _vm._v(" "),
-        _c("span", [_vm._v("Charts")])
-      ])
-    ])
   }
 ]
 render._withStripped = true
@@ -98871,18 +98342,34 @@ var render = function() {
           _vm._m(0),
           _vm._v(" "),
           _c("ul", { staticClass: "navbar-nav ml-auto" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _vm._m(2),
-            _vm._v(" "),
-            _vm._m(3),
-            _vm._v(" "),
-            _vm._m(4),
-            _vm._v(" "),
-            _c("div", { staticClass: "topbar-divider d-none d-sm-block" }),
-            _vm._v(" "),
             _c("li", { staticClass: "nav-item dropdown no-arrow" }, [
-              _vm._m(5),
+              _c(
+                "a",
+                {
+                  staticClass: "nav-link dropdown-toggle",
+                  attrs: {
+                    href: "#",
+                    id: "userDropdown",
+                    role: "button",
+                    "data-toggle": "dropdown",
+                    "aria-haspopup": "true",
+                    "aria-expanded": "false"
+                  }
+                },
+                [
+                  _c("img", {
+                    staticClass: "img-profile rounded-circle",
+                    staticStyle: { "max-width": "60px" },
+                    attrs: { src: "/assets/img/boy.png" }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    { staticClass: "ml-2 d-none d-lg-inline text-white small" },
+                    [_vm._v(_vm._s(_vm.getUser.name))]
+                  )
+                ]
+              ),
               _vm._v(" "),
               _c(
                 "div",
@@ -98892,14 +98379,6 @@ var render = function() {
                   attrs: { "aria-labelledby": "userDropdown" }
                 },
                 [
-                  _vm._m(6),
-                  _vm._v(" "),
-                  _vm._m(7),
-                  _vm._v(" "),
-                  _vm._m(8),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "dropdown-divider" }),
-                  _vm._v(" "),
                   _c(
                     "button",
                     {
@@ -98940,531 +98419,6 @@ var staticRenderFns = [
       },
       [_c("i", { staticClass: "fa fa-bars" })]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item dropdown no-arrow" }, [
-      _c(
-        "a",
-        {
-          staticClass: "nav-link dropdown-toggle",
-          attrs: {
-            href: "#",
-            id: "searchDropdown",
-            role: "button",
-            "data-toggle": "dropdown",
-            "aria-haspopup": "true",
-            "aria-expanded": "false"
-          }
-        },
-        [_c("i", { staticClass: "fas fa-search fa-fw" })]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in",
-          attrs: { "aria-labelledby": "searchDropdown" }
-        },
-        [
-          _c("form", { staticClass: "navbar-search" }, [
-            _c("div", { staticClass: "input-group" }, [
-              _c("input", {
-                staticClass: "form-control bg-light border-1 small",
-                staticStyle: { "border-color": "#3f51b5" },
-                attrs: {
-                  type: "text",
-                  placeholder: "What do you want to look for?",
-                  "aria-label": "Search",
-                  "aria-describedby": "basic-addon2"
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "input-group-append" }, [
-                _c(
-                  "button",
-                  { staticClass: "btn btn-primary", attrs: { type: "button" } },
-                  [_c("i", { staticClass: "fas fa-search fa-sm" })]
-                )
-              ])
-            ])
-          ])
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item dropdown no-arrow mx-1" }, [
-      _c(
-        "a",
-        {
-          staticClass: "nav-link dropdown-toggle",
-          attrs: {
-            href: "#",
-            id: "alertsDropdown",
-            role: "button",
-            "data-toggle": "dropdown",
-            "aria-haspopup": "true",
-            "aria-expanded": "false"
-          }
-        },
-        [
-          _c("i", { staticClass: "fas fa-bell fa-fw" }),
-          _vm._v(" "),
-          _c("span", { staticClass: "badge badge-danger badge-counter" }, [
-            _vm._v("3+")
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in",
-          attrs: { "aria-labelledby": "alertsDropdown" }
-        },
-        [
-          _c("h6", { staticClass: "dropdown-header" }, [
-            _vm._v("\n                    Alerts Center\n                ")
-          ]),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "dropdown-item d-flex align-items-center",
-              attrs: { href: "#" }
-            },
-            [
-              _c("div", { staticClass: "mr-3" }, [
-                _c("div", { staticClass: "icon-circle bg-primary" }, [
-                  _c("i", { staticClass: "fas fa-file-alt text-white" })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", [
-                _c("div", { staticClass: "small text-gray-500" }, [
-                  _vm._v(
-                    "\n                            December 12, 2019\n                        "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "font-weight-bold" }, [
-                  _vm._v(
-                    "A new monthly report is ready to\n                            download!"
-                  )
-                ])
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "dropdown-item d-flex align-items-center",
-              attrs: { href: "#" }
-            },
-            [
-              _c("div", { staticClass: "mr-3" }, [
-                _c("div", { staticClass: "icon-circle bg-success" }, [
-                  _c("i", { staticClass: "fas fa-donate text-white" })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", [
-                _c("div", { staticClass: "small text-gray-500" }, [
-                  _vm._v(
-                    "\n                            December 7, 2019\n                        "
-                  )
-                ]),
-                _vm._v(
-                  "\n                        $290.29 has been deposited into your account!\n                    "
-                )
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "dropdown-item d-flex align-items-center",
-              attrs: { href: "#" }
-            },
-            [
-              _c("div", { staticClass: "mr-3" }, [
-                _c("div", { staticClass: "icon-circle bg-warning" }, [
-                  _c("i", {
-                    staticClass: "fas fa-exclamation-triangle text-white"
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", [
-                _c("div", { staticClass: "small text-gray-500" }, [
-                  _vm._v(
-                    "\n                            December 2, 2019\n                        "
-                  )
-                ]),
-                _vm._v(
-                  "\n                        Spending Alert: We've noticed unusually high\n                        spending for your account.\n                    "
-                )
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "dropdown-item text-center small text-gray-500",
-              attrs: { href: "#" }
-            },
-            [_vm._v("Show All Alerts")]
-          )
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item dropdown no-arrow mx-1" }, [
-      _c(
-        "a",
-        {
-          staticClass: "nav-link dropdown-toggle",
-          attrs: {
-            href: "#",
-            id: "messagesDropdown",
-            role: "button",
-            "data-toggle": "dropdown",
-            "aria-haspopup": "true",
-            "aria-expanded": "false"
-          }
-        },
-        [
-          _c("i", { staticClass: "fas fa-envelope fa-fw" }),
-          _vm._v(" "),
-          _c("span", { staticClass: "badge badge-warning badge-counter" }, [
-            _vm._v("2")
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in",
-          attrs: { "aria-labelledby": "messagesDropdown" }
-        },
-        [
-          _c("h6", { staticClass: "dropdown-header" }, [
-            _vm._v("\n                    Message Center\n                ")
-          ]),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "dropdown-item d-flex align-items-center",
-              attrs: { href: "#" }
-            },
-            [
-              _c("div", { staticClass: "dropdown-list-image mr-3" }, [
-                _c("img", {
-                  staticClass: "rounded-circle",
-                  staticStyle: { "max-width": "60px" },
-                  attrs: { src: "/assets/img/man.png", alt: "" }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "status-indicator bg-success" })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "font-weight-bold" }, [
-                _c("div", { staticClass: "text-truncate" }, [
-                  _vm._v(
-                    "\n                            Hi there! I am wondering if you can help me with\n                            a problem I've been having.\n                        "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "small text-gray-500" }, [
-                  _vm._v(
-                    "\n                            Udin Cilok · 58m\n                        "
-                  )
-                ])
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "dropdown-item d-flex align-items-center",
-              attrs: { href: "#" }
-            },
-            [
-              _c("div", { staticClass: "dropdown-list-image mr-3" }, [
-                _c("img", {
-                  staticClass: "rounded-circle",
-                  staticStyle: { "max-width": "60px" },
-                  attrs: { src: "/assets/img/girl.png", alt: "" }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "status-indicator bg-default" })
-              ]),
-              _vm._v(" "),
-              _c("div", [
-                _c("div", { staticClass: "text-truncate" }, [
-                  _vm._v(
-                    "\n                            Am I a good boy? The reason I ask is because\n                            someone told me that people say this to all\n                            dogs, even if they aren't good...\n                        "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "small text-gray-500" }, [
-                  _vm._v("Jaenab · 2w")
-                ])
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "dropdown-item text-center small text-gray-500",
-              attrs: { href: "#" }
-            },
-            [_vm._v("Read More Messages")]
-          )
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item dropdown no-arrow mx-1" }, [
-      _c(
-        "a",
-        {
-          staticClass: "nav-link dropdown-toggle",
-          attrs: {
-            href: "#",
-            id: "messagesDropdown",
-            role: "button",
-            "data-toggle": "dropdown",
-            "aria-haspopup": "true",
-            "aria-expanded": "false"
-          }
-        },
-        [
-          _c("i", { staticClass: "fas fa-tasks fa-fw" }),
-          _vm._v(" "),
-          _c("span", { staticClass: "badge badge-success badge-counter" }, [
-            _vm._v("3")
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in",
-          attrs: { "aria-labelledby": "messagesDropdown" }
-        },
-        [
-          _c("h6", { staticClass: "dropdown-header" }, [
-            _vm._v("\n                    Task\n                ")
-          ]),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "dropdown-item align-items-center",
-              attrs: { href: "#" }
-            },
-            [
-              _c("div", { staticClass: "mb-3" }, [
-                _c("div", { staticClass: "small text-gray-500" }, [
-                  _vm._v(
-                    "\n                            Design Button\n                            "
-                  ),
-                  _c("div", { staticClass: "small float-right" }, [
-                    _c("b", [_vm._v("50%")])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "progress", staticStyle: { height: "12px" } },
-                  [
-                    _c("div", {
-                      staticClass: "progress-bar bg-success",
-                      staticStyle: { width: "50%" },
-                      attrs: {
-                        role: "progressbar",
-                        "aria-valuenow": "50",
-                        "aria-valuemin": "0",
-                        "aria-valuemax": "100"
-                      }
-                    })
-                  ]
-                )
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "dropdown-item align-items-center",
-              attrs: { href: "#" }
-            },
-            [
-              _c("div", { staticClass: "mb-3" }, [
-                _c("div", { staticClass: "small text-gray-500" }, [
-                  _vm._v(
-                    "\n                            Make Beautiful Transitions\n                            "
-                  ),
-                  _c("div", { staticClass: "small float-right" }, [
-                    _c("b", [_vm._v("30%")])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "progress", staticStyle: { height: "12px" } },
-                  [
-                    _c("div", {
-                      staticClass: "progress-bar bg-warning",
-                      staticStyle: { width: "30%" },
-                      attrs: {
-                        role: "progressbar",
-                        "aria-valuenow": "30",
-                        "aria-valuemin": "0",
-                        "aria-valuemax": "100"
-                      }
-                    })
-                  ]
-                )
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "dropdown-item align-items-center",
-              attrs: { href: "#" }
-            },
-            [
-              _c("div", { staticClass: "mb-3" }, [
-                _c("div", { staticClass: "small text-gray-500" }, [
-                  _vm._v(
-                    "\n                            Create Pie Chart\n                            "
-                  ),
-                  _c("div", { staticClass: "small float-right" }, [
-                    _c("b", [_vm._v("75%")])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "progress", staticStyle: { height: "12px" } },
-                  [
-                    _c("div", {
-                      staticClass: "progress-bar bg-danger",
-                      staticStyle: { width: "75%" },
-                      attrs: {
-                        role: "progressbar",
-                        "aria-valuenow": "75",
-                        "aria-valuemin": "0",
-                        "aria-valuemax": "100"
-                      }
-                    })
-                  ]
-                )
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "dropdown-item text-center small text-gray-500",
-              attrs: { href: "#" }
-            },
-            [_vm._v("View All Taks")]
-          )
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "nav-link dropdown-toggle",
-        attrs: {
-          href: "#",
-          id: "userDropdown",
-          role: "button",
-          "data-toggle": "dropdown",
-          "aria-haspopup": "true",
-          "aria-expanded": "false"
-        }
-      },
-      [
-        _c("img", {
-          staticClass: "img-profile rounded-circle",
-          staticStyle: { "max-width": "60px" },
-          attrs: { src: "/assets/img/boy.png" }
-        }),
-        _vm._v(" "),
-        _c(
-          "span",
-          { staticClass: "ml-2 d-none d-lg-inline text-white small" },
-          [_vm._v("Maman Ketoprak")]
-        )
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-      _c("i", { staticClass: "fas fa-user fa-sm fa-fw mr-2 text-gray-400" }),
-      _vm._v("\n                    Profile\n                ")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-      _c("i", { staticClass: "fas fa-cogs fa-sm fa-fw mr-2 text-gray-400" }),
-      _vm._v("\n                    Settings\n                ")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-      _c("i", { staticClass: "fas fa-list fa-sm fa-fw mr-2 text-gray-400" }),
-      _vm._v("\n                    Activity Log\n                ")
-    ])
   }
 ]
 render._withStripped = true
@@ -118972,6 +117926,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
     isLoggedIn: null,
+    user: [],
     allEmployees: [],
     allSuppliers: [],
     allCategories: [],
@@ -118991,6 +117946,9 @@ __webpack_require__.r(__webpack_exports__);
   getters: {
     isLoggedIn: function isLoggedIn(state) {
       return state.isLoggedIn !== null;
+    },
+    getUser: function getUser(state) {
+      return state.user;
     },
     getAllEmployees: function getAllEmployees(state) {
       return state.allEmployees;
@@ -119042,6 +118000,9 @@ __webpack_require__.r(__webpack_exports__);
     isLogIn: function isLogIn(state, payload) {
       state.isLoggedIn = payload;
     },
+    getUser: function getUser(state, payload) {
+      state.user = payload;
+    },
     getAllEmployees: function getAllEmployees(state, payload) {
       state.allEmployees = payload;
     },
@@ -119089,6 +118050,11 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   actions: {
+    getUser: function getUser(context) {
+      axios.get("/api/user").then(function (res) {
+        context.commit("getUser", res.data);
+      });
+    },
     getAllEmployees: function getAllEmployees(context) {
       axios.get("/api/employee").then(function (res) {
         context.commit("getAllEmployees", res.data.employees);
