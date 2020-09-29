@@ -30,9 +30,24 @@
                                     $ {{ todayHistory.paid | numberFormat }}
                                 </div>
                                 <div class="mt-2 mb-0 text-muted text-xs">
-                                    <span class="text-success mr-2"
-                                        ><i class="fa fa-arrow-up"></i>
-                                        3.48%</span
+                                    <span
+                                        class="mr-2"
+                                        :class="
+                                            percentagePaid > 0
+                                                ? 'text-success'
+                                                : 'text-danger'
+                                        "
+                                        ><i
+                                            class="fas"
+                                            :class="
+                                                percentagePaid > 0
+                                                    ? 'fa-arrow-up'
+                                                    : 'fa-arrow-down'
+                                            "
+                                        ></i>
+                                        {{
+                                            percentagePaid | removeNegative
+                                        }}%</span
                                     >
                                     <span>Since yesterday</span>
                                 </div>
@@ -55,7 +70,7 @@
                                 <div
                                     class="text-xs font-weight-bold text-uppercase mb-1"
                                 >
-                                    Sales (Today)
+                                    Total Sales (Today)
                                 </div>
                                 <div
                                     class="h5 mb-0 font-weight-bold text-gray-800"
@@ -63,9 +78,24 @@
                                     $ {{ todayHistory.total | numberFormat }}
                                 </div>
                                 <div class="mt-2 mb-0 text-muted text-xs">
-                                    <span class="text-success mr-2"
-                                        ><i class="fas fa-arrow-up"></i>
-                                        12%</span
+                                    <span
+                                        class="mr-2"
+                                        :class="
+                                            percentageTotal > 0
+                                                ? 'text-success'
+                                                : 'text-danger'
+                                        "
+                                        ><i
+                                            class="fas"
+                                            :class="
+                                                percentageTotal > 0
+                                                    ? 'fa-arrow-up'
+                                                    : 'fa-arrow-down'
+                                            "
+                                        ></i>
+                                        {{
+                                            percentageTotal | removeNegative
+                                        }}%</span
                                     >
                                     <span>Since yesterday</span>
                                 </div>
@@ -96,9 +126,24 @@
                                     $ {{ todayHistory.due | numberFormat }}
                                 </div>
                                 <div class="mt-2 mb-0 text-muted text-xs">
-                                    <span class="text-success mr-2"
-                                        ><i class="fas fa-arrow-up"></i>
-                                        20.4%</span
+                                    <span
+                                        class="mr-2"
+                                        :class="
+                                            percentageDue > 0
+                                                ? 'text-success'
+                                                : 'text-danger'
+                                        "
+                                        ><i
+                                            class="fas"
+                                            :class="
+                                                percentageDue > 0
+                                                    ? 'fa-arrow-up'
+                                                    : 'fa-arrow-down'
+                                            "
+                                        ></i>
+                                        {{
+                                            percentageDue | removeNegative
+                                        }}%</span
                                     >
                                     <span>Since yesterday</span>
                                 </div>
@@ -127,9 +172,24 @@
                                     $ {{ todayHistory.expense | numberFormat }}
                                 </div>
                                 <div class="mt-2 mb-0 text-muted text-xs">
-                                    <span class="text-danger mr-2"
-                                        ><i class="fas fa-arrow-down"></i>
-                                        1.10%</span
+                                    <span
+                                        class="mr-2"
+                                        :class="
+                                            percentageExpense < 0
+                                                ? 'text-success'
+                                                : 'text-danger'
+                                        "
+                                        ><i
+                                            class="fas"
+                                            :class="
+                                                percentageExpense > 0
+                                                    ? 'fa-arrow-up'
+                                                    : 'fa-arrow-down'
+                                            "
+                                        ></i>
+                                        {{
+                                            percentageExpense | removeNegative
+                                        }}%</span
                                     >
                                     <span>Since yesterday</span>
                                 </div>
@@ -336,7 +396,7 @@
                                             >{{ product.quantity }}</span
                                         >
                                         <span v-else class="badge badge-danger"
-                                            >Out</span
+                                            >out</span
                                         >
                                     </td>
                                     <td>
@@ -450,6 +510,7 @@ export default {
     },
     mounted() {
         this.$store.dispatch("getAllTodayHistory");
+        this.$store.dispatch("getAllYesterdayHistory");
     },
     created() {
         this.$store.dispatch("getUser");
@@ -457,6 +518,41 @@ export default {
     computed: {
         todayHistory() {
             return this.$store.getters.getAllTodayHistory;
+        },
+        yesterdayHistory() {
+            return this.$store.getters.getAllYesterdayHistory;
+        },
+        percentageTotal() {
+            let todayTotal = parseFloat(this.todayHistory.total);
+            let yesterdayTotal = parseFloat(this.yesterdayHistory.total);
+            let difference = todayTotal - yesterdayTotal;
+
+            let percentage = ((difference / yesterdayTotal) * 100).toFixed(2);
+            return percentage;
+        },
+        percentagePaid() {
+            let todayPaid = parseFloat(this.todayHistory.paid);
+            let yesterdayPaid = parseFloat(this.yesterdayHistory.paid);
+            let difference = todayPaid - yesterdayPaid;
+
+            let percentage = ((difference / yesterdayPaid) * 100).toFixed(2);
+            return percentage;
+        },
+        percentageDue() {
+            let todayDue = parseFloat(this.todayHistory.due);
+            let yesterdayDue = parseFloat(this.yesterdayHistory.due);
+            let difference = todayDue - yesterdayDue;
+
+            let percentage = ((difference / yesterdayDue) * 100).toFixed(2);
+            return percentage;
+        },
+        percentageExpense() {
+            let todayExpense = parseFloat(this.todayHistory.expense);
+            let yesterdayExpense = parseFloat(this.yesterdayHistory.expense);
+            let difference = todayExpense - yesterdayExpense;
+
+            let percentage = ((difference / yesterdayExpense) * 100).toFixed(2);
+            return percentage;
         }
     },
     methods: {

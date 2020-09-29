@@ -3487,6 +3487,66 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3504,6 +3564,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.$store.dispatch("getAllTodayHistory");
+    this.$store.dispatch("getAllYesterdayHistory");
   },
   created: function created() {
     this.$store.dispatch("getUser");
@@ -3511,6 +3572,37 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     todayHistory: function todayHistory() {
       return this.$store.getters.getAllTodayHistory;
+    },
+    yesterdayHistory: function yesterdayHistory() {
+      return this.$store.getters.getAllYesterdayHistory;
+    },
+    percentageTotal: function percentageTotal() {
+      var todayTotal = parseFloat(this.todayHistory.total);
+      var yesterdayTotal = parseFloat(this.yesterdayHistory.total);
+      var difference = todayTotal - yesterdayTotal;
+      var percentage = (difference / yesterdayTotal * 100).toFixed(2);
+      return percentage;
+    },
+    percentagePaid: function percentagePaid() {
+      var todayPaid = parseFloat(this.todayHistory.paid);
+      var yesterdayPaid = parseFloat(this.yesterdayHistory.paid);
+      var difference = todayPaid - yesterdayPaid;
+      var percentage = (difference / yesterdayPaid * 100).toFixed(2);
+      return percentage;
+    },
+    percentageDue: function percentageDue() {
+      var todayDue = parseFloat(this.todayHistory.due);
+      var yesterdayDue = parseFloat(this.yesterdayHistory.due);
+      var difference = todayDue - yesterdayDue;
+      var percentage = (difference / yesterdayDue * 100).toFixed(2);
+      return percentage;
+    },
+    percentageExpense: function percentageExpense() {
+      var todayExpense = parseFloat(this.todayHistory.expense);
+      var yesterdayExpense = parseFloat(this.yesterdayHistory.expense);
+      var difference = todayExpense - yesterdayExpense;
+      var percentage = (difference / yesterdayExpense * 100).toFixed(2);
+      return percentage;
     }
   },
   methods: {
@@ -88691,10 +88783,35 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(0)
+                _c("div", { staticClass: "mt-2 mb-0 text-muted text-xs" }, [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "mr-2",
+                      class:
+                        _vm.percentagePaid > 0 ? "text-success" : "text-danger"
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fas",
+                        class:
+                          _vm.percentagePaid > 0
+                            ? "fa-arrow-up"
+                            : "fa-arrow-down"
+                      }),
+                      _vm._v(
+                        "\n                                    " +
+                          _vm._s(_vm._f("removeNegative")(_vm.percentagePaid)) +
+                          "%"
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("Since yesterday")])
+                ])
               ]),
               _vm._v(" "),
-              _vm._m(1)
+              _vm._m(0)
             ])
           ])
         ])
@@ -88712,7 +88829,7 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n                                Sales (Today)\n                            "
+                      "\n                                Total Sales (Today)\n                            "
                     )
                   ]
                 ),
@@ -88729,10 +88846,37 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(2)
+                _c("div", { staticClass: "mt-2 mb-0 text-muted text-xs" }, [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "mr-2",
+                      class:
+                        _vm.percentageTotal > 0 ? "text-success" : "text-danger"
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fas",
+                        class:
+                          _vm.percentageTotal > 0
+                            ? "fa-arrow-up"
+                            : "fa-arrow-down"
+                      }),
+                      _vm._v(
+                        "\n                                    " +
+                          _vm._s(
+                            _vm._f("removeNegative")(_vm.percentageTotal)
+                          ) +
+                          "%"
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("Since yesterday")])
+                ])
               ]),
               _vm._v(" "),
-              _vm._m(3)
+              _vm._m(1)
             ])
           ])
         ])
@@ -88769,10 +88913,35 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(4)
+                _c("div", { staticClass: "mt-2 mb-0 text-muted text-xs" }, [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "mr-2",
+                      class:
+                        _vm.percentageDue > 0 ? "text-success" : "text-danger"
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fas",
+                        class:
+                          _vm.percentageDue > 0
+                            ? "fa-arrow-up"
+                            : "fa-arrow-down"
+                      }),
+                      _vm._v(
+                        "\n                                    " +
+                          _vm._s(_vm._f("removeNegative")(_vm.percentageDue)) +
+                          "%"
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("Since yesterday")])
+                ])
               ]),
               _vm._v(" "),
-              _vm._m(5)
+              _vm._m(2)
             ])
           ])
         ])
@@ -88809,10 +88978,39 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(6)
+                _c("div", { staticClass: "mt-2 mb-0 text-muted text-xs" }, [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "mr-2",
+                      class:
+                        _vm.percentageExpense < 0
+                          ? "text-success"
+                          : "text-danger"
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fas",
+                        class:
+                          _vm.percentageExpense > 0
+                            ? "fa-arrow-up"
+                            : "fa-arrow-down"
+                      }),
+                      _vm._v(
+                        "\n                                    " +
+                          _vm._s(
+                            _vm._f("removeNegative")(_vm.percentageExpense)
+                          ) +
+                          "%"
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("Since yesterday")])
+                ])
               ]),
               _vm._v(" "),
-              _vm._m(7)
+              _vm._m(3)
             ])
           ])
         ])
@@ -88820,7 +89018,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "col-xl-8 col-lg-7" }, [
         _c("div", { staticClass: "card mb-4" }, [
-          _vm._m(8),
+          _vm._m(4),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [_c("chart")], 1)
         ])
@@ -88828,7 +89026,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "col-xl-4 col-lg-5" }, [
         _c("div", { staticClass: "card mb-4" }, [
-          _vm._m(9),
+          _vm._m(5),
           _vm._v(" "),
           _c(
             "div",
@@ -88915,7 +89113,7 @@ var render = function() {
               "table",
               { staticClass: "table align-items-center table-flush" },
               [
-                _vm._m(10),
+                _vm._m(6),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -88990,7 +89188,7 @@ var render = function() {
               "table",
               { staticClass: "table align-items-center table-flush" },
               [
-                _vm._m(11),
+                _vm._m(7),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -89049,7 +89247,7 @@ var render = function() {
               "table",
               { staticClass: "table align-items-center table-flush" },
               [
-                _vm._m(12),
+                _vm._m(8),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -89071,7 +89269,7 @@ var render = function() {
                               _vm._v(_vm._s(product.quantity))
                             ])
                           : _c("span", { staticClass: "badge badge-danger" }, [
-                              _vm._v("Out")
+                              _vm._v("out")
                             ])
                       ]),
                       _vm._v(" "),
@@ -89131,7 +89329,7 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "modal-content" }, [
-                _vm._m(13),
+                _vm._m(9),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
                   _c("h6", [
@@ -89244,34 +89442,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mt-2 mb-0 text-muted text-xs" }, [
-      _c("span", { staticClass: "text-success mr-2" }, [
-        _c("i", { staticClass: "fa fa-arrow-up" }),
-        _vm._v("\n                                    3.48%")
-      ]),
-      _vm._v(" "),
-      _c("span", [_vm._v("Since yesterday")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-auto" }, [
       _c("i", { staticClass: "fas fa-calendar fa-2x text-primary" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mt-2 mb-0 text-muted text-xs" }, [
-      _c("span", { staticClass: "text-success mr-2" }, [
-        _c("i", { staticClass: "fas fa-arrow-up" }),
-        _vm._v("\n                                    12%")
-      ]),
-      _vm._v(" "),
-      _c("span", [_vm._v("Since yesterday")])
     ])
   },
   function() {
@@ -89286,34 +89458,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mt-2 mb-0 text-muted text-xs" }, [
-      _c("span", { staticClass: "text-success mr-2" }, [
-        _c("i", { staticClass: "fas fa-arrow-up" }),
-        _vm._v("\n                                    20.4%")
-      ]),
-      _vm._v(" "),
-      _c("span", [_vm._v("Since yesterday")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-auto" }, [
       _c("i", { staticClass: "fas fa-users fa-2x text-info" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mt-2 mb-0 text-muted text-xs" }, [
-      _c("span", { staticClass: "text-danger mr-2" }, [
-        _c("i", { staticClass: "fas fa-arrow-down" }),
-        _vm._v("\n                                    1.10%")
-      ]),
-      _vm._v(" "),
-      _c("span", [_vm._v("Since yesterday")])
     ])
   },
   function() {
@@ -117659,6 +117805,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter("shortLength", function (text,
     return text;
   }
 });
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter("removeNegative", function (value) {
+  if (value) {
+    return Math.abs(value);
+  }
+});
 
 /***/ }),
 
@@ -117951,7 +118102,8 @@ __webpack_require__.r(__webpack_exports__);
     orderDetails: [],
     customerOrder: [],
     allOrders: [],
-    todayHistory: []
+    todayHistory: [],
+    yesterdayHistory: []
   },
   getters: {
     isLoggedIn: function isLoggedIn(state) {
@@ -118004,6 +118156,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     getAllTodayHistory: function getAllTodayHistory(state) {
       return state.todayHistory;
+    },
+    getAllYesterdayHistory: function getAllYesterdayHistory(state) {
+      return state.yesterdayHistory;
     }
   },
   mutations: {
@@ -118057,6 +118212,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     getAllTodayHistory: function getAllTodayHistory(state, payload) {
       state.todayHistory = payload;
+    },
+    getAllYesterdayHistory: function getAllYesterdayHistory(state, payload) {
+      state.yesterdayHistory = payload;
     }
   },
   actions: {
@@ -118134,6 +118292,11 @@ __webpack_require__.r(__webpack_exports__);
     getAllTodayHistory: function getAllTodayHistory(context) {
       axios.get("/api/pos/today").then(function (res) {
         context.commit("getAllTodayHistory", res.data.data);
+      });
+    },
+    getAllYesterdayHistory: function getAllYesterdayHistory(context) {
+      axios.get("/api/pos/yesterday").then(function (res) {
+        context.commit("getAllYesterdayHistory", res.data.data);
       });
     }
   }

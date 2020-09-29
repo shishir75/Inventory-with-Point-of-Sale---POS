@@ -49,8 +49,18 @@ class PosController extends Controller
         ], 200 );
     }
 
-    public function monthly_history()
+    public function yesterday_history()
     {
-        //
+        $yesterday = date( 'Y-m-d', strtotime( '-1 days' ) );
+
+        $data = [];
+        $data['total'] = Order::where( 'date', $yesterday )->sum( 'total' );
+        $data['paid'] = Order::where( 'date', $yesterday )->sum( 'paid' );
+        $data['due'] = Order::where( 'date', $yesterday )->sum( 'due' );
+        $data['expense'] = Expense::where( 'date', $yesterday )->sum( 'amount' );
+
+        return response()->json( [
+            'data' => $data,
+        ], 200 );
     }
 }

@@ -19,3 +19,9 @@ Vue.filter("shortLength", (text, length, suffix = "...") => {
         return text;
     }
 });
+
+Vue.filter("removeNegative", function(value) {
+    if (value) {
+        return Math.abs(value);
+    }
+});

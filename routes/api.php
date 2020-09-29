@@ -47,5 +47,5 @@ Route::group( ['namespace' => 'Admin', 'middleware' => 'auth:sanctum'], function
     Route::get( '/order/{id}', "OrderController@view_order_details" );
     Route::get( '/all-orders', "OrderController@all_orders" );
     Route::get( '/pos/today', "PosController@today_history" );
-    Route::get( '/pos/monthly', "PosController@monthly_history" );
+    Route::get( '/pos/yesterday', "PosController@yesterday_history" );
 } );
