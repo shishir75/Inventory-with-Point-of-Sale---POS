@@ -3547,6 +3547,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -88919,7 +88921,7 @@ var render = function() {
                     {
                       staticClass: "mr-2",
                       class:
-                        _vm.percentageDue > 0 ? "text-success" : "text-danger"
+                        _vm.percentageDue < 0 ? "text-success" : "text-danger"
                     },
                     [
                       _c("i", {
@@ -89443,7 +89445,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-auto" }, [
-      _c("i", { staticClass: "fas fa-calendar fa-2x text-primary" })
+      _c("i", { staticClass: "fas fa-hand-holding-usd fa-2x text-primary" })
     ])
   },
   function() {
@@ -89459,7 +89461,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-auto" }, [
-      _c("i", { staticClass: "fas fa-users fa-2x text-info" })
+      _c("i", { staticClass: "fas fa-exclamation-circle fa-2x text-info" })
     ])
   },
   function() {
@@ -89467,7 +89469,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-auto" }, [
-      _c("i", { staticClass: "fas fa-comments fa-2x text-warning" })
+      _c("i", { staticClass: "fas fa-exclamation-triangle fa-2x text-danger" })
     ])
   },
   function() {

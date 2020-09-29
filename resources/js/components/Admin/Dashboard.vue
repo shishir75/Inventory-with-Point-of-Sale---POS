@@ -54,7 +54,7 @@
                             </div>
                             <div class="col-auto">
                                 <i
-                                    class="fas fa-calendar fa-2x text-primary"
+                                    class="fas fa-hand-holding-usd fa-2x text-primary"
                                 ></i>
                             </div>
                         </div>
@@ -129,7 +129,7 @@
                                     <span
                                         class="mr-2"
                                         :class="
-                                            percentageDue > 0
+                                            percentageDue < 0
                                                 ? 'text-success'
                                                 : 'text-danger'
                                         "
@@ -149,7 +149,9 @@
                                 </div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-users fa-2x text-info"></i>
+                                <i
+                                    class="fas fa-exclamation-circle fa-2x text-info"
+                                ></i>
                             </div>
                         </div>
                     </div>
@@ -196,7 +198,7 @@
                             </div>
                             <div class="col-auto">
                                 <i
-                                    class="fas fa-comments fa-2x text-warning"
+                                    class="fas fa-exclamation-triangle fa-2x text-danger"
                                 ></i>
                             </div>
                         </div>
