@@ -97885,7 +97885,7 @@ var render = function() {
                     "router-link",
                     { staticClass: "nav-link", attrs: { to: { name: "Pos" } } },
                     [
-                      _c("i", { staticClass: "fas fa-fw fa-tachometer-alt" }),
+                      _c("i", { staticClass: "fas fa-fw fa-cart-plus" }),
                       _vm._v(" "),
                       _c("span", [_vm._v("POS")])
                     ]
@@ -98284,7 +98284,7 @@ var staticRenderFns = [
         }
       },
       [
-        _c("i", { staticClass: "far fa-fw fa-window-maximize" }),
+        _c("i", { staticClass: "fas fa-fw fa-user-tie" }),
         _vm._v(" "),
         _c("span", [_vm._v("Employees")])
       ]
@@ -98307,7 +98307,7 @@ var staticRenderFns = [
         }
       },
       [
-        _c("i", { staticClass: "fab fa-fw fa-wpforms" }),
+        _c("i", { staticClass: "fas fa-fw fa-users" }),
         _vm._v(" "),
         _c("span", [_vm._v("Suppliers")])
       ]
@@ -98330,7 +98330,7 @@ var staticRenderFns = [
         }
       },
       [
-        _c("i", { staticClass: "fab fa-fw fa-wpforms" }),
+        _c("i", { staticClass: "fas fa-fw fa-list" }),
         _vm._v(" "),
         _c("span", [_vm._v("Categories")])
       ]
@@ -98353,7 +98353,7 @@ var staticRenderFns = [
         }
       },
       [
-        _c("i", { staticClass: "fab fa-fw fa-wpforms" }),
+        _c("i", { staticClass: "fab fa-fw fa-product-hunt" }),
         _vm._v(" "),
         _c("span", [_vm._v("Products")])
       ]
@@ -98376,7 +98376,7 @@ var staticRenderFns = [
         }
       },
       [
-        _c("i", { staticClass: "fab fa-fw fa-wpforms" }),
+        _c("i", { staticClass: "fas fa-fw fa-file-invoice-dollar" }),
         _vm._v(" "),
         _c("span", [_vm._v("Expense")])
       ]
@@ -98399,7 +98399,7 @@ var staticRenderFns = [
         }
       },
       [
-        _c("i", { staticClass: "fab fa-fw fa-wpforms" }),
+        _c("i", { staticClass: "fas fa-fw fa-dollar-sign" }),
         _vm._v(" "),
         _c("span", [_vm._v("Salary")])
       ]
@@ -98422,7 +98422,7 @@ var staticRenderFns = [
         }
       },
       [
-        _c("i", { staticClass: "fas fa-fw fa-table" }),
+        _c("i", { staticClass: "fas fa-fw fa-restroom" }),
         _vm._v(" "),
         _c("span", [_vm._v("Customer")])
       ]
@@ -98445,7 +98445,7 @@ var staticRenderFns = [
         }
       },
       [
-        _c("i", { staticClass: "fas fa-fw fa-table" }),
+        _c("i", { staticClass: "fas fa-fw fa-sort-amount-up" }),
         _vm._v(" "),
         _c("span", [_vm._v("Order")])
       ]

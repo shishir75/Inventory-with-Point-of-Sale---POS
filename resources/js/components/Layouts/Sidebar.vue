@@ -37,7 +37,7 @@
             </div>
             <li class="nav-item active">
                 <router-link class="nav-link" :to="{ name: 'Pos' }">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="fas fa-fw fa-cart-plus"></i>
                     <span>POS</span></router-link
                 >
             </li>
@@ -54,7 +54,7 @@
                     aria-expanded="true"
                     aria-controls="collapseBootstrap"
                 >
-                    <i class="far fa-fw fa-window-maximize"></i>
+                    <i class="fas fa-fw fa-user-tie"></i>
                     <span>Employees</span>
                 </a>
                 <div
@@ -86,7 +86,7 @@
                     aria-expanded="true"
                     aria-controls="collapseForm"
                 >
-                    <i class="fab fa-fw fa-wpforms"></i>
+                    <i class="fas fa-fw fa-users"></i>
                     <span>Suppliers</span>
                 </a>
                 <div
@@ -118,7 +118,7 @@
                     aria-expanded="true"
                     aria-controls="collapseForm"
                 >
-                    <i class="fab fa-fw fa-wpforms"></i>
+                    <i class="fas fa-fw fa-list"></i>
                     <span>Categories</span>
                 </a>
                 <div
@@ -150,7 +150,7 @@
                     aria-expanded="true"
                     aria-controls="collapseForm"
                 >
-                    <i class="fab fa-fw fa-wpforms"></i>
+                    <i class="fab fa-fw fa-product-hunt"></i>
                     <span>Products</span>
                 </a>
                 <div
@@ -182,7 +182,7 @@
                     aria-expanded="true"
                     aria-controls="collapseForm"
                 >
-                    <i class="fab fa-fw fa-wpforms"></i>
+                    <i class="fas fa-fw fa-file-invoice-dollar"></i>
                     <span>Expense</span>
                 </a>
                 <div
@@ -214,7 +214,7 @@
                     aria-expanded="true"
                     aria-controls="collapseForm"
                 >
-                    <i class="fab fa-fw fa-wpforms"></i>
+                    <i class="fas fa-fw fa-dollar-sign"></i>
                     <span>Salary</span>
                 </a>
                 <div
@@ -246,7 +246,7 @@
                     aria-expanded="true"
                     aria-controls="collapseTable"
                 >
-                    <i class="fas fa-fw fa-table"></i>
+                    <i class="fas fa-fw fa-restroom"></i>
                     <span>Customer</span>
                 </a>
                 <div
@@ -278,7 +278,7 @@
                     aria-expanded="true"
                     aria-controls="collapseTable"
                 >
-                    <i class="fas fa-fw fa-table"></i>
+                    <i class="fas fa-fw fa-sort-amount-up"></i>
                     <span>Order</span>
                 </a>
                 <div
