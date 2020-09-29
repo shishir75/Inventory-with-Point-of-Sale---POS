@@ -120,7 +120,9 @@ export default {
         filterSearch() {
             if (this.searchItem != "") {
                 return this.allExpenses.filter(item => {
-                    return item.details.match(this.searchItem);
+                    return item.details
+                        .toLowerCase()
+                        .match(this.searchItem.toLowerCase());
                 });
             } else {
                 return this.allExpenses;

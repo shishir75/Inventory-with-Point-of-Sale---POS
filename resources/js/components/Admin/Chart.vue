@@ -43,7 +43,7 @@ export default {
                         data: this.monthlyDue
                     },
                     {
-                        label: "Total Earnings",
+                        label: "Total Sales",
                         backgroundColor: "#66bb6a",
                         data: this.monthlyTotal
                     }

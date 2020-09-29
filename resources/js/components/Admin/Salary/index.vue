@@ -113,7 +113,9 @@ export default {
         filterSearch() {
             if (this.searchItem != "") {
                 return this.allMonths.filter(item => {
-                    return item.month_year.match(this.searchItem);
+                    return item.month_year
+                        .toLowerCase()
+                        .match(this.searchItem.toLowerCase());
                 });
             } else {
                 return this.allMonths;

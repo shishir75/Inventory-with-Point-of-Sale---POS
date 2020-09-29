@@ -198,7 +198,9 @@ export default {
         filterSearch() {
             if (this.searchItem != "") {
                 return this.orderDetails.filter(item => {
-                    return item.product.name.match(this.searchItem);
+                    return item.product.name
+                        .toLowerCase()
+                        .match(this.searchItem.toLowerCase());
                 });
             } else {
                 return this.orderDetails;

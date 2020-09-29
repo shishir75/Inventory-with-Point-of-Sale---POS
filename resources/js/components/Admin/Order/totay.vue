@@ -137,7 +137,9 @@ export default {
         filterSearch() {
             if (this.searchItem != "") {
                 return this.allTodayOrder.filter(item => {
-                    return item.customer.name.match(this.searchItem);
+                    return item.customer.name
+                        .toLowerCase()
+                        .match(this.searchItem.toLowerCase());
                 });
             } else {
                 return this.allTodayOrder;

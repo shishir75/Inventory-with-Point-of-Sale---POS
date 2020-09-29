@@ -623,7 +623,9 @@ export default {
         filterSearch() {
             if (this.searchItem != "") {
                 return this.allProducts.filter(item => {
-                    return item.name.match(this.searchItem);
+                    return item.name
+                        .toLowerCase()
+                        .match(this.searchItem.toLowerCase());
                 });
             } else {
                 return this.allProducts;

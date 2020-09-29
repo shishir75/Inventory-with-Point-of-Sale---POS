@@ -2279,7 +2279,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.searchItem != "") {
         return this.allCategories.filter(function (item) {
-          return item.name.match(_this.searchItem);
+          return item.name.toLowerCase().match(_this.searchItem.toLowerCase());
         });
       } else {
         return this.allCategories;
@@ -2375,7 +2375,7 @@ __webpack_require__.r(__webpack_exports__);
         backgroundColor: "#fc544b",
         data: this.monthlyDue
       }, {
-        label: "Total Earnings",
+        label: "Total Sales",
         backgroundColor: "#66bb6a",
         data: this.monthlyTotal
       }]
@@ -2994,7 +2994,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.searchItem != "") {
         return this.allCustomers.filter(function (item) {
-          return item.name.match(_this.searchItem);
+          return item.name.toLowerCase().match(_this.searchItem.toLowerCase());
         });
       } else {
         return this.allCustomers;
@@ -4347,7 +4347,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.searchItem != "") {
         return this.allEmployees.filter(function (item) {
-          return item.name.match(_this.searchItem);
+          return item.name.toLowerCase().match(_this.searchItem.toLowerCase());
         });
       } else {
         return this.allEmployees;
@@ -4813,7 +4813,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.searchItem != "") {
         return this.allExpenses.filter(function (item) {
-          return item.details.match(_this.searchItem);
+          return item.details.toLowerCase().match(_this.searchItem.toLowerCase());
         });
       } else {
         return this.allExpenses;
@@ -5020,7 +5020,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.searchItem != "") {
         return this.allOrders.filter(function (item) {
-          return item.customer.name.match(_this.searchItem);
+          return item.customer.name.toLowerCase().match(_this.searchItem.toLowerCase());
         });
       } else if (this.searchItemByDate !== "") {
         return this.allOrders.filter(function (item) {
@@ -5185,7 +5185,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.searchItem != "") {
         return this.allTodayOrder.filter(function (item) {
-          return item.customer.name.match(_this.searchItem);
+          return item.customer.name.toLowerCase().match(_this.searchItem.toLowerCase());
         });
       } else {
         return this.allTodayOrder;
@@ -5407,7 +5407,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.searchItem != "") {
         return this.orderDetails.filter(function (item) {
-          return item.product.name.match(_this.searchItem);
+          return item.product.name.toLowerCase().match(_this.searchItem.toLowerCase());
         });
       } else {
         return this.orderDetails;
@@ -6067,7 +6067,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.searchItem != "") {
         return this.allProducts.filter(function (item) {
-          return item.name.match(_this.searchItem);
+          return item.name.toLowerCase().match(_this.searchItem.toLowerCase());
         });
       } else {
         return this.allProducts;
@@ -7250,7 +7250,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.searchItem != "") {
         return this.allProducts.filter(function (item) {
-          return item.name.match(_this.searchItem);
+          return item.name.toLowerCase().match(_this.searchItem.toLowerCase());
         });
       } else {
         return this.allProducts;
@@ -7956,7 +7956,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.searchItem != "") {
         return this.allMonths.filter(function (item) {
-          return item.month_year.match(_this.searchItem);
+          return item.month_year.toLowerCase().match(_this.searchItem.toLowerCase());
         });
       } else {
         return this.allMonths;
@@ -8110,7 +8110,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.searchItem != "") {
         return this.allSalaries.filter(function (item) {
-          return item.employee.name.match(_this.searchItem);
+          return item.employee.name.toLowerCase().match(_this.searchItem.toLowerCase());
         });
       } else {
         return this.allSalaries;
@@ -8798,7 +8798,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.searchItem != "") {
         return this.allSuppliers.filter(function (item) {
-          return item.name.match(_this.searchItem);
+          return item.name.toLowerCase().match(_this.searchItem.toLowerCase());
         });
       } else {
         return this.allSuppliers;

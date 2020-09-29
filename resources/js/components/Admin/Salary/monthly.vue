@@ -130,7 +130,9 @@ export default {
         filterSearch() {
             if (this.searchItem != "") {
                 return this.allSalaries.filter(item => {
-                    return item.employee.name.match(this.searchItem);
+                    return item.employee.name
+                        .toLowerCase()
+                        .match(this.searchItem.toLowerCase());
                 });
             } else {
                 return this.allSalaries;

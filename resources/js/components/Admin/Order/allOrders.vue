@@ -149,7 +149,9 @@ export default {
         filterSearch() {
             if (this.searchItem != "") {
                 return this.allOrders.filter(item => {
-                    return item.customer.name.match(this.searchItem);
+                    return item.customer.name
+                        .toLowerCase()
+                        .match(this.searchItem.toLowerCase());
                 });
             } else if (this.searchItemByDate !== "") {
                 return this.allOrders.filter(item => {
